@@ -225,7 +225,7 @@ export default function TeacherDashboard({
                       recentAttendance.map((record) => (
                         <tr key={record.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="font-medium text-gray-900">{record.studentName}</div>
+                            <div className="text-xs font-medium text-gray-900">{record.studentName}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-gray-500">{record.class}</div>

@@ -256,6 +256,9 @@ export default function AdminDashboard({
                         Kelas
                       </th>
                       <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Tanggal
+                      </th>
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
                       <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -268,10 +271,13 @@ export default function AdminDashboard({
                       recentAttendance.map((record) => (
                         <tr key={record.id}>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
-                            <div className="font-medium text-gray-900 text-xs sm:text-sm">{record.studentName}</div>
+                            <div className="font-medium text-gray-900 text-xs">{record.studentName}</div>
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                             {record.class}
+                          </td>
+                          <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                            {record.date || '-'}
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
                             <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${

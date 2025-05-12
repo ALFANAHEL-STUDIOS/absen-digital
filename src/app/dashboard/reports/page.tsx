@@ -284,10 +284,10 @@ export default function Reports() {
         
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
           {/* Monthly Report - All users */}
-          <Link href="https://absen-digital.getcreatr.dev/dashboard/reports/monthly-attendance/" className="bg-blue-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-blue-200 text-gray-800">
+          <Link href="https://absen-digital.getcreatr.dev/dashboard/reports/monthly-attendance/" className="bg-[#F9F1F0] rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-[#F9F1F0] text-gray-800">
             <div className="flex flex-col items-center text-center">
-              <div className="bg-blue-100 p-3 rounded-full mb-3">
-                <Calendar className="h-6 w-6 text-blue-600" />
+              <div className="bg-[#F8AFA6] p-3 rounded-full mb-3">
+                <Calendar className="h-6 w-6 text-white" />
               </div>
               <h3 className="font-medium text-gray-800 mb-1">Rekap Bulanan</h3>
               <p className="text-sm text-gray-500">Laporan Siswa Perbulan</p>
@@ -296,10 +296,10 @@ export default function Reports() {
           
           {/* Class Report - Admin and Teacher only */}
           {(userRole === 'admin' || userRole === 'teacher') && (
-            <Link href="/dashboard/reports/by-class" className="bg-green-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-green-200 text-gray-800">
+            <Link href="/dashboard/reports/by-class" className="bg-[#FADCD9] rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-[#FADCD9] text-gray-800">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-green-100 p-3 rounded-full mb-3">
-                  <BookOpen className="h-6 w-6 text-green-600" />
+                <div className="bg-[#F8AFA6] p-3 rounded-full mb-3">
+                  <BookOpen className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="font-medium text-gray-800 mb-1">Rekap Per Kelas</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Per Kelas</p>
@@ -310,10 +310,10 @@ export default function Reports() {
           {/* Student Report - Different behavior based on role */}
           {userRole === 'student' ? (
             // For students - direct link to their own report
-            <Link href={`/dashboard/reports/by-student?id=${userData?.id || ''}`} className="bg-purple-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-purple-200 text-gray-800">
+            <Link href={`/dashboard/reports/by-student?id=${userData?.id || ''}`} className="bg-[#F8AFA6] rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-[#F8AFA6] text-gray-800">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-purple-100 p-3 rounded-full mb-3">
-                  <User className="h-6 w-6 text-purple-600" />
+                <div className="bg-[#F79489] p-3 rounded-full mb-3">
+                  <User className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="font-medium text-gray-800 mb-1">Rekap Kehadiran Saya</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Pribadi</p>
@@ -321,10 +321,10 @@ export default function Reports() {
             </Link>
           ) : (
             // For admin and teacher - link to student selection
-            <Link href="/dashboard/reports/by-student" className="bg-purple-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-purple-200 text-gray-800">
+            <Link href="/dashboard/reports/by-student" className="bg-[#F8AFA6] rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-[#F8AFA6] text-gray-800">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-purple-100 p-3 rounded-full mb-3">
-                  <User className="h-6 w-6 text-purple-600" />
+                <div className="bg-[#F79489] p-3 rounded-full mb-3">
+                  <User className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="font-medium text-gray-800 mb-1">Rekap Per Siswa</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Setiap Siswa</p>

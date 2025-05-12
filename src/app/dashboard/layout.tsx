@@ -214,8 +214,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <header className="bg-primary text-white py-2 sm:py-3 px-3 sm:px-4 fixed top-0 left-0 right-0 z-40 shadow-md flex items-center justify-between">
         <div className="flex items-center">
           <button 
-            className="mr-3 md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
+            className="mr-3"
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setSidebarCollapsed(!sidebarCollapsed);
+            }}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -359,29 +362,31 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </header>
       
-      {/* Sidebar - Now always visible on desktop */}
+      {/* Sidebar - Toggle visibility based on sidebarCollapsed state */}
       <aside 
         className={`fixed left-0 top-0 z-30 h-full bg-[#1E329F] text-white shadow-lg w-[220px] sm:w-64 pt-16 transform transition-transform duration-300 ease-in-out ${
           menuOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 md:pt-16 transition-all overflow-y-auto`}
+        } ${sidebarCollapsed ? 'md:-translate-x-full' : 'md:translate-x-0'} md:pt-16 transition-all overflow-y-auto`}
       >
         {/* User profile section */}
-        <div className="px-4 py-4 flex flex-col items-center text-center border-b border-blue-800 border-opacity-80 border-b-2">
+        <div className="px-4 py-3 flex flex-col items-center text-center border-b border-blue-800 border-opacity-80 border-b-2">
           <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl font-bold">
-            {user.displayName?.charAt(0) || user.email?.charAt(0)}
+            {userData?.name?.charAt(0).toUpperCase() || user?.displayName?.charAt(0).toUpperCase() || 'U'}
           </div>
-          <p className="font-bold text-sm text-gray-200 mt-2">{user.displayName || 'Nama Pengguna'}</p>
-          <p className="text-xs text-blue-200 -mt-0.5">{userRole === 'admin' ? 'Level Admin' : userRole === 'teacher' ? 'Level Guru' : 'Level Siswa'}</p>
-          <div className="mt-0.5">
-            <span className="px-0.5 py-0.5 text-[7px] text-green-700 bg-green-100 border border-green-300 rounded-full flex items-center">
-              <CheckCircle size={6} className="mr-0.5" />
+          <p className="font-bold text-sm text-gray-200 mt-1.5">{userData?.name || user?.displayName || 'User'}</p>
+          <div className="mt-1">
+            <span className="px-2 py-0.5 text-[7px] text-green-700 bg-green-100 border border-green-300 rounded flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-check-big mr-0.5" aria-hidden="true">
+                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                <path d="m9 11 3 3L22 4"></path>
+              </svg>
               Akun Terverifikasi
             </span>
           </div>
-          <p className="text-xs text-gray-200 mt-2">{schoolName}</p>
+          <p className="text-xs text-gray-200 mt-1.5">{schoolName}</p>
         </div>
         
-        <nav className="p-3 space-y-0">
+        <nav className="p-3 space-y-0.5">
           {/* Dashboard - All users */}
           <Link 
             href="/dashboard" 
@@ -394,19 +399,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <Home size={20} />
             <span>Dashboard</span>
-          </Link>
-          
-          <Link 
-            href="/dashboard/profile-school" 
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-              isActive('/dashboard/profile-school') 
-                ? 'bg-blue-800 text-white font-medium' 
-                : 'text-white hover:bg-blue-800'
-            }`}
-            onClick={() => setMenuOpen(false)}
-          >
-            <School size={20} />
-            <span>Profil Sekolah</span>
           </Link>
           
           {/* ADMIN NAVIGATION */}
@@ -555,7 +547,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       )}
 
       {/* Main Content */}
-      <main className={`pt-16 min-h-screen transition-all ${sidebarCollapsed ? 'md:pl-8' : 'md:pl-64'}`} onClick={() => menuOpen && setMenuOpen(false)}>
+      <main className={`pt-16 min-h-screen transition-all ${sidebarCollapsed ? 'md:pl-0' : 'md:pl-64'}`} onClick={() => menuOpen && setMenuOpen(false)}>
         <div className="p-3 sm:p-4 md:p-6">
           {children}
         </div>

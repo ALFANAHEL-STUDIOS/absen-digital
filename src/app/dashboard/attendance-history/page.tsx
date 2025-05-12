@@ -168,9 +168,9 @@ export default function AttendanceHistory() {
       
       {/* Filters */}
       <div className="bg-white rounded-xl shadow-sm p-5 mb-6">
-        <h2 className="text-lg font-semibold mb-4">Filter Data</h2>
+        <h2 className="text-lg font-semibold mb-4">Filter Data Absensi</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {/* Date Range */}
           <div>
             <label htmlFor="start" className="block text-sm font-medium text-gray-700 mb-1">
@@ -199,65 +199,6 @@ export default function AttendanceHistory() {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
             />
           </div>
-          
-          {/* Class Filter */}
-          <div className="relative">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Kelas
-            </label>
-            <button
-              onClick={() => setShowClassDropdown(!showClassDropdown)}
-              className="w-full flex items-center justify-between px-3 py-2 border border-gray-300 rounded-lg bg-white"
-            >
-              <span>
-                {selectedClass === "all" ? "Semua Kelas" : `Kelas ${selectedClass}`}
-              </span>
-              <ChevronDown size={16} className={`transition-transform ${showClassDropdown ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {showClassDropdown && (
-              <div className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                <div className="p-2">
-                  <div
-                    className="flex items-center px-2 py-1.5 hover:bg-gray-100 rounded cursor-pointer"
-                    onClick={() => {
-                      setSelectedClass("all");
-                      setShowClassDropdown(false);
-                    }}
-                  >
-                    <div className={`w-4 h-4 border rounded flex items-center justify-center ${
-                      selectedClass === "all" ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
-                    }`}>
-                      {selectedClass === "all" && (
-                        <Check size={12} className="text-white" />
-                      )}
-                    </div>
-                    <span className="ml-2">Semua Kelas</span>
-                  </div>
-                  
-                  {classes.map((className) => (
-                    <div
-                      key={className}
-                      className="flex items-center px-2 py-1.5 hover:bg-gray-100 rounded cursor-pointer"
-                      onClick={() => {
-                        setSelectedClass(className);
-                        setShowClassDropdown(false);
-                      }}
-                    >
-                      <div className={`w-4 h-4 border rounded flex items-center justify-center ${
-                        selectedClass === className ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
-                      }`}>
-                        {selectedClass === className && (
-                          <Check size={12} className="text-white" />
-                        )}
-                      </div>
-                      <span className="ml-2">Kelas {className}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
         
         {/* Search */}
@@ -284,22 +225,22 @@ export default function AttendanceHistory() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Tanggal
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Waktu
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Nama Siswa
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Kelas
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Status
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Catatan
                   </th>
                 </tr>
@@ -332,7 +273,11 @@ export default function AttendanceHistory() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {record.note || '-'}
+                        {(record.status === 'sakit' || record.status === 'sick' || 
+                          record.status === 'izin' || record.status === 'permitted' || 
+                          record.status === 'alpha' || record.status === 'absent') ? 
+                          (record.note || record.notes || '-') : 
+                          '-'}
                       </td>
                     </tr>
                   );
