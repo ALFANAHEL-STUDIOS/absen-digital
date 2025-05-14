@@ -154,7 +154,18 @@ export default function ScanQR() {
       // Send Telegram notification
       if (student.telegramNumber) {
         try {
-          const message = `Ananda ${student.name} telah hadir di sekolah pada ${formattedDate} pukul ${format(currentDateTime, "HH:mm")} WIB.`;
+          // Create different messages based on attendance status
+          let message = "";
+          
+          if (attendanceStatus === 'hadir' || attendanceStatus === 'present') {
+            message = `Ananda ${student.name} telah hadir di sekolah pada ${formattedDate} pukul ${format(currentDateTime, "HH:mm")} WIB.`;
+          } else if (attendanceStatus === 'sakit' || attendanceStatus === 'sick') {
+            message = `Ananda ${student.name} tidak hadir di sekolah pada ${formattedDate} dengan status SAKIT.${attendanceNotes ? `\n\nKeterangan: ${attendanceNotes}` : ''}`;
+          } else if (attendanceStatus === 'izin' || attendanceStatus === 'permitted') {
+            message = `Ananda ${student.name} tidak hadir di sekolah pada ${formattedDate} dengan status IZIN.${attendanceNotes ? `\n\nKeterangan: ${attendanceNotes}` : ''}`;
+          } else if (attendanceStatus === 'alpha' || attendanceStatus === 'absent') {
+            message = `Ananda ${student.name} tidak hadir di sekolah pada ${formattedDate} dengan status ALPHA (tanpa keterangan).${attendanceNotes ? `\n\nKeterangan: ${attendanceNotes}` : ''}`;
+          }
           
           // Send notification using the Telegram API
           const BOT_TOKEN = "7662377324:AAEFhwY-y1q3IrX4OEJAUG8VLa8DqNndH6E";
@@ -243,23 +254,46 @@ export default function ScanQR() {
                 transition={{ duration: 0.5 }}
               >
                 <motion.div 
-                  className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"
+                  className={`rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 ${
+                    attendanceStatus === 'hadir' ? 'bg-green-100' : 
+                    attendanceStatus === 'sakit' ? 'bg-orange-100' : 
+                    attendanceStatus === 'izin' ? 'bg-blue-100' : 
+                    'bg-red-100'
+                  }`}
                   initial={{ scale: 0.5 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
-                  <UserCheck className="h-10 w-10 text-green-600" />
+                  {attendanceStatus === 'hadir' ? (
+                    <UserCheck className="h-10 w-10 text-green-600" />
+                  ) : attendanceStatus === 'sakit' ? (
+                    <UserCheck className="h-10 w-10 text-orange-600" />
+                  ) : attendanceStatus === 'izin' ? (
+                    <UserCheck className="h-10 w-10 text-blue-600" />
+                  ) : (
+                    <UserCheck className="h-10 w-10 text-red-600" />
+                  )}
                 </motion.div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">Absensi Berhasil</h2>
                 <p className="text-gray-600 mb-6">
                   Absensi untuk <span className="font-semibold">{student?.name}</span> telah berhasil dicatat.
                 </p>
                 <p className="text-sm text-gray-500 mb-6">
-                  Status: <span className="font-medium text-emerald-600">Hadir</span>
+                  Status: <span className={`font-medium ${
+                    attendanceStatus === 'hadir' ? 'text-emerald-600' : 
+                    attendanceStatus === 'sakit' ? 'text-orange-600' : 
+                    attendanceStatus === 'izin' ? 'text-blue-600' : 
+                    'text-red-600'
+                  }`}>
+                    {attendanceStatus === 'hadir' ? 'Hadir' : 
+                     attendanceStatus === 'sakit' ? 'Sakit' : 
+                     attendanceStatus === 'izin' ? 'Izin' : 
+                     'Alpha'}
+                  </span>
                 </p>
                 <button
                   onClick={resetScan}
-                  className="bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
+                  className="bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary hover:bg-opacity-90 transition-colors"
                 >
                   Scan Siswa Lain
                 </button>

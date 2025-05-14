@@ -194,203 +194,6 @@ export default function AttendanceHistory() {
     }
   };
 
-  return (
-    <div className="pb-20 md:pb-6">
-      <div className="flex items-center mb-6">
-        <Calendar className="h-7 w-7 text-primary mr-3" />
-        <h1 className="text-2xl font-bold text-gray-800">Riwayat Kehadiran</h1>
-      </div>
-      
-      {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm p-5 mb-6 w-full">
-        <h2 className="text-lg font-semibold mb-4">Filter Data</h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 w-full">
-          {/* Date Range */}
-          <div className="w-full">
-            <label htmlFor="start" className="block text-sm font-medium text-gray-700 mb-1">
-              Tanggal Mulai
-            </label>
-            <input
-              type="date"
-              id="start"
-              name="start"
-              value={dateRange.start}
-              onChange={handleDateChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-            />
-          </div>
-          
-          <div className="w-full">
-            <label htmlFor="end" className="block text-sm font-medium text-gray-700 mb-1">
-              Tanggal Akhir
-            </label>
-            <input
-              type="date"
-              id="end"
-              name="end"
-              value={dateRange.end}
-              onChange={handleDateChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-            />
-          </div>
-          
-          <div className="w-full">
-            <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
-              Cari Siswa
-            </label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="text"
-                id="search"
-                placeholder="Cari nama siswa..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-              />
-            </div>
-          </div>
-        </div>
-        
-        {/* Class Filter */}
-        <div className="mt-4">
-          <div className="flex items-center justify-between">
-            <label className="block text-sm font-medium text-gray-700">
-              Filter Kelas
-            </label>
-            <button 
-              onClick={() => setClassFilterVisible(!classFilterVisible)}
-              className="text-sm text-primary flex items-center"
-            >
-              {classFilterVisible ? 'Sembunyikan' : 'Tampilkan'} Filter Kelas
-              <ChevronDown 
-                className={`ml-1 h-4 w-4 transition-transform ${classFilterVisible ? 'rotate-180' : ''}`} 
-              />
-            </button>
-          </div>
-          
-          {classFilterVisible && (
-            <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              <button
-                onClick={() => setSelectedClass("all")}
-                className={`px-3 py-2 text-sm rounded-lg border ${
-                  selectedClass === "all"
-                    ? "bg-primary text-white border-primary"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                }`}
-              >
-                Semua Kelas
-              </button>
-              
-              {classes.map((className) => (
-                <button
-                  key={className}
-                  onClick={() => setSelectedClass(className)}
-                  className={`px-3 py-2 text-sm rounded-lg border ${
-                    selectedClass === className
-                      ? "bg-primary text-white border-primary"
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                  }`}
-                >
-                  Kelas {className}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-      
-      
-      
-      {/* Attendance Records Table */}
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-12 w-12 text-primary animate-spin" />
-        </div>
-      ) : filteredRecords.length > 0 ? (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Tanggal
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Waktu Absensi
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Nama Siswa
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Kelas
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Catatan
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredRecords.map((record) => {
-                  // Format date from YYYY-MM-DD to DD-MM-YYYY
-                  const dateParts = record.date.split('-');
-                  const formattedDate = dateParts.length === 3 ? 
-                    `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}` : 
-                    record.date;
-                    
-                  return (
-                    <tr key={record.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {formattedDate}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {record.time}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-xs font-medium text-gray-900">{record.studentName}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {record.class}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadgeClass(record.status)}`}>
-                          {getStatusText(record.status)}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {(record.status === 'sakit' || record.status === 'sick' || 
-                          record.status === 'izin' || record.status === 'permitted' || 
-                          record.status === 'alpha' || record.status === 'absent') ? 
-                          (record.note || '-') : '-'}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ) : (
-        <div className="bg-white rounded-xl shadow-sm p-10 text-center">
-          <div className="flex flex-col items-center">
-            <div className="bg-gray-100 rounded-full p-3 mb-4">
-              <Calendar className="h-8 w-8 text-gray-400" />
-            </div>
-            <p className="text-gray-500 mb-4">
-              {searchQuery || selectedClass !== "all"
-                ? "Tidak ada data kehadiran yang sesuai dengan filter"
-                : "Belum ada data kehadiran"}
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-
   // Function to download attendance data as PDF
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
@@ -731,4 +534,238 @@ export default function AttendanceHistory() {
       setIsDownloading(false);
     }
   };
+
+  return (
+    <div className="pb-20 md:pb-6">
+      <div className="flex items-center mb-6">
+        <Calendar className="h-7 w-7 text-primary mr-3" />
+        <h1 className="text-2xl font-bold text-gray-800">Riwayat Kehadiran</h1>
+      </div>
+      
+      {/* Filters */}
+      <div className="bg-white rounded-xl shadow-sm p-5 mb-6 w-full">
+        <h2 className="text-lg font-semibold mb-4">Filter Data</h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 w-full">
+          {/* Date Range */}
+          <div className="w-full">
+            <label htmlFor="start" className="block text-sm font-medium text-gray-700 mb-1">
+              Tanggal Mulai
+            </label>
+            <input
+              type="date"
+              id="start"
+              name="start"
+              value={dateRange.start}
+              onChange={handleDateChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+            />
+          </div>
+          
+          <div className="w-full">
+            <label htmlFor="end" className="block text-sm font-medium text-gray-700 mb-1">
+              Tanggal Akhir
+            </label>
+            <input
+              type="date"
+              id="end"
+              name="end"
+              value={dateRange.end}
+              onChange={handleDateChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+            />
+          </div>
+          
+          <div className="w-full">
+            <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
+              Cari Siswa
+            </label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                id="search"
+                placeholder="Cari nama siswa..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Class Filter */}
+        <div className="mt-4">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-medium text-gray-700">
+              Filter Kelas
+            </label>
+            <button 
+              onClick={() => setClassFilterVisible(!classFilterVisible)}
+              className="text-sm text-primary flex items-center"
+            >
+              {classFilterVisible ? 'Sembunyikan' : 'Tampilkan'} Filter Kelas
+              <ChevronDown 
+                className={`ml-1 h-4 w-4 transition-transform ${classFilterVisible ? 'rotate-180' : ''}`} 
+              />
+            </button>
+          </div>
+          
+          {classFilterVisible && (
+            <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+              <button
+                onClick={() => setSelectedClass("all")}
+                className={`px-3 py-2 text-sm rounded-lg border ${
+                  selectedClass === "all"
+                    ? "bg-primary text-white border-primary"
+                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                }`}
+              >
+                Semua Kelas
+              </button>
+              
+              {classes.map((className) => (
+                <button
+                  key={className}
+                  onClick={() => setSelectedClass(className)}
+                  className={`px-3 py-2 text-sm rounded-lg border ${
+                    selectedClass === className
+                      ? "bg-primary text-white border-primary"
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                  }`}
+                >
+                  Kelas {className}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Download Buttons */}
+      <div className="bg-white rounded-xl shadow-sm p-5 mb-6">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={handleDownloadPDF}
+            disabled={isDownloading || filteredRecords.length === 0}
+            className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg ${
+              isDownloading || filteredRecords.length === 0
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-red-600 text-white hover:bg-red-700'
+            } transition-colors flex-1`}
+          >
+            {isDownloading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <FileText className="h-5 w-5" />
+            )}
+            <span>Download PDF</span>
+          </button>
+          
+          <button
+            onClick={handleDownloadExcel}
+            disabled={isDownloading || filteredRecords.length === 0}
+            className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg ${
+              isDownloading || filteredRecords.length === 0
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-green-600 text-white hover:bg-green-700'
+            } transition-colors flex-1`}
+          >
+            {isDownloading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <FileSpreadsheet className="h-5 w-5" />
+            )}
+            <span>Download Excel</span>
+          </button>
+        </div>
+      </div>
+      
+      {/* Attendance Records Table */}
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-12 w-12 text-primary animate-spin" />
+        </div>
+      ) : filteredRecords.length > 0 ? (
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Tanggal
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Waktu Absensi
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Nama Siswa
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Kelas
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Catatan
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredRecords.map((record) => {
+                  // Format date from YYYY-MM-DD to DD-MM-YYYY
+                  const dateParts = record.date.split('-');
+                  const formattedDate = dateParts.length === 3 ? 
+                    `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}` : 
+                    record.date;
+                    
+                  return (
+                    <tr key={record.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {formattedDate}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {record.time}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-xs font-medium text-gray-900">{record.studentName}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {record.class}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadgeClass(record.status)}`}>
+                          {getStatusText(record.status)}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {(record.status === 'sakit' || record.status === 'sick' || 
+                          record.status === 'izin' || record.status === 'permitted' || 
+                          record.status === 'alpha' || record.status === 'absent') ? 
+                          (record.note || '-') : '-'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white rounded-xl shadow-sm p-10 text-center">
+          <div className="flex flex-col items-center">
+            <div className="bg-gray-100 rounded-full p-3 mb-4">
+              <Calendar className="h-8 w-8 text-gray-400" />
+            </div>
+            <p className="text-gray-500 mb-4">
+              {searchQuery || selectedClass !== "all"
+                ? "Tidak ada data kehadiran yang sesuai dengan filter"
+                : "Belum ada data kehadiran"}
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

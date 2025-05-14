@@ -52,7 +52,9 @@ const generateDailyData = () => {
 
 export default function ClassReport() {
   
-  const { schoolId } = useAuth();
+  const { schoolId, user } = useAuth();
+  const [userData, setUserData] = useState<any>(null);
+  const [filteredStudents, setFilteredStudents] = useState<any[]>([]);
   const [selectedClass, setSelectedClass] = useState<any>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [classes, setClasses] = useState<any[]>([]);
@@ -218,6 +220,7 @@ export default function ClassReport() {
     const fetchSchoolData = async () => {
       if (schoolId) {
         try {
+          // Fetch school information
           const schoolDoc = await getDoc(doc(db, "schools", schoolId));
           if (schoolDoc.exists()) {
             const data = schoolDoc.data();
@@ -414,27 +417,182 @@ export default function ClassReport() {
     }
   };
   
-  const handleDownloadExcel = () => {
+  const handleDownloadExcel = async () => {
     setIsDownloading(true);
     
     try {
-      // Generate Excel
-      const fileName = generateExcel(
-        schoolInfo,
-        {
-          present: attendanceData[0]?.value || 85,
-          sick: attendanceData[1]?.value || 7,
-          permitted: attendanceData[2]?.value || 5,
-          absent: attendanceData[3]?.value || 3
-        },
-        "class",
-        {
-          className: selectedClass?.name,
-          teacherName: teacherName
-        }
-      );
+      // Dynamically import xlsx library
+      const XLSX = await import('xlsx');
       
-      toast.success(`Laporan kelas ${selectedClass?.name} berhasil diunduh sebagai ${fileName}`);
+      // Create workbook and worksheet
+      const wb = XLSX.utils.book_new();
+      
+      // Create header data with school information
+      const headerData = [
+        [schoolInfo.name.toUpperCase()],
+        [schoolInfo.address],
+        [`NPSN: ${schoolInfo.npsn}`],
+        [""],
+        ["REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK"],
+        [`KELAS: "${selectedClass?.name || 'SEMUA KELAS'}"`],
+        [`BULAN: "${format(new Date(), "MMMM yyyy", { locale: id }).toUpperCase()}"`],
+        [""],
+        ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
+      ];
+      
+      // Add student data
+      let totalHadir = 0, totalSakit = 0, totalIzin = 0, totalAlpha = 0, totalAll = 0;
+      
+      filteredStudents.forEach((student, index) => {
+        const studentTotal = (student.hadir || 0) + (student.sakit || 0) + (student.izin || 0) + (student.alpha || 0);
+        
+        totalHadir += student.hadir || 0;
+        totalSakit += student.sakit || 0;
+        totalIzin += student.izin || 0;
+        totalAlpha += student.alpha || 0;
+        totalAll += studentTotal;
+        
+        headerData.push([
+          index + 1,
+          student.name || "", 
+          student.nisn || "", 
+          student.class || "", 
+          student.hadir || 0, 
+          student.sakit || 0, 
+          student.izin || 0, 
+          student.alpha || 0, 
+          studentTotal
+        ]);
+      });
+      
+      // Add total row
+      headerData.push([
+        "Total", "", "", "", totalHadir.toString(), totalSakit.toString(), totalIzin.toString(), totalAlpha.toString(), totalAll.toString()
+      ]);
+      
+      // Add empty rows
+      headerData.push([]);
+      headerData.push([]);
+      
+      // Get top students by category
+      const topStudentsByHadir = [...filteredStudents]
+        .sort((a, b) => (b.hadir || 0) - (a.hadir || 0))
+        .slice(0, 3);
+        
+      const topStudentsBySakit = [...filteredStudents]
+        .sort((a, b) => (b.sakit || 0) - (a.sakit || 0))
+        .slice(0, 3);
+        
+      const topStudentsByIzin = [...filteredStudents]
+        .sort((a, b) => (b.izin || 0) - (a.izin || 0))
+        .slice(0, 3);
+        
+      const topStudentsByAlpha = [...filteredStudents]
+        .sort((a, b) => (b.alpha || 0) - (a.alpha || 0))
+        .slice(0, 3);
+      
+      // Add "Siswa dengan Hadir Terbanyak" section
+      headerData.push(["Siswa dengan Hadir Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      topStudentsByHadir.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "",
+          student.nisn || "",
+          student.class || "",
+          student.hadir || 0
+        ]);
+      });
+      
+      // Add empty row
+      headerData.push([]);
+      
+      // Add "Siswa dengan Sakit Terbanyak" section
+      headerData.push(["Siswa dengan Sakit Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Sakit"]);
+      topStudentsBySakit.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "",
+          student.nisn || "",
+          student.class || "",
+          student.sakit || 0
+        ]);
+      });
+      
+      // Add empty row
+      headerData.push([]);
+      
+      // Add "Siswa dengan Izin Terbanyak" section
+      headerData.push(["Siswa dengan Izin Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Izin"]);
+      topStudentsByIzin.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "",
+          student.nisn || "",
+          student.class || "",
+          student.izin || 0
+        ]);
+      });
+      
+      // Add empty row
+      headerData.push([]);
+      
+      // Add "Siswa dengan Alpha Terbanyak" section
+      headerData.push(["Siswa dengan Alpha Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Alpha"]);
+      topStudentsByAlpha.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "",
+          student.nisn || "",
+          student.class || "",
+          student.alpha || 0
+        ]);
+      });
+      
+      // Add signature section
+      headerData.push([]);
+      headerData.push([]);
+      headerData.push([]);
+      
+      const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
+      headerData.push(["", "", "", "", `${schoolInfo.address}, ${currentDate}`]);
+      headerData.push(["", "Mengetahui", "", "", "", "", "", "Administrator"]);
+      headerData.push(["", "KEPALA SEKOLAH,", "", "", "", "", "", "Sekolah,"]);
+      headerData.push([]);
+      headerData.push([]);
+      headerData.push([]);
+      headerData.push(["", schoolInfo.principalName || "Kepala Sekolah", "", "", "", "", "", "Administrator"]);
+      headerData.push(["", `NIP. ${schoolInfo.principalNip || "..........................."}`, "", "", "", "", "", "NIP. ..............................."]);
+      
+      // Create worksheet from data
+      const ws = XLSX.utils.aoa_to_sheet(headerData);
+      
+      // Set column widths
+      const colWidths = [
+        { wch: 6 },    // No.
+        { wch: 30 },   // Name
+        { wch: 15 },   // NISN
+        { wch: 10 },   // Class
+        { wch: 8 },    // Hadir
+        { wch: 8 },    // Sakit
+        { wch: 8 },    // Izin
+        { wch: 8 },    // Alpha
+        { wch: 8 }     // Total
+      ];
+      
+      ws['!cols'] = colWidths;
+      
+      // Add worksheet to workbook
+      XLSX.utils.book_append_sheet(wb, ws, "Rekap Kehadiran");
+      
+      // Generate filename with current date
+      const fileName = `Laporan_Kehadiran_Rombel_${format(new Date(), "yyyyMMdd")}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+      
+      toast.success(`Laporan kelas ${selectedClass?.name || 'Semua Kelas'} berhasil diunduh sebagai ${fileName}`);
     } catch (error) {
       console.error("Error generating Excel:", error);
       toast.error("Gagal mengunduh laporan Excel");

@@ -12,12 +12,13 @@ import { doc, getDoc, collection, query, where, getDocs } from "firebase/firesto
 import { jsPDF } from "jspdf";
 
 export default function MonthlyAttendanceReport() {
-  const { schoolId, userData } = useAuth();
+  const { schoolId, user } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isDownloading, setIsDownloading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [students, setStudents] = useState<any[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<any[]>([]);
+  const [userData, setUserData] = useState<any>(null);
   const [attendanceData, setAttendanceData] = useState<any[]>([]);
   const [dateRange, setDateRange] = useState({
     start: format(new Date(new Date().setDate(new Date().getDate() - 30)), "yyyy-MM-dd"),

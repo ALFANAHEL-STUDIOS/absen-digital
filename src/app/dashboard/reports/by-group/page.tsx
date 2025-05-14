@@ -13,12 +13,13 @@ import * as XLSX from "xlsx";
 import Link from "next/link";
 
 export default function GroupAttendanceReport() {
-  const { schoolId } = useAuth();
+  const { schoolId, user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isDownloading, setIsDownloading] = useState(false);
   const [selectedClass, setSelectedClass] = useState("all");
   const [classes, setClasses] = useState<string[]>([]);
   const [students, setStudents] = useState<any[]>([]);
+  const [filteredStudents, setFilteredStudents] = useState<any[]>([]);
   const [dateRange, setDateRange] = useState({
     start: format(new Date(new Date().setDate(new Date().getDate() - 30)), "yyyy-MM-dd"),
     end: format(new Date(), "yyyy-MM-dd")
@@ -85,6 +86,11 @@ export default function GroupAttendanceReport() {
       fetchStudentsWithAttendance();
     }
   }, [dateRange, selectedClass, schoolId]);
+  
+  // Set filtered students whenever students array changes
+  useEffect(() => {
+    setFilteredStudents(students);
+  }, [students]);
 
   const fetchStudentsWithAttendance = async () => {
     if (!schoolId) return;

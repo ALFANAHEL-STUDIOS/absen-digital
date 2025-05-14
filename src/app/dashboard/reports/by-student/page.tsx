@@ -49,6 +49,10 @@ export default function StudentReport() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [monthlySummary, setMonthlySummary] = useState(null);
   const [currentMonth] = useState(format(new Date(), "MMMM yyyy", { locale: id }));
+  const [dateRange, setDateRange] = useState({
+    start: format(new Date(new Date().getFullYear(), new Date().getMonth(), 1), "yyyy-MM-dd"),
+    end: format(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0), "yyyy-MM-dd")
+  });
   const [schoolInfo, setSchoolInfo] = useState({
     name: "Sekolah Dasar Negeri 1",
     address: "Jl. Pendidikan No. 123, Kota",
@@ -390,34 +394,195 @@ export default function StudentReport() {
     }
   };
   
-  const handleDownloadExcel = () => {
+  const handleDownloadExcel = async () => {
     setIsDownloading(true);
-    
     try {
-      // Generate Excel
-      const fileName = generateExcel(
-        schoolInfo,
-        {
-          present: monthlySummary?.hadir || 20,
-          sick: monthlySummary?.sakit || 2,
-          permitted: monthlySummary?.izin || 1,
-          absent: monthlySummary?.alpha || 1
-        },
-        "student",
-        {
-          studentName: selectedStudent?.name || "",
-          className: selectedStudent?.kelas || selectedStudent?.class || "",
-          teacherName: teacherName || "",
-          studentId: selectedStudent?.id || "",
-          dateRange: {
-            start: format(new Date(), "yyyy-MM-dd"),
-            end: format(new Date(), "yyyy-MM-dd")
-          },
-          schoolId: schoolId || ""
+      // Dynamically import xlsx library
+      const XLSX = await import('xlsx');
+      
+      // Get student data from Firestore
+      let studentAttendanceData = {
+        hadir: 0,
+        sakit: 0,
+        izin: 0,
+        alpha: 0,
+        total: 0
+      };
+      let dailyAttendanceData = [];
+      
+      if (selectedStudent && schoolId) {
+        try {
+          const { collection, query, where, getDocs, orderBy } = await import('firebase/firestore');
+          const { db } = await import('@/lib/firebase');
+          
+          // Get attendance records for the selected student within the date range
+          const attendanceRef = collection(db, `schools/${schoolId}/attendance`);
+          const attendanceQuery = query(
+            attendanceRef,
+            where("studentId", "==", selectedStudent.id),
+            where("date", ">=", dateRange.start),
+            where("date", "<=", dateRange.end),
+            orderBy("date", "asc")
+          );
+          
+          const attendanceSnapshot = await getDocs(attendanceQuery);
+          
+          // Process attendance records by date
+          const attendanceByDate = new Map();
+          
+          attendanceSnapshot.forEach(doc => {
+            const data = doc.data();
+            const date = data.date;
+            
+            if (!attendanceByDate.has(date)) {
+              attendanceByDate.set(date, {
+                date,
+                status: data.status,
+                time: data.time || '',
+                note: data.note || ''
+              });
+            }
+          });
+          
+          // Convert to array and sort by date
+          dailyAttendanceData = Array.from(attendanceByDate.values()).sort((a, b) => {
+            return a.date.localeCompare(b.date);
+          });
+          
+          // Count attendance by status
+          let hadir = 0, sakit = 0, izin = 0, alpha = 0;
+          
+          dailyAttendanceData.forEach(record => {
+            if (record.status === 'present' || record.status === 'hadir') hadir++;
+            else if (record.status === 'sick' || record.status === 'sakit') sakit++;
+            else if (record.status === 'permitted' || record.status === 'izin') izin++;
+            else if (record.status === 'absent' || record.status === 'alpha') alpha++;
+          });
+          
+          // Create student attendance summary
+          studentAttendanceData = {
+            hadir,
+            sakit,
+            izin,
+            alpha,
+            total: hadir + sakit + izin + alpha
+          };
+        } catch (error) {
+          console.error("Error fetching attendance data:", error);
         }
+      }
+      
+      // Format dates for display
+      const startDateFormatted = format(new Date(dateRange.start), "d MMMM yyyy", { locale: id });
+      const endDateFormatted = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
+      const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
+      
+      // Create header data with school information
+      const headerData = [
+        [schoolInfo.name.toUpperCase()],
+        [schoolInfo.address],
+        [`NPSN: ${schoolInfo.npsn}`],
+        [""],
+        ["LAPORAN KEHADIRAN SISWA"],
+        [`Periode: ${startDateFormatted} - ${endDateFormatted}`],
+        [""],
+        ["DATA SISWA:"],
+        ["Nama", ":", selectedStudent?.name || "-"],
+        ["NISN", ":", selectedStudent?.nisn || "-"],
+        ["Kelas", ":", selectedStudent?.class || "-"],
+        ["Jenis Kelamin", ":", selectedStudent?.gender === "male" ? "Laki-laki" : "Perempuan"],
+        [""],
+        ["RINGKASAN KEHADIRAN:"],
+        ["Status", "Jumlah", "Persentase"],
+      ];
+      
+      // Calculate percentages
+      const total = studentAttendanceData.total || 1; // Prevent division by zero
+      const percentHadir = ((studentAttendanceData.hadir / total) * 100).toFixed(1);
+      const percentSakit = ((studentAttendanceData.sakit / total) * 100).toFixed(1);
+      const percentIzin = ((studentAttendanceData.izin / total) * 100).toFixed(1);
+      const percentAlpha = ((studentAttendanceData.alpha / total) * 100).toFixed(1);
+      
+      // Add attendance summary data
+      headerData.push(
+        ["Hadir", studentAttendanceData.hadir, `${percentHadir}%`],
+        ["Sakit", studentAttendanceData.sakit, `${percentSakit}%`],
+        ["Izin", studentAttendanceData.izin, `${percentIzin}%`],
+        ["Alpha", studentAttendanceData.alpha, `${percentAlpha}%`],
+        ["Total", studentAttendanceData.total, "100%"],
+        [""]
       );
       
-      toast.success(`Laporan siswa ${selectedStudent.name} berhasil diunduh sebagai ${fileName}`);
+      // Add daily attendance records
+      headerData.push(
+        ["DETAIL KEHADIRAN HARIAN:"],
+        ["No.", "Tanggal", "Status", "Waktu", "Keterangan"]
+      );
+      
+      // Add each daily attendance record
+      dailyAttendanceData.forEach((record, index) => {
+        // Format date from YYYY-MM-DD to DD-MM-YYYY
+        const dateParts = record.date.split('-');
+        const formattedDate = dateParts.length === 3 ? 
+          `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}` : 
+          record.date;
+        
+        // Get status text
+        const statusText = 
+          record.status === 'present' || record.status === 'hadir' ? 'Hadir' :
+          record.status === 'sick' || record.status === 'sakit' ? 'Sakit' :
+          record.status === 'permitted' || record.status === 'izin' ? 'Izin' :
+          record.status === 'absent' || record.status === 'alpha' ? 'Alpha' :
+          record.status;
+        
+        headerData.push([
+          index + 1,
+          formattedDate,
+          statusText,
+          record.time || "-",
+          record.note || "-"
+        ]);
+      });
+      
+      // Add signature section
+      headerData.push(
+        [""],
+        [""],
+        [`${schoolInfo.address}, ${currentDate}`],
+        [""],
+        ["Mengetahui,", "", "", "", "Wali Kelas"],
+        ["Kepala Sekolah", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        [schoolInfo.principalName || "Kepala Sekolah", "", "", "", teacherName || "Wali Kelas"],
+        [`NIP. ${schoolInfo.principalNip || "..........................."}`, "", "", "", "NIP. ..............................."]
+      );
+      
+      // Create workbook and add worksheet
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(headerData);
+      
+      // Set column widths
+      const colWidths = [
+        { wch: 15 },   // First column
+        { wch: 25 },   // Second column
+        { wch: 25 },   // Third column
+        { wch: 15 },   // Fourth column
+        { wch: 30 }    // Fifth column
+      ];
+      
+      ws['!cols'] = colWidths;
+      
+      // Add worksheet to workbook
+      XLSX.utils.book_append_sheet(wb, ws, "Laporan Kehadiran Siswa");
+      
+      // Generate filename with student name and date
+      const studentName = selectedStudent?.name?.replace(/\s+/g, '_') || 'Siswa';
+      const fileName = `Laporan_${studentName}_${format(new Date(), "yyyyMMdd")}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+      
+      toast.success(`Laporan siswa ${selectedStudent?.name} berhasil diunduh sebagai ${fileName}`);
     } catch (error) {
       console.error("Error generating Excel:", error);
       toast.error("Gagal mengunduh laporan Excel");

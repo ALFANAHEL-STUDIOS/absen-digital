@@ -769,9 +769,34 @@ export default function MonthlyReport() {
         
       </div>
       
-      
-              
-      {/* Download buttons removed as requested */}
+      {/* Download Buttons */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-20 md:mb-6">
+        <button 
+          onClick={handleDownloadPDF}
+          disabled={isDownloading}
+          className="flex items-center justify-center gap-3 bg-red-600 text-white p-4 rounded-xl hover:bg-red-700 transition-colors"
+        >
+          {isDownloading ? (
+            <Loader2 className="h-6 w-6 animate-spin" />
+          ) : (
+            <FileText className="h-6 w-6" />
+          )}
+          <span className="font-medium">Download Laporan PDF</span>
+        </button>
+        
+        <button 
+          onClick={handleDownloadExcel}
+          disabled={isDownloading}
+          className="flex items-center justify-center gap-3 bg-green-600 text-white p-4 rounded-xl hover:bg-green-700 transition-colors"
+        >
+          {isDownloading ? (
+            <Loader2 className="h-6 w-6 animate-spin" />
+          ) : (
+            <FileSpreadsheet className="h-6 w-6" />
+          )}
+          <span className="font-medium">Download Laporan Excel</span>
+        </button>
+      </div>
     </div>
   );
 }
