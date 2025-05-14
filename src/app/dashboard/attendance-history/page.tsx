@@ -321,7 +321,7 @@ export default function AttendanceHistory() {
         const note = (record.status === 'sakit' || record.status === 'sick' || 
           record.status === 'izin' || record.status === 'permitted' || 
           record.status === 'alpha' || record.status === 'absent') ? 
-          (record.note(record.note || '-') : '-';
+          record.note || '-') : '-';
         
         const displayNote = note.length > 30 
           ? note.substring(0, 27) + "..." 
