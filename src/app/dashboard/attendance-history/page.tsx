@@ -32,6 +32,7 @@ interface AttendanceRecord {
   time: string;
   status: string;
   note?: string;
+  notes?: string;
 }
 
 export default function AttendanceHistory() {
@@ -100,10 +101,13 @@ export default function AttendanceHistory() {
         
         const records: AttendanceRecord[] = [];
         snapshot.forEach((doc) => {
+          const data = doc.data() as Omit<AttendanceRecord, 'id'>;
           records.push({
             id: doc.id,
-            ...doc.data() as Omit<AttendanceRecord, 'id'>
-          });
+            ...data,
+            // Ensure notes field is available for display
+            notes: data.notes || data.note || null
+          } as AttendanceRecord);
         });
         
         setAttendanceRecords(records);
@@ -321,7 +325,7 @@ export default function AttendanceHistory() {
         const note = (record.status === 'sakit' || record.status === 'sick' || 
           record.status === 'izin' || record.status === 'permitted' || 
           record.status === 'alpha' || record.status === 'absent') ? 
-          record.note || '-') : '-';
+          (record.note || '-') : '-';
         
         const displayNote = note.length > 30 
           ? note.substring(0, 27) + "..." 
@@ -443,10 +447,7 @@ export default function AttendanceHistory() {
         const statusText = getStatusText(record.status);
         
         // Prepare note
-        const note = (record.status === 'sakit' || record.status === 'sick' || 
-          record.status === 'izin' || record.status === 'permitted' || 
-          record.status === 'alpha' || record.status === 'absent') ? 
-          (record.note || '-') : '-';
+        const note = record.notes || record.note || '-';
         
         return {
           "Tanggal": formattedDate,
@@ -454,7 +455,7 @@ export default function AttendanceHistory() {
           "Nama Siswa": record.studentName,
           "Kelas": record.class,
           "Status": statusText,
-          "Catatan": note
+          "Catatan": record.notes || record.note || '-'
         };
       });
       
@@ -740,10 +741,7 @@ export default function AttendanceHistory() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {(record.status === 'sakit' || record.status === 'sick' || 
-                          record.status === 'izin' || record.status === 'permitted' || 
-                          record.status === 'alpha' || record.status === 'absent') ? 
-                          (record.note || 'kosong') : 'null'}
+                        {record.notes || record.note || '-'}
                       </td>
                     </tr>
                   );
