@@ -460,140 +460,115 @@ export default function ClassReport() {
         <h1 className="text-2xl font-bold text-gray-800">Rekap Per Kelas</h1>
       </div>
       
-      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6">
-        <h2 className="text-lg font-medium mb-4">Pilih Kelas</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div>
-            <label htmlFor="class-selector" className="block text-sm font-medium text-gray-700 mb-1">
-              Kelas
-            </label>
-            <select
-              id="class-selector"
-              value={selectedClass?.id || ''}
-              onChange={handleClassChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-            >
-              {classes.map((cls) => (
-                <option key={cls.id} value={cls.id}>
-                  {cls.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-          
-        {/* Date Range Selector */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div>
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
-              Tanggal Mulai
-            </label>
-            <input
-              type="date"
-              id="startDate"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
-              Tanggal Akhir
-            </label>
-            <input
-              type="date"
-              id="endDate"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </div>
-          
-          <div className="flex items-end">
-            <button
-              onClick={handleFilterByDate}
-              className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              Terapkan Filter
-            </button>
-          </div>
+      {/* Date Range Selector */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
+            Tanggal Mulai
+          </label>
+          <input
+            type="date"
+            id="startDate"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6">
-          {/* Pie Chart */}
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
-            <h3 className="text-base font-medium mb-3">Distribusi Kehadiran</h3>
+        <div>
+          <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
+            Tanggal Akhir
+          </label>
+          <input
+            type="date"
+            id="endDate"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+        
+        <div className="flex items-end">
+          <button
+            onClick={handleFilterByDate}
+            className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Terapkan Filter
+          </button>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6">
+        {/* Pie Chart */}
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+          <h3 className="text-base font-medium mb-3">Distribusi Kehadiran</h3>
+          {loading ? (
+            <div className="h-64 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+          ) : (
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={attendanceData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    nameKey="name"
+                    label={(entry) => `${entry.name}: ${entry.value}%`}
+                  >
+                    {attendanceData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+        
+        {/* Summary */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Hadir</h3>
             {loading ? (
-              <div className="h-64 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-              </div>
+              <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
             ) : (
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={attendanceData}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      nameKey="name"
-                      label={(entry) => `${entry.name}: ${entry.value}%`}
-                    >
-                      {attendanceData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
+              <p className="text-2xl font-bold text-blue-600">{attendanceData[0]?.value}%</p>
             )}
           </div>
           
-          {/* Summary */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
-              <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Hadir</h3>
-              {loading ? (
-                <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
-              ) : (
-                <p className="text-2xl font-bold text-blue-600">{attendanceData[0]?.value}%</p>
-              )}
-            </div>
-            
-            <div className="bg-yellow-50 rounded-xl p-4 border border-orange-200">
-              <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Sakit</h3>
-              {loading ? (
-                <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
-              ) : (
-                <p className="text-2xl font-bold text-orange-600">{attendanceData[1]?.value}%</p>
-              )}
-            </div>
-            
-            <div className="bg-yellow-50 rounded-xl p-4 border border-green-200">
-              <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Izin</h3>
-              {loading ? (
-                <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
-              ) : (
-                <p className="text-2xl font-bold text-green-600">{attendanceData[2]?.value}%</p>
-              )}
-            </div>
-            
-            <div className="bg-yellow-50 rounded-xl p-4 border border-red-200">
-              <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Alpha</h3>
-              {loading ? (
-                <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
-              ) : (
-                <p className="text-2xl font-bold text-red-600">{attendanceData[3]?.value}%</p>
-              )}
-            </div>
+          <div className="bg-yellow-50 rounded-xl p-4 border border-orange-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Sakit</h3>
+            {loading ? (
+              <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
+            ) : (
+              <p className="text-2xl font-bold text-orange-600">{attendanceData[1]?.value}%</p>
+            )}
+          </div>
+          
+          <div className="bg-yellow-50 rounded-xl p-4 border border-green-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Izin</h3>
+            {loading ? (
+              <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
+            ) : (
+              <p className="text-2xl font-bold text-green-600">{attendanceData[2]?.value}%</p>
+            )}
+          </div>
+          
+          <div className="bg-yellow-50 rounded-xl p-4 border border-red-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Alpha</h3>
+            {loading ? (
+              <div className="animate-pulse h-8 bg-gray-200 rounded w-16"></div>
+            ) : (
+              <p className="text-2xl font-bold text-red-600">{attendanceData[3]?.value}%</p>
+            )}
           </div>
         </div>
-        
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-20 md:mb-6 mt-8">

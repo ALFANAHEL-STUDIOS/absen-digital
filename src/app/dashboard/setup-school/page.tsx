@@ -120,7 +120,10 @@ export default function SetupSchool() {
               <span className="text-lg font-bold">0812 7240 5881</span>
             </p>
             <button 
-              onClick={() => setShowNotification(false)}
+              onClick={() => {
+                setShowNotification(false);
+                router.push('/login');
+              }}
               className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90"
             >
               Saya Mengerti

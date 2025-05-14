@@ -256,13 +256,16 @@ export default function AdminDashboard({
                         Kelas
                       </th>
                       <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Tanggal
-                      </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
                       <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Waktu
+                        Tanggal
+                      </th>
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Waktu Absensi
+                      </th>
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Catatan
                       </th>
                     </tr>
                   </thead>
@@ -275,9 +278,6 @@ export default function AdminDashboard({
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                             {record.class}
-                          </td>
-                          <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
-                            {record.date || '-'}
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
                             <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -295,7 +295,16 @@ export default function AdminDashboard({
                             </span>
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                            {record.date ? record.date.split('-').reverse().join('-') : '-'}
+                          </td>
+                          <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                             {record.time}
+                          </td>
+                          <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                            {(record.status === 'sakit' || record.status === 'sick' || 
+                              record.status === 'izin' || record.status === 'permitted' || 
+                              record.status === 'alpha' || record.status === 'absent') && record.note ? 
+                              record.note : '-'}
                           </td>
                         </tr>
                       ))
@@ -338,12 +347,12 @@ export default function AdminDashboard({
                 </div>
               </Link>
               
-              <Link href="/dashboard/settings" className="bg-gradient-to-r from-amber-500 to-yellow-600 rounded-xl shadow-sm p-5 hover:shadow-md transition-all text-white">
+              <Link href="/dashboard/attendance-history" className="bg-gradient-to-r from-amber-500 to-yellow-600 rounded-xl shadow-sm p-5 hover:shadow-md transition-all text-white">
                 <div className="flex flex-col items-center justify-center">
                   <div className="bg-amber-400 bg-opacity-30 p-3 rounded-full mb-3">
                     <Settings className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center">Pengaturan</h3>
+                  <h3 className="font-medium text-white text-center">Riwayat Absen</h3>
                 </div>
               </Link>
               

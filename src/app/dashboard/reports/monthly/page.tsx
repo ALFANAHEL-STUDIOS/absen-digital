@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Calendar, Download, FileSpreadsheet, FileText, Loader2 } from "lucide-react";
+import { ArrowLeft, Calendar, ChevronDown, Download, FileSpreadsheet, FileText, Loader2 } from "lucide-react";
 import Link from "next/link";
 import {
   BarChart,
@@ -92,6 +92,8 @@ export default function MonthlyReport() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [loading, setLoading] = useState(true);
   const { schoolId } = useAuth();
+  const [selectedClass, setSelectedClass] = useState("all");
+  const [filteredAttendanceData, setFilteredAttendanceData] = useState<any[]>([]);
   const [schoolInfo, setSchoolInfo] = useState({
     name: "Sekolah Dasar Negeri 1",
     address: "Jl. Pendidikan No. 123, Kota",
@@ -118,6 +120,7 @@ export default function MonthlyReport() {
         const month = currentDate.getMonth() + 1;
         const data = await fetchDailyData(schoolId, year, month);
         setDailyData(data);
+        setFilteredAttendanceData(data);
       } catch (error) {
         console.error("Error loading attendance data:", error);
         toast.error("Gagal memuat data kehadiran dari database");
@@ -128,6 +131,11 @@ export default function MonthlyReport() {
     
     loadAttendanceData();
   }, [schoolId, currentDate]);
+  
+  // Set filtered data directly from daily data
+  useEffect(() => {
+    setFilteredAttendanceData(dailyData);
+  }, [dailyData]);
   
   useEffect(() => {
     const fetchSchoolData = async () => {
@@ -182,35 +190,383 @@ export default function MonthlyReport() {
     }));
   };
   
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     setIsDownloading(true);
   
     try {
       // Get summary data
       const summary = calculateSummary();
-    
-      // Generate PDF
-      const fileName = generatePDF(
-        schoolInfo,
-        {
-          present: parseInt(summary.hadir),
-          sick: parseInt(summary.sakit),
-          permitted: parseInt(summary.izin),
-          absent: parseInt(summary.alpha),
-          month: formattedMonth
-        },
-        "monthly",
-        {
-          ...reportOptions,
-          schoolId,
-          dateRange: {
-            start: format(new Date(), "yyyy-MM-dd"),
-            end: format(new Date(), "yyyy-MM-dd")
-          }
+      
+      // Fetch student data from Firestore for the report
+      let students = [];
+      
+      if (schoolId) {
+        try {
+          const { collection, getDocs, query, where, orderBy, limit } = await import('firebase/firestore');
+          const { db } = await import('@/lib/firebase');
+          
+          const year = currentDate.getFullYear();
+          const month = currentDate.getMonth() + 1;
+          const monthStr = month.toString().padStart(2, '0');
+          const startDate = `${year}-${monthStr}-01`;
+          const endDate = `${year}-${monthStr}-31`; // Use 31 to cover all possible days
+          
+          // Fetch students
+          const studentsRef = collection(db, `schools/${schoolId}/students`);
+          const studentsQuery = query(studentsRef);
+          const studentsSnapshot = await getDocs(studentsQuery);
+          
+          const studentMap = new Map();
+          studentsSnapshot.forEach(doc => {
+            studentMap.set(doc.id, {
+              id: doc.id,
+              name: doc.data().name || 'Unnamed',
+              class: doc.data().class || '-',
+              nisn: doc.data().nisn || '-',
+              hadir: 0,
+              sakit: 0,
+              izin: 0,
+              alpha: 0,
+              total: 0
+            });
+          });
+          
+          // Fetch attendance records
+          const attendanceRef = collection(db, `schools/${schoolId}/attendance`);
+          const attendanceQuery = query(
+            attendanceRef,
+            where("date", ">=", startDate),
+            where("date", "<=", endDate)
+          );
+          
+          const attendanceSnapshot = await getDocs(attendanceQuery);
+          
+          // Update student attendance counts
+          attendanceSnapshot.forEach(doc => {
+            const data = doc.data();
+            const studentId = data.studentId;
+            
+            if (studentId && studentMap.has(studentId)) {
+              const student = studentMap.get(studentId);
+              
+              if (data.status === 'present' || data.status === 'hadir') {
+                student.hadir++;
+              } else if (data.status === 'sick' || data.status === 'sakit') {
+                student.sakit++;
+              } else if (data.status === 'permitted' || data.status === 'izin') {
+                student.izin++;
+              } else if (data.status === 'absent' || data.status === 'alpha') {
+                student.alpha++;
+              }
+              
+              student.total++;
+              studentMap.set(studentId, student);
+            }
+          });
+          
+          students = Array.from(studentMap.values());
+          
+          // Generate PDF using jsPDF directly to match the required format
+          const { jsPDF } = await import('jspdf');
+          const doc = new jsPDF();
+          
+          // Document setup
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const margin = 20;
+          let currentY = 20;
+          
+          // School header
+          doc.setFontSize(12);
+          doc.setFont("helvetica", "bold");
+          doc.text("NAMA SEKOLAH", margin, currentY);
+          doc.text("Dari Database", pageWidth - margin, currentY, { align: "right" });
+          currentY += 7;
+          
+          doc.text("Alamat", margin, currentY);
+          doc.text("Dari Database", pageWidth - margin, currentY, { align: "right" });
+          currentY += 7;
+          
+          doc.text("NPSN", margin, currentY);
+          doc.text("Dari Database", pageWidth - margin, currentY, { align: "right" });
+          currentY += 7;
+          
+          // Horizontal line
+          doc.setLineWidth(0.5);
+          doc.line(margin, currentY, pageWidth - margin, currentY);
+          currentY += 12;
+          
+          // Report title
+          doc.setFontSize(12);
+          doc.setTextColor(0);
+          doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, currentY, { align: "center" });
+          currentY += 6;
+          
+          // Month
+          doc.text("BULAN:", pageWidth / 2, currentY, { align: "center" });
+          currentY += 15;
+          
+          // Main attendance table
+          doc.setFontSize(10);
+          
+          // Define table columns
+          const columns = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
+          const columnWidths = [10, 40, 25, 15, 15, 15, 15, 15, 15];
+          
+          // Calculate table width
+          const tableWidth = columnWidths.reduce((sum, width) => sum + width, 0);
+          
+          // Table starting position
+          const tableX = (pageWidth - tableWidth) / 2;
+          
+          // Table header with blue background
+          doc.setFillColor(173, 216, 230); // Light blue color for header
+          doc.rect(tableX, currentY, tableWidth, 10, 'F');
+          
+          // Draw header cells and text
+          let xOffset = tableX;
+          columns.forEach((col, i) => {
+            // Cell borders
+            doc.setDrawColor(0);
+            doc.rect(xOffset, currentY, columnWidths[i], 10);
+            
+            // Header text
+            doc.setFont("helvetica", "bold");
+            doc.text(col, xOffset + columnWidths[i]/2, currentY + 6, { align: "center" });
+            xOffset += columnWidths[i];
+          });
+          
+          currentY += 10;
+          
+          // Table rows
+          doc.setFont("helvetica", "normal");
+          
+          // Get total counts for each student
+          const totalAttendance = {
+            hadir: 0,
+            sakit: 0,
+            izin: 0,
+            alpha: 0,
+            total: 0
+          };
+          
+          // Display up to 5 students in the main table (for example)
+          const displayedStudents = students.slice(0, 5);
+          
+          displayedStudents.forEach((student, index) => {
+            // Alternate row colors
+            doc.setFillColor(index % 2 === 0 ? 240 : 255, index % 2 === 0 ? 240 : 255, 255);
+            doc.rect(tableX, currentY, tableWidth, 10, 'F');
+            
+            // Draw row cells
+            xOffset = tableX;
+            
+            // Draw cell content
+            // No.
+            doc.rect(xOffset, currentY, columnWidths[0], 10);
+            doc.text((index + 1).toString(), xOffset + columnWidths[0]/2, currentY + 6, { align: "center" });
+            xOffset += columnWidths[0];
+            
+            // Name
+            doc.rect(xOffset, currentY, columnWidths[1], 10);
+            doc.text(student.name, xOffset + 2, currentY + 6, { align: "left" });
+            xOffset += columnWidths[1];
+            
+            // NISN
+            doc.rect(xOffset, currentY, columnWidths[2], 10);
+            doc.text(student.nisn, xOffset + columnWidths[2]/2, currentY + 6, { align: "center" });
+            xOffset += columnWidths[2];
+            
+            // Class
+            doc.rect(xOffset, currentY, columnWidths[3], 10);
+            doc.text(student.class, xOffset + columnWidths[3]/2, currentY + 6, { align: "center" });
+            xOffset += columnWidths[3];
+            
+            // Hadir
+            doc.rect(xOffset, currentY, columnWidths[4], 10);
+            doc.text(student.hadir.toString(), xOffset + columnWidths[4]/2, currentY + 6, { align: "center" });
+            totalAttendance.hadir += student.hadir;
+            xOffset += columnWidths[4];
+            
+            // Sakit
+            doc.rect(xOffset, currentY, columnWidths[5], 10);
+            doc.text(student.sakit.toString(), xOffset + columnWidths[5]/2, currentY + 6, { align: "center" });
+            totalAttendance.sakit += student.sakit;
+            xOffset += columnWidths[5];
+            
+            // Izin
+            doc.rect(xOffset, currentY, columnWidths[6], 10);
+            doc.text(student.izin.toString(), xOffset + columnWidths[6]/2, currentY + 6, { align: "center" });
+            totalAttendance.izin += student.izin;
+            xOffset += columnWidths[6];
+            
+            // Alpha
+            doc.rect(xOffset, currentY, columnWidths[7], 10);
+            doc.text(student.alpha.toString(), xOffset + columnWidths[7]/2, currentY + 6, { align: "center" });
+            totalAttendance.alpha += student.alpha;
+            xOffset += columnWidths[7];
+            
+            // Total
+            const studentTotal = student.hadir + student.sakit + student.izin + student.alpha;
+            totalAttendance.total += studentTotal;
+            doc.rect(xOffset, currentY, columnWidths[8], 10);
+            doc.text(studentTotal.toString(), xOffset + columnWidths[8]/2, currentY + 6, { align: "center" });
+            
+            currentY += 10;
+          });
+          
+          // Total row
+          xOffset = tableX;
+          
+          // "Total" text cell
+          doc.rect(xOffset, currentY, columnWidths[0] + columnWidths[1] + columnWidths[2] + columnWidths[3], 10);
+          doc.setFont("helvetica", "bold");
+          doc.text("Total", xOffset + (columnWidths[0] + columnWidths[1])/2, currentY + 6, { align: "center" });
+          xOffset += columnWidths[0] + columnWidths[1] + columnWidths[2] + columnWidths[3];
+          
+          // Hadir total
+          doc.rect(xOffset, currentY, columnWidths[4], 10);
+          doc.text(totalAttendance.hadir.toString(), xOffset + columnWidths[4]/2, currentY + 6, { align: "center" });
+          xOffset += columnWidths[4];
+          
+          // Sakit total
+          doc.rect(xOffset, currentY, columnWidths[5], 10);
+          doc.text(totalAttendance.sakit.toString(), xOffset + columnWidths[5]/2, currentY + 6, { align: "center" });
+          xOffset += columnWidths[5];
+          
+          // Izin total
+          doc.rect(xOffset, currentY, columnWidths[6], 10);
+          doc.text(totalAttendance.izin.toString(), xOffset + columnWidths[6]/2, currentY + 6, { align: "center" });
+          xOffset += columnWidths[6];
+          
+          // Alpha total
+          doc.rect(xOffset, currentY, columnWidths[7], 10);
+          doc.text(totalAttendance.alpha.toString(), xOffset + columnWidths[7]/2, currentY + 6, { align: "center" });
+          xOffset += columnWidths[7];
+          
+          // Grand total
+          doc.rect(xOffset, currentY, columnWidths[8], 10);
+          doc.text(totalAttendance.total.toString(), xOffset + columnWidths[8]/2, currentY + 6, { align: "center" });
+          
+          currentY += 20;
+          
+          // Sort students by attendance categories to find the top 3 in each category
+          const studentsByHadir = [...students].sort((a, b) => b.hadir - a.hadir).slice(0, 3);
+          const studentsBySakit = [...students].sort((a, b) => b.sakit - a.sakit).slice(0, 3);
+          const studentsByIzin = [...students].sort((a, b) => b.izin - a.izin).slice(0, 3);
+          const studentsByAlpha = [...students].sort((a, b) => b.alpha - a.alpha).slice(0, 3);
+          
+          // Function to render a category table
+          const renderCategoryTable = (title, categoryStudents, categoryField) => {
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(11);
+            doc.text(title, margin, currentY);
+            currentY += 10;
+            
+            // Table columns for category tables
+            const catColumns = ["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah " + categoryField.charAt(0).toUpperCase() + categoryField.slice(1)];
+            const catColumnWidths = [10, 40, 25, 20, 25];
+            const catTableWidth = catColumnWidths.reduce((sum, width) => sum + width, 0);
+            
+            // Category table header with blue background
+            doc.setFillColor(173, 216, 230);
+            doc.rect(margin, currentY, catTableWidth, 10, 'F');
+            
+            // Draw header cells
+            let catXOffset = margin;
+            catColumns.forEach((col, i) => {
+              doc.rect(catXOffset, currentY, catColumnWidths[i], 10);
+              doc.setFont("helvetica", "bold");
+              doc.setFontSize(10);
+              doc.text(col, catXOffset + catColumnWidths[i]/2, currentY + 6, { align: "center" });
+              catXOffset += catColumnWidths[i];
+            });
+            
+            currentY += 10;
+            
+            // Draw rows
+            doc.setFont("helvetica", "normal");
+            categoryStudents.forEach((student, index) => {
+              // Alternate row colors
+              doc.setFillColor(index % 2 === 0 ? 240 : 255, index % 2 === 0 ? 240 : 255, 255);
+              doc.rect(margin, currentY, catTableWidth, 10, 'F');
+              
+              catXOffset = margin;
+              
+              // No.
+              doc.rect(catXOffset, currentY, catColumnWidths[0], 10);
+              doc.text((index + 1).toString(), catXOffset + catColumnWidths[0]/2, currentY + 6, { align: "center" });
+              catXOffset += catColumnWidths[0];
+              
+              // Name
+              doc.rect(catXOffset, currentY, catColumnWidths[1], 10);
+              doc.text(student.name, catXOffset + 2, currentY + 6, { align: "left" });
+              catXOffset += catColumnWidths[1];
+              
+              // NISN
+              doc.rect(catXOffset, currentY, catColumnWidths[2], 10);
+              doc.text(student.nisn, catXOffset + catColumnWidths[2]/2, currentY + 6, { align: "center" });
+              catXOffset += catColumnWidths[2];
+              
+              // Class
+              doc.rect(catXOffset, currentY, catColumnWidths[3], 10);
+              doc.text(student.class, catXOffset + catColumnWidths[3]/2, currentY + 6, { align: "center" });
+              catXOffset += catColumnWidths[3];
+              
+              // Count
+              doc.rect(catXOffset, currentY, catColumnWidths[4], 10);
+              doc.text(student[categoryField].toString(), catXOffset + catColumnWidths[4]/2, currentY + 6, { align: "center" });
+              
+              currentY += 10;
+            });
+            
+            currentY += 10;
+          };
+          
+          // Render the four category tables
+          renderCategoryTable("Siswa dengan Hadir Terbanyak :", studentsByHadir, "hadir");
+          renderCategoryTable("Siswa dengan Sakit Terbanyak :", studentsBySakit, "sakit");
+          renderCategoryTable("Siswa dengan Izin Terbanyak :", studentsByIzin, "izin");
+          renderCategoryTable("Siswa dengan Alpha Terbanyak :", studentsByAlpha, "alpha");
+          
+          // Signature section
+          currentY += 20;
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(11);
+          
+          const signatureColumnWidth = (pageWidth - 2 * margin) / 2;
+          
+          // Left signature
+          doc.text("Mengetahui", margin + signatureColumnWidth / 4, currentY, { align: "center" });
+          doc.text("KEPALA SEKOLAH,", margin + signatureColumnWidth / 4, currentY + 5, { align: "center" });
+          
+          // Right signature
+          doc.text("Pengelola Data", margin + signatureColumnWidth + signatureColumnWidth / 4, currentY, { align: "center" });
+          doc.text("Administrator Sekolah,", margin + signatureColumnWidth + signatureColumnWidth / 4, currentY + 5, { align: "center" });
+          
+          currentY += 30;
+          
+          // Signature lines
+          doc.setLineWidth(0.5);
+          doc.line(margin + 10, currentY, margin + signatureColumnWidth / 2 + 10, currentY);
+          doc.line(margin + signatureColumnWidth + 10, currentY, margin + signatureColumnWidth * 1.5 + 10, currentY);
+          
+          currentY += 5;
+          
+          // NIP lines
+          doc.text("NIP.", margin + 15, currentY);
+          doc.text("NIP.", margin + signatureColumnWidth + 15, currentY);
+          
+          // Save the PDF
+          const fileName = `Laporan_Kehadiran_${format(new Date(), "yyyyMMdd_HHmmss")}.pdf`;
+          doc.save(fileName);
+          
+          toast.success(`Laporan bulan ${formattedMonth} berhasil diunduh sebagai ${fileName}`);
+          
+        } catch (error) {
+          console.error("Error fetching student data:", error);
         }
-      );
-    
-      toast.success(`Laporan bulan ${formattedMonth} berhasil diunduh sebagai ${fileName}`);
+      }
+      
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast.error("Gagal mengunduh laporan PDF");
@@ -219,32 +575,109 @@ export default function MonthlyReport() {
     }
   };
   
-  const handleDownloadExcel = () => {
+  const handleDownloadExcel = async () => {
     setIsDownloading(true);
   
     try {
       // Get summary data
       const summary = calculateSummary();
+      
+      // Fetch student data from Firestore for the report
+      let students = [];
+      
+      if (schoolId) {
+        try {
+          const { collection, getDocs, query, where } = await import('firebase/firestore');
+          const { db } = await import('@/lib/firebase');
+          
+          const year = currentDate.getFullYear();
+          const month = currentDate.getMonth() + 1;
+          const monthStr = month.toString().padStart(2, '0');
+          const startDate = `${year}-${monthStr}-01`;
+          const endDate = `${year}-${monthStr}-31`; // Use 31 to cover all possible days
+          
+          // Fetch students
+          const studentsRef = collection(db, `schools/${schoolId}/students`);
+          const studentsQuery = query(studentsRef);
+          const studentsSnapshot = await getDocs(studentsQuery);
+          
+          const studentMap = new Map();
+          studentsSnapshot.forEach(doc => {
+            studentMap.set(doc.id, {
+              id: doc.id,
+              name: doc.data().name || 'Unnamed',
+              class: doc.data().class || '-',
+              nisn: doc.data().nisn || '-',
+              hadir: 0,
+              sakit: 0,
+              izin: 0,
+              alpha: 0,
+              total: 0
+            });
+          });
+          
+          // Fetch attendance records
+          const attendanceRef = collection(db, `schools/${schoolId}/attendance`);
+          const attendanceQuery = query(
+            attendanceRef,
+            where("date", ">=", startDate),
+            where("date", "<=", endDate)
+          );
+          
+          const attendanceSnapshot = await getDocs(attendanceQuery);
+          
+          // Update student attendance counts
+          attendanceSnapshot.forEach(doc => {
+            const data = doc.data();
+            const studentId = data.studentId;
+            
+            if (studentId && studentMap.has(studentId)) {
+              const student = studentMap.get(studentId);
+              
+              if (data.status === 'present' || data.status === 'hadir') {
+                student.hadir++;
+              } else if (data.status === 'sick' || data.status === 'sakit') {
+                student.sakit++;
+              } else if (data.status === 'permitted' || data.status === 'izin') {
+                student.izin++;
+              } else if (data.status === 'absent' || data.status === 'alpha') {
+                student.alpha++;
+              }
+              
+              student.total++;
+              studentMap.set(studentId, student);
+            }
+          });
+          
+          students = Array.from(studentMap.values());
+        } catch (error) {
+          console.error("Error fetching student data:", error);
+        }
+      }
+      
+      // Add students to report options
+      const reportOptionsWithStudents = {
+        ...reportOptions,
+        schoolId,
+        students,
+        dateRange: {
+          start: format(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1), "yyyy-MM-dd"),
+          end: format(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0), "yyyy-MM-dd")
+        }
+      };
     
       // Generate Excel
       const fileName = generateExcel(
         schoolInfo,
         {
-          present: parseInt(summary.hadir),
-          sick: parseInt(summary.sakit),
-          permitted: parseInt(summary.izin),
-          absent: parseInt(summary.alpha),
+          present: parseInt(summary.hadir) || 0,
+          sick: parseInt(summary.sakit) || 0,
+          permitted: parseInt(summary.izin) || 0,
+          absent: parseInt(summary.alpha) || 0,
           month: formattedMonth
         },
         "monthly",
-        {
-          ...reportOptions,
-          schoolId,
-          dateRange: {
-            start: format(new Date(), "yyyy-MM-dd"),
-            end: format(new Date(), "yyyy-MM-dd")
-          }
-        }
+        reportOptionsWithStudents
       );
     
       toast.success(`Laporan bulan ${formattedMonth} berhasil diunduh sebagai ${fileName}`);
@@ -338,33 +771,7 @@ export default function MonthlyReport() {
       
       
               
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-20 md:mb-6">
-        <button 
-          onClick={handleDownloadPDF}
-          disabled={isDownloading}
-          className="flex items-center justify-center gap-3 bg-red-600 text-white p-4 rounded-xl hover:bg-red-700 transition-colors"
-        >
-          {isDownloading ? (
-            <Loader2 className="h-6 w-6 animate-spin" />
-          ) : (
-            <FileText className="h-6 w-6" />
-          )}
-          <span className="font-medium">Download Laporan PDF</span>
-        </button>
-        
-        <button 
-          onClick={handleDownloadExcel}
-          disabled={isDownloading}
-          className="flex items-center justify-center gap-3 bg-green-600 text-white p-4 rounded-xl hover:bg-green-700 transition-colors"
-        >
-          {isDownloading ? (
-            <Loader2 className="h-6 w-6 animate-spin" />
-          ) : (
-            <FileSpreadsheet className="h-6 w-6" />
-          )}
-          <span className="font-medium">Download Laporan Excel</span>
-        </button>
-      </div>
+      {/* Download buttons removed as requested */}
     </div>
   );
 }

@@ -520,7 +520,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           <Link 
             href="/dashboard/reports" 
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-              isActive('/dashboard/reports') 
+              isActive('/dashboard/reports') || 
+              isActive('/dashboard/reports/by-student') || 
+              isActive('/dashboard/reports/by-class') || 
+              isActive('/dashboard/reports/by-group') ||
+              isActive('/dashboard/reports/monthly-attendance')
                 ? 'bg-blue-800 text-white font-medium' 
                 : 'text-white hover:bg-blue-800'
             }`}

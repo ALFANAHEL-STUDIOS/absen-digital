@@ -20,6 +20,7 @@ import { generatePDF, generateExcel } from "@/lib/reportGenerator";
 import { useAuth } from "@/context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { jsPDF } from "jspdf";
 
 // Sample students data - removed demo data
 const STUDENTS: any[] = [];
@@ -52,7 +53,8 @@ export default function StudentReport() {
     name: "Sekolah Dasar Negeri 1",
     address: "Jl. Pendidikan No. 123, Kota",
     npsn: "12345678",
-    principalName: "Drs. Ahmad Sulaiman, M.Pd."
+    principalName: "Drs. Ahmad Sulaiman, M.Pd.",
+    principalNip: ""
   });
   const [teacherName, setTeacherName] = useState("Budi Santoso, S.Pd.");
   const [classesList, setClassesList] = useState([]);
@@ -68,7 +70,8 @@ export default function StudentReport() {
               name: data.name || "Sekolah Dasar Negeri 1",
               address: data.address || "Jl. Pendidikan No. 123, Kota",
               npsn: data.npsn || "12345678",
-              principalName: data.principalName || "Drs. Ahmad Sulaiman, M.Pd."
+              principalName: data.principalName || "Drs. Ahmad Sulaiman, M.Pd.",
+              principalNip: data.principalNip || ""
             });
           }
         } catch (error) {
@@ -80,38 +83,6 @@ export default function StudentReport() {
     fetchSchoolData();
   }, [schoolId]);
   
-  // Fetch classes from Firestore
-  useEffect(() => {
-    const fetchClasses = async () => {
-      if (!schoolId) return;
-      
-      try {
-        const { collection, getDocs, query, orderBy } = await import('firebase/firestore');
-        const classesRef = collection(db, `schools/${schoolId}/classes`);
-        const classesQuery = query(classesRef, orderBy('name'));
-        const snapshot = await getDocs(classesQuery);
-        
-        const classes = [];
-        snapshot.forEach((doc) => {
-          classes.push({
-            id: doc.id,
-            name: doc.data().name || `Class ${doc.id}`,
-            level: doc.data().level || '',
-            teacherName: doc.data().teacherName || '',
-            room: doc.data().room || '',
-            studentCount: doc.data().studentCount || 0
-          });
-        });
-        
-        setClassesList(classes);
-      } catch (error) {
-        console.error("Error fetching classes:", error);
-        toast.error("Gagal mengambil data kelas");
-      }
-    };
-
-    fetchClasses();
-  }, [schoolId]);
   
   useEffect(() => {
     const fetchStudents = async () => {
@@ -292,34 +263,125 @@ export default function StudentReport() {
     }));
   };
   
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     setIsDownloading(true);
     
     try {
-      // Generate PDF
-      const fileName = generatePDF(
-        schoolInfo,
-        {
-          present: monthlySummary?.hadir || 20,
-          sick: monthlySummary?.sakit || 2,
-          permitted: monthlySummary?.izin || 1,
-          absent: monthlySummary?.alpha || 1
-        },
-        "student",
-        {
-          studentName: selectedStudent?.name || "",
-          className: selectedStudent?.kelas || selectedStudent?.class || "",
-          teacherName: teacherName || "",
-          studentId: selectedStudent?.id || "",
-          dateRange: {
-            start: format(new Date(), "yyyy-MM-dd"),
-            end: format(new Date(), "yyyy-MM-dd")
-          },
-          schoolId
-        }
-      );
+      // Generate PDF manually instead of using the utility
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
       
-      toast.success(`Laporan siswa ${selectedStudent.name} berhasil diunduh sebagai ${fileName}`);
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 15;
+      
+      // Add school header
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
+      
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "normal");
+      doc.text(schoolInfo.address || "Alamat Sekolah", pageWidth / 2, margin + 7, { align: "center" });
+      doc.text(`NPSN ${schoolInfo.npsn || "12345678"}`, pageWidth / 2, margin + 14, { align: "center" });
+      
+      // Add horizontal line
+      doc.setLineWidth(0.5);
+      doc.line(margin, margin + 20, pageWidth - margin, margin + 20);
+      
+      // Add report title
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, margin + 30, { align: "center" });
+      
+      // Add month, student name and class
+      const currentMonth = format(new Date(), "MMMM yyyy", { locale: id });
+      doc.setFontSize(12);
+      doc.text(`BULAN: ${currentMonth.toUpperCase()}`, pageWidth / 2, margin + 38, { align: "center" });
+      doc.text(`NAMA SISWA: ${selectedStudent?.name || ""}`, pageWidth / 2, margin + 46, { align: "center" });
+      doc.text(`KELAS: ${selectedStudent?.kelas || selectedStudent?.class || ""}`, pageWidth / 2, margin + 54, { align: "center" });
+      
+      // Add attendance summary table
+      const tableHeaders = ["Status", "Jumlah", "%"];
+      const tableData = [
+        ["Hadir", monthlySummary?.hadir || 0, `${((monthlySummary?.hadir || 0) / ((monthlySummary?.hadir || 0) + (monthlySummary?.sakit || 0) + (monthlySummary?.izin || 0) + (monthlySummary?.alpha || 0) || 1) * 100).toFixed(1)}%`],
+        ["Sakit", monthlySummary?.sakit || 0, `${((monthlySummary?.sakit || 0) / ((monthlySummary?.hadir || 0) + (monthlySummary?.sakit || 0) + (monthlySummary?.izin || 0) + (monthlySummary?.alpha || 0) || 1) * 100).toFixed(1)}%`],
+        ["Izin", monthlySummary?.izin || 0, `${((monthlySummary?.izin || 0) / ((monthlySummary?.hadir || 0) + (monthlySummary?.sakit || 0) + (monthlySummary?.izin || 0) + (monthlySummary?.alpha || 0) || 1) * 100).toFixed(1)}%`],
+        ["Alpha", monthlySummary?.alpha || 0, `${((monthlySummary?.alpha || 0) / ((monthlySummary?.hadir || 0) + (monthlySummary?.sakit || 0) + (monthlySummary?.izin || 0) + (monthlySummary?.alpha || 0) || 1) * 100).toFixed(1)}%`],
+        ["Total", (monthlySummary?.hadir || 0) + (monthlySummary?.sakit || 0) + (monthlySummary?.izin || 0) + (monthlySummary?.alpha || 0), "100%"]
+      ];
+      
+      // Draw table
+      let tableY = margin + 64;
+      const colWidths = [40, 40, 40];
+      const rowHeight = 10;
+      const tableWidth = colWidths.reduce((sum, width) => sum + width, 0);
+      const tableX = (pageWidth - tableWidth) / 2;
+      
+      // Draw headers
+      doc.setFillColor(230, 230, 230);
+      doc.rect(tableX, tableY, tableWidth, rowHeight, 'F');
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      
+      for (let i = 0; i < tableHeaders.length; i++) {
+        doc.text(tableHeaders[i], tableX + colWidths[i] / 2 + (i * colWidths[i]), tableY + 6, { align: "center" });
+      }
+      
+      // Draw borders for header
+      doc.setDrawColor(0);
+      doc.rect(tableX, tableY, tableWidth, rowHeight);
+      doc.line(tableX + colWidths[0], tableY, tableX + colWidths[0], tableY + rowHeight);
+      doc.line(tableX + colWidths[0] + colWidths[1], tableY, tableX + colWidths[0] + colWidths[1], tableY + rowHeight);
+      
+      // Draw data rows
+      tableY += rowHeight;
+      doc.setFont("helvetica", "normal");
+      
+      tableData.forEach((row, idx) => {
+        // Fill background for total row
+        if (idx === tableData.length - 1) {
+          doc.setFillColor(230, 230, 230);
+          doc.rect(tableX, tableY, tableWidth, rowHeight, 'F');
+          doc.setFont("helvetica", "bold");
+        }
+        
+        for (let i = 0; i < row.length; i++) {
+          doc.text(row[i].toString(), tableX + colWidths[i] / 2 + (i * colWidths[i]), tableY + 6, { align: "center" });
+        }
+        
+        // Draw borders
+        doc.rect(tableX, tableY, tableWidth, rowHeight);
+        doc.line(tableX + colWidths[0], tableY, tableX + colWidths[0], tableY + rowHeight);
+        doc.line(tableX + colWidths[0] + colWidths[1], tableY, tableX + colWidths[0] + colWidths[1], tableY + rowHeight);
+        
+        tableY += rowHeight;
+      });
+      
+      // Add signature section - moved closer to the table (30 units closer)
+      const signatureY = tableY + 30; // Reduced from typical values like 60
+      
+      doc.text("Mengetahui", pageWidth / 4, signatureY);
+      doc.text("Pengelola Data", (pageWidth * 3) / 4, signatureY);
+      
+      doc.text("KEPALA SEKOLAH,", pageWidth / 4, signatureY + 5);
+      doc.text("Administrator Sekolah,", (pageWidth * 3) / 4, signatureY + 5);
+      
+      // Add space for signatures
+      doc.text(schoolInfo.principalName || "Kepala Sekolah", pageWidth / 4, signatureY + 30);
+      doc.text(userData?.name || "Administrator", (pageWidth * 3) / 4, signatureY + 30);
+      
+      doc.text(`NIP. ${schoolInfo.principalNip || "..............................................."}`, pageWidth / 4, signatureY + 35);
+      doc.text("NIP. ...............................................", (pageWidth * 3) / 4, signatureY + 35);
+      
+      // Save the PDF
+      const fileName = `Rekap_Siswa_${selectedStudent?.name || "Unknown"}_${format(new Date(), "yyyyMMdd")}.pdf`;
+      doc.save(fileName);
+      
+      toast.success(`Laporan siswa ${selectedStudent?.name || ""} berhasil diunduh sebagai ${fileName}`);
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast.error("Gagal mengunduh laporan PDF");

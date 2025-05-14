@@ -16,6 +16,12 @@ export async function sendTelegramNotification({ phoneNumber, message }: Telegra
     
     console.log(`Sending Telegram message to ${phoneNumber}: ${message}`);
     
+    // Validate the phone number/chat ID
+    if (!phoneNumber) {
+      console.error("No Telegram chat ID provided");
+      return false;
+    }
+    
     // In Telegram, the chat_id is typically a numeric ID
     // For this implementation, we assume the student.telegramNumber is actually the parent's Telegram chat ID
     const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {

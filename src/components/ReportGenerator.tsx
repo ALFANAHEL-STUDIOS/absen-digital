@@ -37,6 +37,7 @@ interface ReportOptions {
   selectedStudents: string[];
   orientation: "portrait" | "landscape";
   paperSize: "a4" | "letter";
+  templateId?: string;
 }
 
 const ReportGenerator: React.FC<ReportGeneratorProps> = ({ schoolId, userRole }) => {
@@ -57,7 +58,8 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({ schoolId, userRole })
     selectedClasses: [],
     selectedStudents: [],
     orientation: "portrait",
-    paperSize: "a4"
+    paperSize: "a4",
+    templateId: ""
   });
 
   // Fetch classes and students when component mounts
@@ -138,6 +140,49 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({ schoolId, userRole })
     });
   };
 
+  const [templates, setTemplates] = useState<any[]>([]);
+  
+  // Fetch available templates
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      if (!schoolId) return;
+      
+      try {
+        // Try to get templates from localStorage first
+        const storedTemplates = localStorage.getItem(`reportTemplates_${schoolId}`);
+        if (storedTemplates) {
+          setTemplates(JSON.parse(storedTemplates));
+          return;
+        }
+        
+        // If no templates in localStorage, try Firestore
+        const { collection, query, getDocs, orderBy } = await import('firebase/firestore');
+        const { db } = await import('@/lib/firebase');
+        
+        const templatesRef = collection(db, `schools/${schoolId}/reportTemplates`);
+        const templatesQuery = query(templatesRef, orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(templatesQuery);
+        
+        const fetchedTemplates: any[] = [];
+        snapshot.forEach((doc) => {
+          fetchedTemplates.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+        
+        setTemplates(fetchedTemplates);
+        
+        // Save to localStorage for faster access next time
+        localStorage.setItem(`reportTemplates_${schoolId}`, JSON.stringify(fetchedTemplates));
+      } catch (error) {
+        console.error("Error fetching templates:", error);
+      }
+    };
+    
+    fetchTemplates();
+  }, [schoolId]);
+
   const generateReport = async () => {
     setIsGenerating(true);
     
@@ -164,6 +209,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({ schoolId, userRole })
             principalName: data.principalName || schoolInfo.principalName
           };
         }
+      }
+      
+      // If using a template, redirect to the template generation page
+      if (options.templateId) {
+        window.location.href = `/dashboard/reports/generate?templateId=${options.templateId}`;
+        return;
       }
       
       // Create PDF document
@@ -609,6 +660,25 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({ schoolId, userRole })
                 >
                   <option value="a4">A4</option>
                   <option value="letter">Letter</option>
+                </select>
+              </div>
+            
+              {/* Template Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Template Laporan
+                </label>
+                <select
+                  value={options.templateId}
+                  onChange={(e) => handleOptionChange("templateId", e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                >
+                  <option value="">Gunakan Template Default</option>
+                  {templates.map((template) => (
+                    <option key={template.id} value={template.id}>
+                      {template.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

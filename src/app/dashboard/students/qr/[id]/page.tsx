@@ -88,10 +88,10 @@ export default function StudentQRCode({ params }: { params: { id: string } }) {
         </div>
 
         {/* Content */}
-        <div className="p-6 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center">
+        <div className="p-6 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center w-full">
             {/* Student Information */}
-            <div className="text-center mb-2 mt-0">
+            <div className="text-center mb-2 mt-0 w-full">
               <h3 className="font-bold text-3xl text-gray-800">{student.name}</h3>
               <table className="text-sm mt-2 mx-auto">
                 <tbody>
@@ -113,8 +113,8 @@ export default function StudentQRCode({ params }: { params: { id: string } }) {
           </div>
 
           {/* QR Code */}
-          <div className="flex flex-col items-center mt-0">
-            <div className="bg-white p-3 border border-gray-300 rounded-lg">
+          <div className="flex flex-col items-center justify-center mt-0 w-full">
+            <div className="bg-white p-3 border border-gray-300 rounded-lg mx-auto">
               <QRCodeSVG
                 value={student.nisn}
                 size={270}

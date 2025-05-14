@@ -41,6 +41,7 @@ export default function Students() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedClass, setSelectedClass] = useState("all");
   const [classes, setClasses] = useState<string[]>([]);
+  const [filteredAttendanceData, setFilteredAttendanceData] = useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState<string | null>(null);
 

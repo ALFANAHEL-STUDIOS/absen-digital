@@ -216,7 +216,10 @@ export default function TeacherDashboard({
                         Status
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Waktu
+                        Waktu Absensi
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Catatan
                       </th>
                     </tr>
                   </thead>
@@ -225,7 +228,7 @@ export default function TeacherDashboard({
                       recentAttendance.map((record) => (
                         <tr key={record.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-xs font-medium text-gray-900">{record.studentName}</div>
+                            <div className="font-medium text-gray-900">{record.studentName}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-gray-500">{record.class}</div>
@@ -245,6 +248,12 @@ export default function TeacherDashboard({
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-gray-500">
                             {record.time}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                            {(record.status === 'sakit' || record.status === 'sick' || 
+                              record.status === 'izin' || record.status === 'permitted' || 
+                              record.status === 'alpha' || record.status === 'absent') && record.note ? 
+                              record.note : '-'}
                           </td>
                         </tr>
                       ))

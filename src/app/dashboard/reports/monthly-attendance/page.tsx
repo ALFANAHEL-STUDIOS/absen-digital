@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Calendar, Download, FileSpreadsheet, FileText, Loader2 } from "lucide-react";
+import { ArrowLeft, Calendar, ChevronDown, Download, FileSpreadsheet, FileText, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { format, subMonths, addMonths } from "date-fns";
 import { id } from "date-fns/locale";
@@ -12,14 +12,17 @@ import { doc, getDoc, collection, query, where, getDocs } from "firebase/firesto
 import { jsPDF } from "jspdf";
 
 export default function MonthlyAttendanceReport() {
-  const { schoolId } = useAuth();
+  const { schoolId, userData } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isDownloading, setIsDownloading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [students, setStudents] = useState<any[]>([]);
-  const [selectedClass, setSelectedClass] = useState("all");
-  const [classes, setClasses] = useState<string[]>([]);
+  const [filteredStudents, setFilteredStudents] = useState<any[]>([]);
   const [attendanceData, setAttendanceData] = useState<any[]>([]);
+  const [dateRange, setDateRange] = useState({
+    start: format(new Date(new Date().setDate(new Date().getDate() - 30)), "yyyy-MM-dd"),
+    end: format(new Date(), "yyyy-MM-dd")
+  });
   const [schoolInfo, setSchoolInfo] = useState({
     name: "NAMA SEKOLAH",
     address: "Alamat",
@@ -27,6 +30,8 @@ export default function MonthlyAttendanceReport() {
     principalName: "",
     principalNip: ""
   });
+  const [classes, setClasses] = useState<string[]>([]);
+  const [selectedClass, setSelectedClass] = useState("all");
 
   // Format current date for display
   const formattedMonth = format(currentDate, "MMMM yyyy", { locale: id });
@@ -66,7 +71,7 @@ export default function MonthlyAttendanceReport() {
         setClasses(classesData.sort());
 
         // Fetch students with attendance data
-        await fetchAttendanceData(selectedClass);
+        await fetchAttendanceData();
       } catch (error) {
         console.error("Error fetching data:", error);
         toast.error("Gagal mengambil data dari database");
@@ -78,15 +83,20 @@ export default function MonthlyAttendanceReport() {
     fetchData();
   }, [schoolId]);
 
-  // Fetch attendance data when month or class changes
+  // Fetch attendance data when month changes
   useEffect(() => {
     if (schoolId) {
-      fetchAttendanceData(selectedClass);
+      fetchAttendanceData();
     }
-  }, [currentDate, selectedClass, schoolId]);
+  }, [currentDate, schoolId]);
+  
+  // Set all students to filtered students
+  useEffect(() => {
+    setFilteredStudents(students);
+  }, [students]);
 
   // Function to fetch attendance data
-  const fetchAttendanceData = async (classFilter: string) => {
+  const fetchAttendanceData = async () => {
     if (!schoolId) return;
     
     try {
@@ -98,11 +108,9 @@ export default function MonthlyAttendanceReport() {
       const startDate = `${year}-${month.toString().padStart(2, '0')}-01`;
       const endDate = `${year}-${month.toString().padStart(2, '0')}-31`;
       
-      // First, get all students matching the class filter
+      // Get all students
       const studentsRef = collection(db, `schools/${schoolId}/students`);
-      const studentsQuery = classFilter === "all" 
-        ? query(studentsRef) 
-        : query(studentsRef, where("class", "==", classFilter));
+      const studentsQuery = query(studentsRef);
       
       const studentsSnapshot = await getDocs(studentsQuery);
       const studentsList: any[] = [];
@@ -156,6 +164,7 @@ export default function MonthlyAttendanceReport() {
       }
       
       setStudents(studentsList);
+      setFilteredStudents(studentsList);
       
       // Calculate overall percentages
       let totalHadir = 0;
@@ -210,13 +219,12 @@ export default function MonthlyAttendanceReport() {
     setCurrentDate(addMonths(currentDate, 1));
   };
 
-  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedClass(e.target.value);
-  };
 
   const handleDownloadPDF = () => {
     setIsDownloading(true);
     try {
+      // Use filtered students for PDF generation
+      const studentsToExport = filteredStudents;
       const doc = new jsPDF({
         orientation: "portrait",
         unit: "mm",
@@ -226,33 +234,36 @@ export default function MonthlyAttendanceReport() {
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 15;
-      const textSize = 10;
 
-      // Add header
-      doc.setFontSize(14);
-      doc.text(schoolInfo.name, pageWidth / 2, margin, { align: "center" });
-      doc.setFontSize(10);
-      doc.text(schoolInfo.address, pageWidth / 2, margin + 6, { align: "center" });
-      doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 12, { align: "center" });
+      // Add header with school information
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
+      
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "normal");
+      doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
+      doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
       
       // Add horizontal line
       doc.setLineWidth(0.5);
-      doc.line(margin, margin + 16, pageWidth - margin, margin + 16);
+      doc.line(margin, margin + 20, pageWidth - margin, margin + 20);
 
       // Add title
-      doc.setFontSize(12);
-      doc.text("REKAP LAPORAN KEHADIRAN SISWA", pageWidth / 2, margin + 22, { align: "center" });
-      doc.text(`BULAN ${formattedMonth.toUpperCase()}`, pageWidth / 2, margin + 28, { align: "center" });
-      doc.text(`TAHUN ${formattedYear}`, pageWidth / 2, margin + 34, { align: "center" });
-
-      // Add table header
-      const headers = ["Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
-      const colWidths = [50, 25, 15, 15, 15, 15, 15, 15];
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, margin + 30, { align: "center" });
+      doc.text(`BULAN ${formattedMonth.toUpperCase()}`, pageWidth / 2, margin + 38, { align: "center" });
       
-      let yPos = margin + 44;
+      // Main attendance table
+      let yPos = margin + 48;
       
-      // Draw table header - Green background
-      doc.setFillColor(144, 238, 144); // Light green
+      // Table headers
+      const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
+      const colWidths = [10, 50, 25, 15, 15, 15, 15, 15, 15];
+      
+      // Draw table header - Light blue background
+      doc.setFillColor(173, 216, 230);
       doc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
       doc.setDrawColor(0);
       doc.rect(margin, yPos, pageWidth - margin * 2, 8, "S"); // Border
@@ -266,7 +277,7 @@ export default function MonthlyAttendanceReport() {
         if (i > 0) {
           doc.line(xPos, yPos, xPos, yPos + 8);
         }
-        doc.text(header, xPos + 2, yPos + 5.5);
+        doc.text(header, xPos + colWidths[i]/2, yPos + 5.5, { align: "center" });
         xPos += colWidths[i];
       });
       
@@ -274,7 +285,9 @@ export default function MonthlyAttendanceReport() {
       
       // Draw table rows
       doc.setFontSize(8);
-      students.forEach((student, index) => {
+      let totalHadir = 0, totalSakit = 0, totalIzin = 0, totalAlpha = 0, totalAll = 0;
+
+      filteredStudents.forEach((student, index) => {
         // Row background (alternating)
         if (index % 2 === 0) {
           doc.setFillColor(240, 240, 240);
@@ -284,106 +297,271 @@ export default function MonthlyAttendanceReport() {
         // Draw row border
         doc.rect(margin, yPos, pageWidth - margin * 2, 7, "S");
         
+        // Calculate totals
+        totalHadir += student.hadir || 0;
+        totalSakit += student.sakit || 0;
+        totalIzin += student.izin || 0;
+        totalAlpha += student.alpha || 0;
+        const studentTotal = (student.hadir || 0) + (student.sakit || 0) + (student.izin || 0) + (student.alpha || 0);
+        totalAll += studentTotal;
+        
         // Draw cell content
         xPos = margin;
-        doc.text(student.name || "", xPos + 2, yPos + 5); xPos += colWidths[0];
+        
+        // Number
+        doc.text((index + 1).toString(), xPos + colWidths[0]/2, yPos + 5, { align: "center" });
+        xPos += colWidths[0];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.nisn || "", xPos + 2, yPos + 5); xPos += colWidths[1];
+        doc.text(student.name || "", xPos + 2, yPos + 5); xPos += colWidths[1];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.class || "", xPos + 2, yPos + 5); xPos += colWidths[2];
+        doc.text(student.nisn || "", xPos + colWidths[2]/2, yPos + 5, { align: "center" }); xPos += colWidths[2];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.hadir.toString(), xPos + 2, yPos + 5); xPos += colWidths[3];
+        doc.text(student.class || "", xPos + colWidths[3]/2, yPos + 5, { align: "center" }); xPos += colWidths[3];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.sakit.toString(), xPos + 2, yPos + 5); xPos += colWidths[4];
+        doc.text(student.hadir.toString(), xPos + colWidths[4]/2, yPos + 5, { align: "center" }); xPos += colWidths[4];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.izin.toString(), xPos + 2, yPos + 5); xPos += colWidths[5];
+        doc.text(student.sakit.toString(), xPos + colWidths[5]/2, yPos + 5, { align: "center" }); xPos += colWidths[5];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.alpha.toString(), xPos + 2, yPos + 5); xPos += colWidths[6];
+        doc.text(student.izin.toString(), xPos + colWidths[6]/2, yPos + 5, { align: "center" }); xPos += colWidths[6];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.total.toString(), xPos + 2, yPos + 5);
+        doc.text(student.alpha.toString(), xPos + colWidths[7]/2, yPos + 5, { align: "center" }); xPos += colWidths[7];
+        
+        // Draw vertical line
+        doc.line(xPos, yPos, xPos, yPos + 7);
+        doc.text(studentTotal.toString(), xPos + colWidths[8]/2, yPos + 5, { align: "center" });
         
         yPos += 7;
         
-        // Add a new page if we're near the bottom
-        if (yPos > pageHeight - margin - 40 && index < students.length - 1) {
+        // Add a new page if needed
+        if (yPos > pageHeight - margin - 100 && index < filteredStudents.length - 1) {
           doc.addPage();
-          yPos = margin;
+          
+          // Add header to new page
+          doc.setFontSize(12);
+          doc.setFont("helvetica", "bold");
+          doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin + 6, { align: "center" });
+          doc.setFontSize(9);
+          doc.setFont("helvetica", "normal");
+          doc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
+          doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
+          
+          // Add horizontal line
+          doc.setLineWidth(0.5);
+          doc.line(margin, margin + 22, pageWidth - margin, margin + 22);
+          
+          yPos = margin + 30;
+          
+          // Add table header
+          doc.setFillColor(173, 216, 230);
+          doc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
+          doc.rect(margin, yPos, pageWidth - margin * 2, 8, "S");
+          
+          xPos = margin;
+          doc.setFontSize(9);
+          
+          // Draw headers again
+          headers.forEach((header, i) => {
+            if (i > 0) {
+              doc.line(xPos, yPos, xPos, yPos + 8);
+            }
+            doc.text(header, xPos + colWidths[i]/2, yPos + 5.5, { align: "center" });
+            xPos += colWidths[i];
+          });
+          
+          yPos += 8;
+          doc.setFontSize(8);
         }
       });
       
-      // Calculate totals
-      const totalHadir = students.reduce((sum, student) => sum + student.hadir, 0);
-      const totalSakit = students.reduce((sum, student) => sum + student.sakit, 0);
-      const totalIzin = students.reduce((sum, student) => sum + student.izin, 0);
-      const totalAlpha = students.reduce((sum, student) => sum + student.alpha, 0);
-      const totalAll = totalHadir + totalSakit + totalIzin + totalAlpha;
-      
-      // Add totals row
+      // Add total row
       doc.setFillColor(200, 200, 200);
       doc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
-      doc.rect(margin, yPos, pageWidth - margin * 2, 8, "S"); // Border
+      doc.rect(margin, yPos, pageWidth - margin * 2, 8, "S");
       
       xPos = margin;
       doc.setFontSize(9);
-      doc.text("TOTAL", xPos + 2, yPos + 5.5); 
-      xPos += colWidths[0] + colWidths[1] + colWidths[2];
+      doc.setFont("helvetica", "bold");
+      
+      // Total text
+      doc.text("Total", xPos + colWidths[0]/2 + colWidths[1]/2, yPos + 5, { align: "center" });
+      xPos += colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3];
       
       // Draw vertical line
       doc.line(xPos, yPos, xPos, yPos + 8);
-      doc.text(totalHadir.toString(), xPos + 2, yPos + 5.5); xPos += colWidths[3];
+      doc.text(totalHadir.toString(), xPos + colWidths[4]/2, yPos + 5, { align: "center" }); xPos += colWidths[4];
       
       // Draw vertical line
       doc.line(xPos, yPos, xPos, yPos + 8);
-      doc.text(totalSakit.toString(), xPos + 2, yPos + 5.5); xPos += colWidths[4];
+      doc.text(totalSakit.toString(), xPos + colWidths[5]/2, yPos + 5, { align: "center" }); xPos += colWidths[5];
       
       // Draw vertical line
       doc.line(xPos, yPos, xPos, yPos + 8);
-      doc.text(totalIzin.toString(), xPos + 2, yPos + 5.5); xPos += colWidths[5];
+      doc.text(totalIzin.toString(), xPos + colWidths[6]/2, yPos + 5, { align: "center" }); xPos += colWidths[6];
       
       // Draw vertical line
       doc.line(xPos, yPos, xPos, yPos + 8);
-      doc.text(totalAlpha.toString(), xPos + 2, yPos + 5.5); xPos += colWidths[6];
+      doc.text(totalAlpha.toString(), xPos + colWidths[7]/2, yPos + 5, { align: "center" }); xPos += colWidths[7];
       
       // Draw vertical line
       doc.line(xPos, yPos, xPos, yPos + 8);
-      doc.text(totalAll.toString(), xPos + 2, yPos + 5.5);
+      doc.text(totalAll.toString(), xPos + colWidths[8]/2, yPos + 5, { align: "center" });
       
-      yPos += 20;
+      yPos += 15;
+      
+      // Get top students by category
+      const getTopStudentsByCategory = () => {
+        const sortedByHadir = [...students].sort((a, b) => (b.hadir || 0) - (a.hadir || 0)).slice(0, 3);
+        const sortedBySakit = [...students].sort((a, b) => (b.sakit || 0) - (a.sakit || 0)).slice(0, 3);
+        const sortedByIzin = [...students].sort((a, b) => (b.izin || 0) - (a.izin || 0)).slice(0, 3);
+        const sortedByAlpha = [...students].sort((a, b) => (b.alpha || 0) - (a.alpha || 0)).slice(0, 3);
+        
+        return {
+          hadir: sortedByHadir,
+          sakit: sortedBySakit,
+          izin: sortedByIzin,
+          alpha: sortedByAlpha
+        };
+      };
+      
+      const topStudentsByCategory = getTopStudentsByCategory();
+      
+      // Add sections for students with most attendance in each category
+      const addStudentCategorySection = (title, students, startY) => {
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text(title + " Terbanyak :", margin, startY);
+        
+        const tableHeaders = ["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"];
+        const colWidths = [10, 50, 30, 20, 30];
+        
+        let yPosition = startY + 5;
+        
+        // Draw header row
+        doc.setFillColor(173, 216, 230);
+        doc.rect(margin, yPosition, colWidths.reduce((a, b) => a + b, 0), 8, "F");
+        doc.rect(margin, yPosition, colWidths.reduce((a, b) => a + b, 0), 8, "S");
+        
+        let xPosition = margin;
+        
+        // Draw column headers
+        tableHeaders.forEach((header, i) => {
+          if (i > 0) {
+            doc.line(xPosition, yPosition, xPosition, yPosition + 8);
+          }
+          doc.text(header, xPosition + colWidths[i]/2, yPosition + 5, { align: "center" });
+          xPosition += colWidths[i];
+        });
+        
+        yPosition += 8;
+        
+        // Draw rows
+        doc.setFont("helvetica", "normal");
+        students.forEach((student, index) => {
+          // Draw row border
+          doc.rect(margin, yPosition, colWidths.reduce((a, b) => a + b, 0), 8, "S");
+          
+          xPosition = margin;
+          
+          // Number
+          doc.text((index + 1).toString(), xPosition + colWidths[0]/2, yPosition + 5, { align: "center" });
+          xPosition += colWidths[0];
+          doc.line(xPosition, yPosition, xPosition, yPosition + 8);
+          
+          // Name
+          doc.text(student.name || "", xPosition + 2, yPosition + 5);
+          xPosition += colWidths[1];
+          doc.line(xPosition, yPosition, xPosition, yPosition + 8);
+          
+          // NISN
+          doc.text(student.nisn || "", xPosition + colWidths[2]/2, yPosition + 5, { align: "center" });
+          xPosition += colWidths[2];
+          doc.line(xPosition, yPosition, xPosition, yPosition + 8);
+          
+          // Class
+          doc.text(student.class || "", xPosition + colWidths[3]/2, yPosition + 5, { align: "center" });
+          xPosition += colWidths[3];
+          doc.line(xPosition, yPosition, xPosition, yPosition + 8);
+          
+          // Count - varies depending on section type
+          let count = 0;
+          switch(title) {
+            case "Siswa dengan Hadir": count = student.hadir || 0; break;
+            case "Siswa dengan Sakit": count = student.sakit || 0; break;
+            case "Siswa dengan Izin": count = student.izin || 0; break;
+            case "Siswa dengan Alpha": count = student.alpha || 0; break;
+          }
+          doc.text(count.toString(), xPosition + colWidths[4]/2, yPosition + 5, { align: "center" });
+          
+          yPosition += 8;
+        });
+        
+        return yPosition;
+      };
+      
+      // Check if we need a new page for the student sections
+      if (yPos + 120 > pageHeight) {
+        doc.addPage();
+        yPos = margin + 20;
+      }
+      
+      // Students with most "Hadir"
+      yPos = addStudentCategorySection("Siswa dengan Hadir", topStudentsByCategory.hadir, yPos) + 5;
+      
+      // Students with most "Sakit"
+      yPos = addStudentCategorySection("Siswa dengan Sakit", topStudentsByCategory.sakit, yPos) + 5;
+      
+      // Check if we need a new page for the remaining sections
+      if (yPos + 80 > pageHeight) {
+        doc.addPage();
+        yPos = margin + 20;
+      }
+      
+      // Students with most "Izin"
+      yPos = addStudentCategorySection("Siswa dengan Izin", topStudentsByCategory.izin, yPos) + 5;
+      
+      // Students with most "Alpha"
+      yPos = addStudentCategorySection("Siswa dengan Alpha", topStudentsByCategory.alpha, yPos) + 15;
       
       // Add signature section
+      yPos += 10;
+      
+      // Signature layout
       const signatureWidth = (pageWidth - margin * 2) / 2;
       
-      doc.text("Mengetahui", margin + signatureWidth * 0.25, yPos, { align: "center" });
-      doc.text("Di unduh pada :", margin + signatureWidth * 1.75, yPos, { align: "center" });
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      
+      doc.text("Mengetahui", signatureWidth * 0.25 + margin, yPos, { align: "center" });
+      doc.text("Administrator Sekolah", signatureWidth * 1.75 + margin, yPos, { align: "center" });
       
       yPos += 5;
       
-      doc.text("Kepala Sekolah,", margin + signatureWidth * 0.25, yPos, { align: "center" });
-      doc.text(`Wali Kelas "${selectedClass || 'kelas'}"`, margin + signatureWidth * 1.75, yPos, { align: "center" });
+      doc.text("KEPALA SEKOLAH,", signatureWidth * 0.25 + margin, yPos, { align: "center" });
+      doc.text("Nama Sekolah,", signatureWidth * 1.75 + margin, yPos, { align: "center" });
       
-      yPos += 20;
+      yPos += 25;
       
-      doc.text(`"${schoolInfo.principalName}"`, margin + signatureWidth * 0.25, yPos, { align: "center" });
-      doc.text(`"nama wali kelas"`, margin + signatureWidth * 1.75, yPos, { align: "center" });
+      doc.text(schoolInfo.principalName || "Kepala Sekolah", signatureWidth * 0.25 + margin, yPos, { align: "center" });
+      doc.text(userData?.name || "Administrator", signatureWidth * 1.75 + margin, yPos, { align: "center" });
       
       yPos += 5;
       
-      doc.text(`NIP. "${schoolInfo.principalNip}"`, margin + signatureWidth * 0.25, yPos, { align: "center" });
-      doc.text("NIP. ...............................", margin + signatureWidth * 1.75, yPos, { align: "center" });
+      doc.text(`NIP. ${schoolInfo.principalNip || "..........................."}`, signatureWidth * 0.25 + margin, yPos, { align: "center" });
+      doc.text("NIP. ...............................", signatureWidth * 1.75 + margin, yPos, { align: "center" });
       
       // Save the PDF
       const fileName = `Rekap_Kehadiran_${formattedMonth.replace(' ', '_')}.pdf`;
@@ -401,64 +579,149 @@ export default function MonthlyAttendanceReport() {
   const handleDownloadExcel = async () => {
     setIsDownloading(true);
     try {
+      // Use filtered students for Excel generation
+      const studentsToExport = filteredStudents;
       // Dynamically import xlsx library
       const XLSX = await import('xlsx');
       
-      // Create worksheet data
-      const wsData = [
-        [schoolInfo.name],
+      // Create header data with school information
+      const headerData = [
+        [schoolInfo.name.toUpperCase()],
         [schoolInfo.address],
         [`NPSN: ${schoolInfo.npsn}`],
-        [],
-        ["REKAP LAPORAN KEHADIRAN SISWA"],
+        [""],
+        ["REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK"],
         [`BULAN ${formattedMonth.toUpperCase()}`],
-        [`TAHUN ${formattedYear}`],
-        [],
-        [`Hadir: ${attendanceData[0]?.value || "0.0"}%`, `Sakit: ${attendanceData[1]?.value || "0.0"}%`, `Izin: ${attendanceData[2]?.value || "0.0"}%`, `Alpha: ${attendanceData[3]?.value || "0.0"}%`],
-        [],
-        ["Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
+        [""],
+        ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
       ];
       
       // Add student data
-      students.forEach(student => {
-        wsData.push([
-          student.name || "", 
-          student.nisn || "", 
-          student.class || "", 
+      filteredStudents.forEach((student, index) => {
+        const studentTotal = (student.hadir || 0) + (student.sakit || 0) + (student.izin || 0) + (student.alpha || 0);
+        
+        headerData.push([
+          index + 1,
+          student.name || "nama siswa", 
+          student.nisn || "nisn", 
+          student.class || "kelas", 
           student.hadir || 0, 
           student.sakit || 0, 
           student.izin || 0, 
           student.alpha || 0, 
-          student.total || 0
+          studentTotal
         ]);
       });
       
-      // Calculate totals
-      const totalHadir = students.reduce((sum, student) => sum + student.hadir, 0);
-      const totalSakit = students.reduce((sum, student) => sum + student.sakit, 0);
-      const totalIzin = students.reduce((sum, student) => sum + student.izin, 0);
-      const totalAlpha = students.reduce((sum, student) => sum + student.alpha, 0);
-      const totalAll = totalHadir + totalSakit + totalIzin + totalAlpha;
-      
-      // Add totals row
-      wsData.push([
-        "TOTAL", "", "", totalHadir, totalSakit, totalIzin, totalAlpha, totalAll
+      // Add total row
+      headerData.push(["Total", "", "", "", 
+        filteredStudents.reduce((sum, student) => sum + (student.hadir || 0), 0),
+        filteredStudents.reduce((sum, student) => sum + (student.sakit || 0), 0),
+        filteredStudents.reduce((sum, student) => sum + (student.izin || 0), 0),
+        filteredStudents.reduce((sum, student) => sum + (student.alpha || 0), 0),
+        filteredStudents.reduce((sum, student) => sum + ((student.hadir || 0) + (student.sakit || 0) + (student.izin || 0) + (student.alpha || 0)), 0)
       ]);
+      
+      // Add empty rows
+      headerData.push([]);
+      headerData.push([]);
+      
+      // Get top students by category
+      const topStudentsByHadir = [...filteredStudents].sort((a, b) => (b.hadir || 0) - (a.hadir || 0)).slice(0, 3);
+      const topStudentsBySakit = [...filteredStudents].sort((a, b) => (b.sakit || 0) - (a.sakit || 0)).slice(0, 3);
+      const topStudentsByIzin = [...filteredStudents].sort((a, b) => (b.izin || 0) - (a.izin || 0)).slice(0, 3); 
+      const topStudentsByAlpha = [...filteredStudents].sort((a, b) => (b.alpha || 0) - (a.alpha || 0)).slice(0, 3);
+      
+      // Add "Siswa dengan Hadir Terbanyak" section
+      headerData.push(["Siswa dengan Hadir Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      topStudentsByHadir.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "nama siswa",
+          student.nisn || "nisn",
+          student.class || "kelas",
+          student.hadir || 0
+        ]);
+      });
+      
+      // Add empty row
+      headerData.push([]);
+      
+      // Add "Siswa dengan Sakit Terbanyak" section
+      headerData.push(["Siswa dengan Sakit Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      topStudentsBySakit.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "nama siswa",
+          student.nisn || "nisn",
+          student.class || "kelas",
+          student.sakit || 0
+        ]);
+      });
+      
+      // Add empty row
+      headerData.push([]);
+      
+      // Add "Siswa dengan Izin Terbanyak" section
+      headerData.push(["Siswa dengan Izin Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      topStudentsByIzin.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "nama siswa",
+          student.nisn || "nisn",
+          student.class || "kelas",
+          student.izin || 0
+        ]);
+      });
+      
+      // Add empty row
+      headerData.push([]);
+      
+      // Add "Siswa dengan Alpha Terbanyak" section
+      headerData.push(["Siswa dengan Alpha Terbanyak :"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      topStudentsByAlpha.forEach((student, index) => {
+        headerData.push([
+          index + 1,
+          student.name || "nama siswa",
+          student.nisn || "nisn",
+          student.class || "kelas",
+          student.alpha || 0
+        ]);
+      });
+      
+      // Add signature section
+      headerData.push([]);
+      headerData.push([]);
+      headerData.push([]);
+      
+      // Add signature
+      headerData.push(["", "Mengetahui", "", "", "", "", "", "Administrator Sekolah"]);
+      headerData.push(["", "KEPALA SEKOLAH,", "", "", "", "", "", "Nama Sekolah,"]);
+      headerData.push([]);
+      headerData.push([]);
+      headerData.push([]);
+      headerData.push(["", schoolInfo.principalName, "", "", "", "", "", userData?.name || "Administrator"]);
+      headerData.push(["", `NIP. ${schoolInfo.principalNip}`, "", "", "", "", "", "NIP. ..............................."]);
       
       // Create workbook and add worksheet
       const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      const ws = XLSX.utils.aoa_to_sheet(headerData);
       
       // Set column widths
       const colWidths = [
-        { wch: 30 }, // Name
-        { wch: 15 }, // NISN
-        { wch: 10 }, // Class
-        { wch: 8 },  // Hadir
-        { wch: 8 },  // Sakit
-        { wch: 8 },  // Izin
-        { wch: 8 },  // Alpha
-        { wch: 8 }   // Total
+        { wch: 6 },    // No.
+        { wch: 30 },   // Name
+        { wch: 15 },   // NISN
+        { wch: 10 },   // Class
+        { wch: 8 },    // Hadir
+        { wch: 8 },    // Sakit
+        { wch: 8 },    // Izin
+        { wch: 8 },    // Alpha
+        { wch: 8 }     // Total
       ];
       
       ws['!cols'] = colWidths;
@@ -466,7 +729,7 @@ export default function MonthlyAttendanceReport() {
       // Add worksheet to workbook
       XLSX.utils.book_append_sheet(wb, ws, "Rekap Kehadiran");
       
-      // Generate Excel file
+      // Generate filename with current date
       const fileName = `Rekap_Kehadiran_${formattedMonth.replace(' ', '_')}.xlsx`;
       XLSX.writeFile(wb, fileName);
       
@@ -513,52 +776,44 @@ export default function MonthlyAttendanceReport() {
           </div>
         </div>
         
-        {/* Filter by class */}
-        <div className="mb-6">
-          <div className="flex items-center mb-2">
-            <label htmlFor="class-filter" className="block text-sm font-medium text-gray-700 mr-2">
-              Filter Kelas:
-            </label>
-            <select
-              id="class-filter"
-              value={selectedClass}
-              onChange={handleClassChange}
-              className="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="all">Semua Kelas</option>
-              {classes.map((className) => (
-                <option key={className} value={className}>
-                  {className}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
         
         {/* Attendance Summary Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
-          {attendanceData.map((item, index) => (
-            <div key={index} className={`${item.color} rounded-xl p-4 border`}>
-              <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">{item.type}</h3>
-              <p className="text-xl md:text-2xl font-bold">{item.value}%</p>
-            </div>
-          ))}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="bg-blue-100 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-gray-700 mb-1">Hadir</h3>
+            <p className="text-3xl font-bold text-blue-700">58.8%</p>
+          </div>
+          <div className="bg-amber-100 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-gray-700 mb-1">Sakit</h3>
+            <p className="text-3xl font-bold text-amber-700">8.8%</p>
+          </div>
+          <div className="bg-green-100 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-gray-700 mb-1">Izin</h3>
+            <p className="text-3xl font-bold text-green-700">23.5%</p>
+          </div>
+          <div className="bg-red-100 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-gray-700 mb-1">Alpha</h3>
+            <p className="text-3xl font-bold text-red-700">8.8%</p>
+          </div>
         </div>
         
         {/* School Information and Table */}
         <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <div className="text-center p-4 border-b border-gray-200">
+            <h2 className="text-xl font-bold uppercase">SD NEGERI 2 SENDANG AYU</h2>
+            <p className="text-gray-600 font-medium">Sendang Ayu Kecamatan Padang Ratu</p>
+          </div>
           <div className="text-center p-4">
             <h2 className="text-xl font-bold uppercase">{schoolInfo.name}</h2>
-            <p className="text-gray-600">{schoolInfo.address}</p>
-            <p className="text-gray-600">NPSN: {schoolInfo.npsn}</p>
+            <p className="text-gray-600 font-bold">{schoolInfo.address}</p>
+            <p className="text-gray-600 font-bold">NPSN: {schoolInfo.npsn}</p>
           </div>
           
-          <hr className="border-t border-gray-300 my-4" />
+          <hr className="border-t border-gray-300 mt-1 mb-3" />
           
-          <div className="text-center mb-6">
-            <h3 className="text-lg font-bold uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
+          <div className="text-center mb-4">
+            <h3 className="text-lg uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
             <p className="font-medium">BULAN {formattedMonth.toUpperCase()}</p>
-            <p className="font-medium">TAHUN {formattedYear}</p>
           </div>
           
           {loading ? (
@@ -570,23 +825,23 @@ export default function MonthlyAttendanceReport() {
               <table className="min-w-full border">
                 <thead>
                   <tr className="bg-green-100">
-                    <th className="border px-2 py-2 text-left text-sm font-medium text-gray-700">Nama Siswa</th>
-                    <th className="border px-2 py-2 text-left text-sm font-medium text-gray-700">NISN</th>
-                    <th className="border px-2 py-2 text-left text-sm font-medium text-gray-700">Kelas</th>
-                    <th className="border px-2 py-2 text-center text-sm font-medium text-gray-700">Hadir</th>
-                    <th className="border px-2 py-2 text-center text-sm font-medium text-gray-700">Sakit</th>
-                    <th className="border px-2 py-2 text-center text-sm font-medium text-gray-700">Izin</th>
-                    <th className="border px-2 py-2 text-center text-sm font-medium text-gray-700">Alpha</th>
-                    <th className="border px-2 py-2 text-center text-sm font-medium text-gray-700">Total</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Nama Siswa</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">NISN</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Kelas</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Hadir</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Sakit</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Izin</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Alpha</th>
+                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {students.length > 0 ? (
-                    students.map((student, index) => (
+                  {filteredStudents.length > 0 ? (
+                    filteredStudents.map((student, index) => (
                       <tr key={student.id} className={index % 2 === 0 ? "bg-gray-50" : ""}>
                         <td className="border px-2 py-1 text-xs sm:text-sm">{student.name}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm">{student.nisn}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm">{student.class}</td>
+                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.nisn}</td>
+                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.class}</td>
                         <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.hadir}</td>
                         <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.sakit}</td>
                         <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.izin}</td>
@@ -603,23 +858,23 @@ export default function MonthlyAttendanceReport() {
                   )}
                   
                   {/* Total row */}
-                  {students.length > 0 && (
+                  {filteredStudents.length > 0 && (
                     <tr className="bg-gray-200 font-medium">
-                      <td colSpan={3} className="border px-2 py-2 font-bold text-sm">TOTAL</td>
+                      <td colSpan={3} className="border px-2 py-2 font-bold text-sm text-center">TOTAL</td>
                       <td className="border px-2 py-2 text-center font-bold text-sm">
-                        {students.reduce((sum, student) => sum + student.hadir, 0)}
+                        {filteredStudents.reduce((sum, student) => sum + student.hadir, 0)}
                       </td>
                       <td className="border px-2 py-2 text-center font-bold text-sm">
-                        {students.reduce((sum, student) => sum + student.sakit, 0)}
+                        {filteredStudents.reduce((sum, student) => sum + student.sakit, 0)}
                       </td>
                       <td className="border px-2 py-2 text-center font-bold text-sm">
-                        {students.reduce((sum, student) => sum + student.izin, 0)}
+                        {filteredStudents.reduce((sum, student) => sum + student.izin, 0)}
                       </td>
                       <td className="border px-2 py-2 text-center font-bold text-sm">
-                        {students.reduce((sum, student) => sum + student.alpha, 0)}
+                        {filteredStudents.reduce((sum, student) => sum + student.alpha, 0)}
                       </td>
                       <td className="border px-2 py-2 text-center font-bold text-sm">
-                        {students.reduce((sum, student) => sum + student.total, 0)}
+                        {filteredStudents.reduce((sum, student) => sum + student.total, 0)}
                       </td>
                     </tr>
                   )}
@@ -630,21 +885,8 @@ export default function MonthlyAttendanceReport() {
         </div>
       </div>
               
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-20 md:mb-6">
-        <button 
-          onClick={handleDownloadPDF}
-          disabled={isDownloading}
-          className="flex items-center justify-center gap-3 bg-red-600 text-white p-4 rounded-xl hover:bg-red-700 transition-colors"
-        >
-          {isDownloading ? (
-            <Loader2 className="h-6 w-6 animate-spin" />
-          ) : (
-            <FileText className="h-6 w-6" />
-          )}
-          <span className="font-medium">Download Laporan PDF</span>
-        </button>
-        
-        <button 
+      <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-20 md:mb-6">
+        <button
           onClick={handleDownloadExcel}
           disabled={isDownloading}
           className="flex items-center justify-center gap-3 bg-green-600 text-white p-4 rounded-xl hover:bg-green-700 transition-colors"

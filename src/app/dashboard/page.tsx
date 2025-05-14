@@ -12,9 +12,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import AdminDashboard from "./components/AdminDashboard";
 import TeacherDashboard from "./components/TeacherDashboard";
 import StudentDashboard from "./components/StudentDashboard";
+import DynamicDashboard from "@/components/DynamicDashboard";
 
 export default function Dashboard() {
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [showCustomDashboard, setShowCustomDashboard] = useState(false);
   const { user, schoolId, userRole, userData } = useAuth();
   const router = useRouter();
   const [schoolName, setSchoolName] = useState("");
@@ -29,6 +31,7 @@ export default function Dashboard() {
   // Check if this is the user's first login
   useEffect(() => {
     if (user) {
+      // Check if this is the first login by looking for a flag in localStorage
       const isFirstLogin = localStorage.getItem(`hasLoggedIn_${user.uid}`) !== 'true';
       
       if (isFirstLogin) {
@@ -154,34 +157,46 @@ export default function Dashboard() {
 
       {/* Render different dashboard based on user role */}
       {userRole === 'admin' && (
-        <AdminDashboard 
-          schoolName={schoolName} 
-          principalName={userData?.principalName || ""}
-          principalNip={userData?.principalNip || ""}
-          stats={{
-            totalStudents,
-            totalClasses,
-            attendanceRate,
-            totalTeachers
-          }}
-          recentAttendance={recentAttendance}
-          loading={loading}
-        />
+        <>
+          {showCustomDashboard ? (
+            <DynamicDashboard userRole={userRole} schoolId={schoolId} />
+          ) : (
+            <AdminDashboard 
+              schoolName={schoolName} 
+              principalName={userData?.principalName || ""}
+              principalNip={userData?.principalNip || ""}
+              stats={{
+                totalStudents,
+                totalClasses,
+                attendanceRate,
+                totalTeachers
+              }}
+              recentAttendance={recentAttendance}
+              loading={loading}
+            />
+          )}
+        </>
       )}
       
       {userRole === 'teacher' && (
-        <TeacherDashboard 
-          schoolName={schoolName} 
-          userName={userName}
-          stats={{
-            totalStudents,
-            totalClasses,
-            attendanceRate,
-            totalTeachers
-          }}
-          recentAttendance={recentAttendance}
-          loading={loading}
-        />
+        <>
+          {showCustomDashboard ? (
+            <DynamicDashboard userRole={userRole} schoolId={schoolId} />
+          ) : (
+            <TeacherDashboard 
+              schoolName={schoolName} 
+              userName={userName}
+              stats={{
+                totalStudents,
+                totalClasses,
+                attendanceRate,
+                totalTeachers
+              }}
+              recentAttendance={recentAttendance}
+              loading={loading}
+            />
+          )}
+        </>
       )}
       
       {userRole === 'student' && (
@@ -213,13 +228,13 @@ export default function Dashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+            className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 p-4"
           >
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-xl shadow-xl max-w-md w-full p-6"
+              className="bg-white rounded-xl shadow-xl max-w-md w-full p-4 sm:p-6"
             >
               <div className="flex justify-end">
                 <button 
@@ -232,8 +247,8 @@ export default function Dashboard() {
               <div className="text-center mb-6">
                 <h2 className="text-xl font-bold mb-1">SELAMAT DATANG</h2>
                 <h3 className="text-lg font-bold text-primary mb-4">{userData?.name || userName}</h3>
-                <p className="text-gray-700">
-                  Ini adalah pertama kali anda login ke aplikasi ABSENSI DIGITAL, untuk dapat menggunakan aplikasi ini, silahkan lengkapi <span className="font-bold">Profil Sekolah</span> anda dengan cara mengakses Menu yang berada di pojok kanan atas.
+                <p className="text-gray-700 text-sm sm:text-base">
+                  Jika anda pertama kali login ke Aplikasi ABSENSI DIGITAL, jangan lupa untuk dapat menggunakan aplikasi ini, silahkan lengkapi <span className="font-bold">Profil Sekolah</span> anda dengan cara mengakses Menu yang berada di pojok kanan atas.
                 </p>
               </div>
               <div className="flex justify-center">
