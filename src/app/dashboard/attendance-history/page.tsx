@@ -743,7 +743,7 @@ export default function AttendanceHistory() {
                         {(record.status === 'sakit' || record.status === 'sick' || 
                           record.status === 'izin' || record.status === 'permitted' || 
                           record.status === 'alpha' || record.status === 'absent') ? 
-                          (record.note || '-') : '-'}
+                          (record.note || 'notes') : 'note'}
                       </td>
                     </tr>
                   );
