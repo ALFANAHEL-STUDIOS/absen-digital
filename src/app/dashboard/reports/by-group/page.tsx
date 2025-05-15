@@ -508,17 +508,17 @@ export default function GroupAttendanceReport() {
       </div>
       
       {/* School Information and Table */}
-      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6">
-        <div className="text-center mb-4 sm:mb-6">
-          <h2 className="text-lg sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
-          <p className="text-gray-600 text-sm sm:text-base">{schoolInfo.address}</p>
-          <p className="text-gray-600 text-sm sm:text-base">NPSN: {schoolInfo.npsn}</p>
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-8">
+        <div className="text-center mb-4 sm:mb-3">
+          <h2 className="text-gray-600 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
+          <p className="text-gray-600 text-sm sm:text-base font-bold">{schoolInfo.address}</p>
+          <p className="text-gray-600 text-sm sm:text-base font-bold">NPSN {schoolInfo.npsn}</p>
         </div>
-        
+        <hr className="border-t border-gray-800 mt-1 mb-6" />
         <div className="text-center mb-4 sm:mb-6">
-          <h3 className="text-base sm:text-lg uppercase font-bold">REKAP LAPORAN KEHADIRAN SISWA</h3>
-          <p className="font-medium text-sm sm:text-base">KELAS : {selectedClass === "all" ? "Semua Kelas" : selectedClass}</p>
-          <p className="text-xs sm:text-sm mt-1">
+          <h3 className="text-base sm:text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
+        
+          <p className="text-xs sm:text-sm sm:text-gray-600 mt-1">
             Dari Tanggal : {format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} <br className="sm:hidden" /> Sampai Tanggal : {format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}
           </p>
         </div>
@@ -534,7 +534,7 @@ export default function GroupAttendanceReport() {
                 <table className="min-w-full bg-white border">
                   <thead className="bg-green-100">
                     <tr>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Siswa</th>
+                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Pegawai</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
