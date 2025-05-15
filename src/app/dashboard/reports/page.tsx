@@ -284,7 +284,7 @@ export default function Reports() {
         
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
           {/* Monthly Report - All users */}
-          <Link href="https://absen-digital.getcreatr.dev/dashboard/reports/monthly-attendance/" className="bg-blue-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-blue-200 text-gray-800">
+          <Link href="https://absen-digital-ku.vercel.app/dashboard/reports/monthly-attendance/" className="bg-blue-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-blue-200 text-gray-800">
             <div className="flex flex-col items-center text-center">
               <div className="bg-blue-100 p-3 rounded-full mb-3">
                 <Calendar className="h-6 w-6 text-blue-600" />
