@@ -183,7 +183,7 @@ export default function GroupAttendanceReport() {
     try {
       // Create PDF document
       const doc = new jsPDF({
-        orientation: "portrait",
+        orientation: "landscape",
         unit: "mm",
         format: "a4"
       });
@@ -192,40 +192,34 @@ export default function GroupAttendanceReport() {
       const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 15;
       const contentWidth = pageWidth - (margin * 2);
+
       
       // Add KOP Sekolah
-      doc.setFontSize(16);
-      doc.setFont("helvetica", "bold");
+      doc.setFontSize(15);
+      doc.setFont("helvetica");
       doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
       
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
+      doc.setFontSize(14);
+      doc.setFont("helvetica");
       doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
-      doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
-      
-      // Add horizontal line
+      doc.text(`Kode Pos ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
       doc.setLineWidth(0.5);
-      doc.line(margin, margin + 22, pageWidth - margin, margin + 22);
+      doc.line(margin, margin + 18, pageWidth - margin, margin + 18);
+
       
       // Add report title and class information
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, margin + 32, { align: "center" });
-      
-      // Add class information
       doc.setFontSize(12);
-      doc.text(`KELAS : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`, pageWidth / 2, margin + 40, { align: "center" });
-      
+      doc.setFont("helvetica");
+      doc.text("REKAPITULASI LAPORAN ABSENSI SISWA", pageWidth / 2, margin + 31, { align: "center" });
       // Add date range
       const startDate = format(new Date(dateRange.start), "d MMMM yyyy", { locale: id });
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
-      doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 48, { align: "center" });
-      
+      doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
       const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
-      const colWidths = [10, 50, 25, 15, 15, 15, 15, 15, 15];
+      const colWidths = [11, 61, 52, 48, 18, 18, 18, 18, 15];
       
-      let yPos = margin + 58;
+      let yPos = margin + 48;
       
       // Draw header row with green background
       doc.setFillColor(144, 238, 144); // Light green
@@ -236,7 +230,7 @@ export default function GroupAttendanceReport() {
       let xPos = margin;
       
       // Draw column headers
-      doc.setFontSize(10);
+      doc.setFontSize(11, { align: "center" });
       doc.setTextColor(0);
       headers.forEach((header, i) => {
         if (i > 0) {
@@ -249,7 +243,7 @@ export default function GroupAttendanceReport() {
       yPos += 8;
       
       // Draw table rows
-      doc.setFontSize(9);
+      doc.setFontSize(11);
       students.forEach((student, index) => {
         // Alternating row background
         if (index % 2 === 0) {
@@ -306,23 +300,24 @@ export default function GroupAttendanceReport() {
           doc.addPage();
           
           // Add header to new page (simplified)
-          doc.setFontSize(12);
-          doc.setFont("helvetica", "bold");
-          doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin + 6, { align: "center" });
-          doc.setFontSize(9);
-          doc.setFont("helvetica", "normal");
-          doc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
-          doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
-          
-          // Add horizontal line
-          doc.setLineWidth(0.5);
-          doc.line(margin, margin + 22, pageWidth - margin, margin + 22);
-          
-          // Add title (simplified for continuation pages)
-          doc.setFontSize(12);
-          doc.text(`REKAP LAPORAN KEHADIRAN SISWA - ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`, pageWidth / 2, margin + 30, { align: "center" });
-          
-          yPos = margin + 40;
+           doc.setFontSize(15);
+      doc.setFont("helvetica");
+      doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
+      
+      doc.setFontSize(14);
+      doc.setFont("helvetica");
+      doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
+      doc.text(`Kode Pos ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
+      doc.setLineWidth(0.5);
+      doc.line(margin, margin + 18, pageWidth - margin, margin + 18);
+
+      
+      // Add report title and class information
+      doc.setFontSize(12);
+      doc.setFont("helvetica");
+      doc.text("REKAPITULASI LAPORAN ABSENSI SISWA", pageWidth / 2, margin + 31, { align: "center" });
+           
+      let yPos = margin + 48;
           
           // Draw header row
           doc.setFillColor(144, 238, 144); // Light green
@@ -343,19 +338,19 @@ export default function GroupAttendanceReport() {
       });
       
       // Add footer with signature section
-      const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
-      doc.setFontSize(10);
-      doc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin, yPos + 15, { align: "right" });
+      //const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
+      //doc.setFontSize(10);
+     // doc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin, yPos + 15, { align: "right" });
       
       const signatureWidth = (pageWidth - margin * 2) / 2;
-      
+      doc.setFontSize(11);
       doc.text("Mengetahui,", margin + signatureWidth * 0.25, yPos + 20, { align: "center" });
-      doc.text("Administrator", margin + signatureWidth * 1.75, yPos + 20, { align: "center" });
+      doc.text("Pengelola Data", margin + signatureWidth * 1.75, yPos + 20, { align: "center" });
       
       doc.text("Kepala Sekolah", margin + signatureWidth * 0.25, yPos + 25, { align: "center" });
-      doc.text("Sekolah", margin + signatureWidth * 1.75, yPos + 25, { align: "center" });
+      doc.text("Administrator Sekolah", margin + signatureWidth * 1.75, yPos + 25, { align: "center" });
       
-      doc.setFont("helvetica", "bold");
+      doc.setFont("helvetica");
       doc.text(schoolInfo.principalName, margin + signatureWidth * 0.25, yPos + 45, { align: "center" });
       doc.text("Administrator", margin + signatureWidth * 1.75, yPos + 45, { align: "center" });
       
@@ -366,7 +361,7 @@ export default function GroupAttendanceReport() {
       const fileName = `Laporan_Kehadiran_Rombel_${format(new Date(), "yyyyMMdd")}.pdf`;
       doc.save(fileName);
       
-      toast.success(`Laporan kelas ${selectedClass === "all" ? "Semua Kelas" : selectedClass} berhasil diunduh sebagai ${fileName}`);
+      toast.success(`Laporan Absensi ${selectedClass === "all" ? "Rombel" : selectedClass} berhasil diunduh sebagai ${fileName}`);
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast.error("Gagal mengunduh laporan PDF");
@@ -390,7 +385,7 @@ export default function GroupAttendanceReport() {
         [`KELAS : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`],
         [`Dari Tanggal : ${format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} Sampai Tanggal : ${format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}`],
         [],
-        ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
+        ["No.", "Nama Pegawai", "NIK", "Jabatan", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
       ];
       
       // Add student data
@@ -459,7 +454,7 @@ export default function GroupAttendanceReport() {
       const fileName = `Laporan_Kehadiran_Rombel_${format(new Date(), "yyyyMMdd")}.xlsx`;
       XLSX.writeFile(wb, fileName);
       
-      toast.success(`Laporan kelas ${selectedClass === "all" ? "Semua Kelas" : selectedClass} berhasil diunduh sebagai ${fileName}`);
+      toast.success(`Laporan Absensi Rombel : selectedClass} berhasil diunduh sebagai ${fileName}`);
     } catch (error) {
       console.error("Error generating Excel:", error);
       toast.error("Gagal mengunduh laporan Excel");
@@ -514,17 +509,17 @@ export default function GroupAttendanceReport() {
       </div>
       
       {/* School Information and Table */}
-      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6">
-        <div className="text-center mb-4 sm:mb-6">
-          <h2 className="text-lg sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
-          <p className="text-gray-600 text-sm sm:text-base">{schoolInfo.address}</p>
-          <p className="text-gray-600 text-sm sm:text-base">NPSN: {schoolInfo.npsn}</p>
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-8">
+        <div className="text-center mb-4 sm:mb-3">
+          <h2 className="text-gray-600 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
+          <p className="text-gray-600 text-sm sm:text-base font-bold">{schoolInfo.address}</p>
+          <p className="text-gray-600 text-sm sm:text-base font-bold">Kode Pos {schoolInfo.npsn}</p>
         </div>
-        
+        <hr className="border-t border-gray-800 mt-1 mb-6" />
         <div className="text-center mb-4 sm:mb-6">
-          <h3 className="text-base sm:text-lg uppercase font-bold">REKAP LAPORAN KEHADIRAN SISWA</h3>
-          <p className="font-medium text-sm sm:text-base">KELAS : {selectedClass === "all" ? "Semua Kelas" : selectedClass}</p>
-          <p className="text-xs sm:text-sm mt-1">
+          <h3 className="text-base sm:text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
+        
+          <p className="text-xs sm:text-sm sm:text-gray-600 mt-1">
             Dari Tanggal : {format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} <br className="sm:hidden" /> Sampai Tanggal : {format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}
           </p>
         </div>
@@ -540,9 +535,9 @@ export default function GroupAttendanceReport() {
                 <table className="min-w-full bg-white border">
                   <thead className="bg-green-100">
                     <tr>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Siswa</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
+                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Pegawai</th>
+                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NIK</th>
+                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Jabatan</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Sakit</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Izin</th>
