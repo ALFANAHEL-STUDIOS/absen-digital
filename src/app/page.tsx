@@ -57,7 +57,7 @@ export default function HomePage() {
         <div className="container-custom px-3 sm:px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <QrCode className="h-7 w-7" />
-            <span className="font-bold text-xl">ABSEN DIGITAL</span>
+            <span className="font-bold text-xl">ABSENSI DIGITAL</span>
           </div>
           <div className="hidden md:flex space-x-3">
             <Link href="/login" className="px-4 py-1.5 rounded-md border border-white/50 text-white text-sm font-medium hover:bg-orange-500 transition-colors flex items-center gap-2 backdrop-blur-sm">
