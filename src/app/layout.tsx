@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code",
     template: "%s - ABSEN DIGITAL"
   },
-  description: "Sistem Absensi Digital dengan fitru Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram. Pantau kehadiran siswa dengan mudah menggunakan teknologi QR Code.",
+  description: "Sistem Absensi Digital dengan fitur Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram. Pantau kehadiran siswa dengan mudah menggunakan teknologi QR Code.",
   applicationName: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code",
   keywords: ["absensi", "qr code", "sekolah", "siswa", "telegram", "notifikasi", "pendidikan", "kehadiran", "absensi digital"],
   authors: [{
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://absendigital.com/",
     title: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code",
-    description: "Sistem Absensi Digital dengan fitru Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
+    description: "Sistem Absensi Digital dengan fitur Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
     siteName: "ABSENSI DIGITAL - Absensi Siswa Dengan QR CodeL",
     images: [{
       url: "https://www.creativefabrica.com/wp-content/uploads/2021/09/24/Scan-QR-code-to-Mobile-Phone-Graphics-17784982-1-1-580x387.jpg",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code",
-    description: "Sistem Absensi Digital dengan fitru Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
+    description: "Sistem Absensi Digital dengan fitur Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
     images: ["https://www.creativefabrica.com/wp-content/uploads/2021/09/24/Scan-QR-code-to-Mobile-Phone-Graphics-17784982-1-1-580x387.jpg"]
   }
 };
