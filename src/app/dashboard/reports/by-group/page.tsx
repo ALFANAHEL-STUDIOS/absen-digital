@@ -183,7 +183,7 @@ export default function GroupAttendanceReport() {
     try {
       // Create PDF document
       const doc = new jsPDF({
-        orientation: "portrait",
+        orientation: "landscape",
         unit: "mm",
         format: "a4"
       });
@@ -192,40 +192,34 @@ export default function GroupAttendanceReport() {
       const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 15;
       const contentWidth = pageWidth - (margin * 2);
+
       
       // Add KOP Sekolah
-      doc.setFontSize(16);
-      doc.setFont("helvetica", "bold");
+      doc.setFontSize(15);
+      doc.setFont("helvetica");
       doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
       
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
+      doc.setFontSize(14);
+      doc.setFont("helvetica");
       doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
-      doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
-      
-      // Add horizontal line
+      doc.text(`Kode Pos ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
       doc.setLineWidth(0.5);
-      doc.line(margin, margin + 22, pageWidth - margin, margin + 22);
+      doc.line(margin, margin + 18, pageWidth - margin, margin + 18);
+
       
       // Add report title and class information
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, margin + 32, { align: "center" });
-      
-      // Add class information
       doc.setFontSize(12);
-      doc.text(`KELAS : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`, pageWidth / 2, margin + 40, { align: "center" });
-      
+      doc.setFont("helvetica");
+      doc.text("REKAPITULASI LAPORAN ABSENSI SISWA", pageWidth / 2, margin + 31, { align: "center" });
       // Add date range
       const startDate = format(new Date(dateRange.start), "d MMMM yyyy", { locale: id });
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
-      doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 48, { align: "center" });
-      
+      doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
       const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
-      const colWidths = [10, 50, 25, 15, 15, 15, 15, 15, 15];
+      const colWidths = [11, 61, 52, 48, 18, 18, 18, 18, 15];
       
-      let yPos = margin + 58;
+      let yPos = margin + 48;
       
       // Draw header row with green background
       doc.setFillColor(144, 238, 144); // Light green
