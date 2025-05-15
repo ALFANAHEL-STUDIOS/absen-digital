@@ -135,7 +135,7 @@ export default function LoginPage() {
               <div className="container-custom flex justify-between items-center">
                 <Link href="/" className="flex items-center gap-2">
                   <QrCode className="h-6 w-6" />
-                  <span className="font-bold text-lg">ABSENSI DIGITAL</span>
+                  <span className="font-bold text-lg">ABSEN DIGITAL</span>
                 </Link>
               </div>
             </header>

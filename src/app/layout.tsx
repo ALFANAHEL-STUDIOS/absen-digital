@@ -11,17 +11,17 @@ export const viewport = {
 };
 export const metadata: Metadata = {
   title: {
-    default: "ABSENSI DIGITAL - Siswa Dengan QR Code",
-    template: "%s - ABSEN DIGITAL"
+    default: "ABSEN DIGITAL | Absensi Siswa QR Code",
+    template: "%s | ABSEN DIGITAL"
   },
-  description: "Sistem Absensi Digital dengan fitur Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram. Pantau kehadiran siswa dengan mudah menggunakan teknologi QR Code.",
-  applicationName: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code",
+  description: "Sistem Absensi Digital yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram. Pantau kehadiran siswa dengan mudah menggunakan teknologi QR Code.",
+  applicationName: "ABSEN DIGITAL",
   keywords: ["absensi", "qr code", "sekolah", "siswa", "telegram", "notifikasi", "pendidikan", "kehadiran", "absensi digital"],
   authors: [{
-    name: "ABSENSI DIGITAL ALFANAHEL"
+    name: "ABSEN DIGITAL Team"
   }],
-  creator: "ABSENSI DIGITAL ALFANAHEL",
-  publisher: "ABSENSI DIGITAL ALFANAHEL",
+  creator: "ABSEN DIGITAL Team",
+  publisher: "ABSEN DIGITAL Team",
   icons: {
     icon: [{
       url: "/favicon-16x16.png",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "ABSENSI DIGITAL - Siswa Dengan QR Code"
+    title: "ABSEN DIGITAL"
   },
   formatDetection: {
     telephone: false
@@ -55,21 +55,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: "https://absendigital.com/",
-    title: "ABSENSI DIGITAL - Siswa Dengan QR Code",
-    description: "Sistem Absensi Digital dengan fitur Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
-    siteName: "ABSENSI DIGITAL - Siswa Dengan QR CodeL",
+    title: "ABSEN DIGITAL | Absensi Siswa QR Code",
+    description: "Sistem Absensi Digital yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram",
+    siteName: "ABSEN DIGITAL",
     images: [{
-      url: "https://cdn.medcom.id/dynamic/content/2022/06/09/1436288/BlGKjpqYCI.jpg?w=1024",
+      url: "https://picsum.photos/200",
       width: 1200,
       height: 630,
-      alt: "ABSENSI DIGITAL - Siswa Dengan QR Code"
+      alt: "ABSEN DIGITAL QR Code System"
     }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "ABSENSI DIGITAL - Siswa Dengan QR Code",
-    description: "Sistem Absensi Digital dengan fitur Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
-    images: ["https://cdn.medcom.id/dynamic/content/2022/06/09/1436288/BlGKjpqYCI.jpg?w=1024"]
+    title: "ABSEN DIGITAL | Absensi Siswa QR Code",
+    description: "Sistem Absensi Digital yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram",
+    images: ["https://picsum.photos/200"]
   }
 };
 export default function RootLayout({
