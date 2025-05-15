@@ -216,7 +216,10 @@ export default function TeacherDashboard({
                         Status
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Waktu Absensi
+                        Tanggal
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Waktu
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Catatan
@@ -234,26 +237,25 @@ export default function TeacherDashboard({
                             <div className="text-gray-500">{record.class}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
                               ${record.status === 'hadir' || record.status === 'present' ? 'bg-green-100 text-green-800' : ''}
                               ${record.status === 'sakit' || record.status === 'sick' ? 'bg-orange-100 text-orange-800' : ''}
                               ${record.status === 'izin' || record.status === 'permitted' ? 'bg-blue-100 text-blue-800' : ''}
                               ${record.status === 'alpha' || record.status === 'absent' ? 'bg-red-100 text-red-800' : ''}
                             `}>
-                              {record.status === 'hadir' || record.status === 'present' ? 'Hadir' : ''}
-                              {record.status === 'sakit' || record.status === 'sick' ? 'Sakit' : ''}
-                              {record.status === 'izin' || record.status === 'permitted' ? 'Izin' : ''}
-                              {record.status === 'alpha' || record.status === 'absent' ? 'Alpha' : ''}
+                              {record.status === 'hadir' || record.status === 'present' ? 'Hadir' : 
+                               record.status === 'sakit' || record.status === 'sick' ? 'Sakit' : 
+                               record.status === 'izin' || record.status === 'permitted' ? 'Izin' : 'Alpha'}
                             </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                            {record.date}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-gray-500">
                             {record.time}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-gray-500">
-                            {(record.status === 'sakit' || record.status === 'sick' || 
-                              record.status === 'izin' || record.status === 'permitted' || 
-                              record.status === 'alpha' || record.status === 'absent') && record.note ? 
-                              record.note : '-'}
+                            {record.notes || record.note || record.catatan || '-'}
                           </td>
                         </tr>
                       ))

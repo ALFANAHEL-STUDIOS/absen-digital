@@ -141,6 +141,8 @@ export default function ScanQR() {
         class: student.class,
         status: attendanceStatus,
         notes: attendanceStatus !== 'hadir' ? attendanceNotes : '',
+        note: attendanceStatus !== 'hadir' ? attendanceNotes : '',
+        catatan: attendanceStatus !== 'hadir' ? attendanceNotes : '',
         date: today,
         time: format(currentDateTime, "HH:mm:ss"),
         day: formattedDay,

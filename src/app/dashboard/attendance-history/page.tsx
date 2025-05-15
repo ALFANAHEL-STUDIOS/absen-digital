@@ -33,6 +33,7 @@ interface AttendanceRecord {
   status: string;
   note?: string;
   notes?: string;
+  catatan?: string;
 }
 
 export default function AttendanceHistory() {
@@ -741,7 +742,7 @@ export default function AttendanceHistory() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {record.notes || record.note || '-'}
+                        {record.notes || record.note || record.catatan || '-'}
                       </td>
                     </tr>
                   );

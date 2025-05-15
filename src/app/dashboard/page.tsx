@@ -110,9 +110,12 @@ export default function Dashboard() {
           const recentAttendanceData = [];
           
           recentAttendanceSnapshot.forEach(doc => {
+            const data = doc.data();
             recentAttendanceData.push({
               id: doc.id,
-              ...doc.data()
+              ...data,
+              // Ensure notes field is available for display
+              notes: data.notes || data.note || data.catatan || null
             });
           });
           

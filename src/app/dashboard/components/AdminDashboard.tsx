@@ -262,7 +262,7 @@ export default function AdminDashboard({
                         Tanggal
                       </th>
                       <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Waktu Absensi
+                        Waktu
                       </th>
                       <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Catatan
@@ -301,10 +301,7 @@ export default function AdminDashboard({
                             {record.time}
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
-                            {(record.status === 'sakit' || record.status === 'sick' || 
-                              record.status === 'izin' || record.status === 'permitted' || 
-                              record.status === 'alpha' || record.status === 'absent') && record.note ? 
-                              record.note : '-'}
+                            {record.notes || record.note || record.catatan || '-'}
                           </td>
                         </tr>
                       ))
