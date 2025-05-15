@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     description: "Sistem Absensi Digital dengan fitru Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
     siteName: "ABSENSI DIGITAL - Absensi Siswa Dengan QR CodeL",
     images: [{
-      url: "https://snapy.co.id/gambar/artikel/article8_12_scan.jpg",
+      url: "https://www.creativefabrica.com/wp-content/uploads/2021/09/24/Scan-QR-code-to-Mobile-Phone-Graphics-17784982-1-1-580x387.jpg",
       width: 1200,
       height: 630,
       alt: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code"
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ABSENSI DIGITAL - Absensi Siswa Dengan QR Code",
     description: "Sistem Absensi Digital dengan fitru Scan QR Code yang menghubungkan sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
-    images: ["https://snapy.co.id/gambar/artikel/article8_12_scan.jpg"]
+    images: ["https://www.creativefabrica.com/wp-content/uploads/2021/09/24/Scan-QR-code-to-Mobile-Phone-Graphics-17784982-1-1-580x387.jpg"]
   }
 };
 export default function RootLayout({
