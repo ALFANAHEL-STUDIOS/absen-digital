@@ -60,7 +60,7 @@ export default function StudentReport() {
     principalName: "............................",
     principalNip: ""
   });
-  const [teacherName, setTeacherName] = useState("Budi Santoso, S.Pd.");
+  const [teacherName, setTeacherName] = useState("............................");
   const [classesList, setClassesList] = useState([]);
   
   useEffect(() => {
@@ -297,16 +297,16 @@ export default function StudentReport() {
       doc.line(margin, margin + 20, pageWidth - margin, margin + 20);
       
       // Add report title
-      doc.setFontSize(14);
+      doc.setFontSize(13);
       doc.setFont("helvetica", "normal");
       doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, margin + 30, { align: "center" });
       
       // Add month, student name and class
       const currentMonth = format(new Date(), "MMMM yyyy", { locale: id });
       doc.setFontSize(12);
-      doc.text(`BULAN: ${currentMonth.toUpperCase()}`, pageWidth / 2, margin + 38, { align: "center" });
-      doc.text(`NAMA SISWA: ${selectedStudent?.name || ""}`, pageWidth / 2, margin + 46, { align: "center" });
-      doc.text(`KELAS: ${selectedStudent?.kelas || selectedStudent?.class || ""}`, pageWidth / 2, margin + 54, { align: "center" });
+      doc.text(`BULAN : ${currentMonth.toUpperCase()}`, pageWidth / 2, margin + 38, { align: "center" });
+      doc.text(`NAMA : ${selectedStudent?.name || ""}`, pageWidth / 2, margin + 46, { align: "center" });
+      doc.text(`KELAS ${selectedStudent?.kelas || selectedStudent?.class || ""}`, pageWidth / 2, margin + 54, { align: "center" });
       
       // Add attendance summary table
       const tableHeaders = ["Status", "Jumlah", "%"];
@@ -329,7 +329,7 @@ export default function StudentReport() {
       doc.setFillColor(230, 230, 230);
       doc.rect(tableX, tableY, tableWidth, rowHeight, 'F');
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
+      doc.setFontSize(12);
       
       for (let i = 0; i < tableHeaders.length; i++) {
         doc.text(tableHeaders[i], tableX + colWidths[i] / 2 + (i * colWidths[i]), tableY + 6, { align: "center" });
@@ -350,7 +350,7 @@ export default function StudentReport() {
         if (idx === tableData.length - 1) {
           doc.setFillColor(230, 230, 230);
           doc.rect(tableX, tableY, tableWidth, rowHeight, 'F');
-          doc.setFont("helvetica", "bold");
+          doc.setFont("helvetica", "normal");
         }
         
         for (let i = 0; i < row.length; i++) {
@@ -368,17 +368,17 @@ export default function StudentReport() {
       // Add signature section - moved closer to the table (30 units closer)
       const signatureY = tableY + 30; // Reduced from typical values like 60
       
-      doc.text("Mengetahui", pageWidth / 4, signatureY);
+      doc.text("Mengetahui", pageWidth / 3, signatureY);
       doc.text("Pengelola Data", (pageWidth * 3) / 4, signatureY);
       
-      doc.text("Kepala Sekolah,", pageWidth / 4, signatureY + 5);
+      doc.text("Kepala Sekolah,", pageWidth / 3, signatureY + 5);
       doc.text("Administrator Sekolah,", (pageWidth * 3) / 4, signatureY + 5);
       
       // Add space for signatures
-      doc.text(schoolInfo.principalName || "Kepala Sekolah", pageWidth / 4, signatureY + 30);
+      doc.text(schoolInfo.principalName || "Kepala Sekolah", pageWidth / 3, signatureY + 30);
       doc.text(userData?.name || "Administrator", (pageWidth * 3) / 4, signatureY + 30);
       
-      doc.text(`NIP. ${schoolInfo.principalNip || ".................................."}`, pageWidth / 4, signatureY + 35);
+      doc.text(`NIP. ${schoolInfo.principalNip || ".................................."}`, pageWidth / 3, signatureY + 35);
       doc.text("NIP. ..................................", (pageWidth * 3) / 4, signatureY + 35);
       
       // Save the PDF
