@@ -349,7 +349,7 @@ export default function AdminDashboard({
                   <div className="bg-amber-400 bg-opacity-30 p-3 rounded-full mb-3">
                     <Settings className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center">Riwayat Absen</h3>
+                  <h3 className="font-medium text-white text-center">Riwayat Absensi</h3>
                 </div>
               </Link>
               
