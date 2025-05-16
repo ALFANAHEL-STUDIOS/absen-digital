@@ -494,7 +494,7 @@ export default function ScanQR() {
                 <>
                   <h2 className="text-lg font-semibold text-gray-800 mb-2">Siap untuk Scan</h2>
                   <p className="text-gray-500 mb-6 text-sm">
-                    Tekan Tombol Di Bawah Untuk Mengaktifkan Kamera
+                    Tekan Tombol Mulai Untuk Mengaktifkan Kamera
                   </p>
                   <motion.button
                     onClick={() => setScanning(true)}
@@ -520,7 +520,7 @@ export default function ScanQR() {
                       onClick={() => setScanning(false)}
                       className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
                     >
-                      Batalkan Scan
+                      Batalkan Scan...
                     </button>
                   </motion.div>
                 </>
