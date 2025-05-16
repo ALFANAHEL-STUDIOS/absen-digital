@@ -534,14 +534,14 @@ export default function GroupAttendanceReport() {
                 <table className="min-w-full bg-white border">
                   <thead className="bg-green-100">
                     <tr>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-left font-bold text-xs sm:text-sm">Nama Siswa</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-left font-bold text-xs sm:text-sm">NAMA SISWA</th>
                       <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Sakit</th>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Izin</th>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Alpha</th>
-                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Total</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">KELAS</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">HADIR</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">SAKIT</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">IZIN</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">ALPHA</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">TOTAL</th>
                     </tr>
                   </thead>
                   <tbody>
