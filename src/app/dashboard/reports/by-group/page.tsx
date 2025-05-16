@@ -217,8 +217,8 @@ export default function GroupAttendanceReport() {
       doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
      
-      const headers = ["NO.", "NAMA SISWA", "     NISN", "     KELAS", "HADIR", "SAKIT", "IZIN", "ALPHA", "TOTAL"];
-      const colWidths = [11, 85, 38, 32, 18, 18, 16, 18, 31];
+      const headers = ["NO.", "NAMA SISWA", "          NISN", "     KELAS", "  HADIR", "  SAKIT", "  IZIN", "  ALPHA", "     TOTAL"];
+      const colWidths = [11, 85, 38, 28, 18, 18, 18, 18, 33];
       let yPos = margin + 48;
       
       // Draw header row with green background
