@@ -512,9 +512,9 @@ export default function GroupAttendanceReport() {
         <div className="text-center mb-4 sm:mb-3">
           <h2 className="text-gray-600 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
           <p className="text-gray-600 text-sm sm:text-base font-bold">{schoolInfo.address}</p>
-          <p className="text-gray-600 text-sm sm:text-base font-bold">NPSN {schoolInfo.npsn}</p>
+          <p className="text-gray-600 text-sm sm:text-base font-bold">NPSN : {schoolInfo.npsn}</p>
         </div>
-        <hr className="border-t border-gray-800 mt-1 mb-6" />
+        <hr className="border-t border-gray-800 mt-1 mb-6" /> 
         <div className="text-center mb-4 sm:mb-6">
           <h3 className="text-base sm:text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
         
@@ -534,7 +534,7 @@ export default function GroupAttendanceReport() {
                 <table className="min-w-full bg-white border">
                   <thead className="bg-green-100">
                     <tr>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Pegawai</th>
+                      <th class="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Siswa</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
