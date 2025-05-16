@@ -649,7 +649,7 @@ export default function StudentReport() {
                   <span className={`text-xs rounded ${
                         selectedStudent?.id === student.id
                           ? "bg-blue text-white"
-                          : "bg-white text-gray-100"
+                          : "bg-white text-gray-800"
                       }`}>
                        KELAS {student.class || student.kelas || '-'}
                       </span>
