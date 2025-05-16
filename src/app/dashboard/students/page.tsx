@@ -202,10 +202,10 @@ export default function Students() {
                     <h3 className="font-semibold text-sm">{student.name}</h3>
                     <p className="text-gray-500 text-xs">NISN: {student.nisn}</p>
                     <div className="flex items-center mt-1">
-                      <span className="inline-block px-1.5 py-0.5 text-xs bg-green-100 text-green-700 rounded">
+                      <span className="inline-block px-1.5 py-0.5 text-xs bg-blue-100 text-green-700 rounded">
                         Kelas {student.class}
                       </span>
-                      <span className="inline-block px-1.5 py-0.5 text-xs bg-gray-100 text-gray-700 rounded ml-2">
+                      <span className="inline-block px-1.5 py-0.5 text-xs bg-green-100 text-gray-700 rounded ml-2">
                         {student.gender === "male" ? "Laki-laki" : "Perempuan"}
                       </span>
                     </div>
