@@ -541,7 +541,7 @@ export default function AttendanceHistory() {
     <div className="pb-20 md:pb-6">
       <div className="flex items-center mb-6">
         <Calendar className="h-7 w-7 text-primary mr-3" />
-        <h1 className="text-2xl font-bold text-gray-800">Riwayat Kehadiran</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Riwayat Kehadiran Siswa</h1>
       </div>
       
       {/* Filters */}
@@ -698,7 +698,7 @@ export default function AttendanceHistory() {
                     Tanggal
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Waktu Absensi
+                    Waktu
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Nama Siswa
