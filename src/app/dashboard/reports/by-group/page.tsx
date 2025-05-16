@@ -183,7 +183,7 @@ export default function GroupAttendanceReport() {
     try {
       // Create PDF document
       const doc = new jsPDF({
-        orientation: "portrait",
+        orientation: "landscape",
         unit: "mm",
         format: "a4"
       });
@@ -216,8 +216,8 @@ export default function GroupAttendanceReport() {
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
       doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
-      const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
-      const colWidths = [11, 56, 18, 18, 15, 15, 15, 15, 15];
+      const headers = ["NO.", "NAMA SISWA", "NISN", "KELAS", "HADIR", "SAKIT", "IZIN", "ALPHA", "TOTAL"];
+      const colWidths = [13, 60, 35, 35, 15, 15, 15, 15, 15];
       
       let yPos = margin + 48;
       
