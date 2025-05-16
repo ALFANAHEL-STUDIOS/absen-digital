@@ -379,7 +379,7 @@ export default function AttendanceHistory() {
       
       const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
       
-      pdfDoc.setFontSize(10);
+      pdfDoc.setFontSize(11);
       //pdfDoc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin - 40, signatureY - 10, { align: "right" });
       
       pdfDoc.text("Mengetahui,", leftSignatureX, signatureY, { align: "center" });
