@@ -808,10 +808,10 @@ export default function MonthlyAttendanceReport() {
           <div className="text-center p-4 mb-8">
             <h2 className="text-gray-600 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
             <p className="text-gray-600 font-bold">{schoolInfo.address}</p>
-            <p className="text-gray-600 font-bold">NPSN {schoolInfo.npsn}</p>
+            <p className="text-gray-600 font-bold">NPSN : {schoolInfo.npsn}</p>
           </div>
           
-          <hr className="border-t border-gray-750 mt-1 mb-6" />
+          <hr className="border-t border-gray-750 mt-1 mb-3" />
 
           
           <div className="text-center mb-6">
