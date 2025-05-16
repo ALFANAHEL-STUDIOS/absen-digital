@@ -516,9 +516,9 @@ export default function GroupAttendanceReport() {
         </div>
         <hr className="border-t border-gray-800 mt-1 mb-6" /> 
         <div className="text-center mb-4 sm:mb-6">
-          <h3 className="text-base sm:text-gray-610 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
+          <h3 className="text-base sm:text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
         
-          <p className="text-xs sm:text-sm sm:text-gray-610 mt-1">
+          <p className="text-xs sm:text-sm sm:text-gray-600 mt-1">
             Dari Tanggal : {format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} <br className="sm:hidden" /> Sampai Tanggal : {format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}
           </p>
         </div>
