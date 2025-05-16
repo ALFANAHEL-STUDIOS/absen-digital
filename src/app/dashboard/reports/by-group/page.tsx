@@ -216,6 +216,7 @@ export default function GroupAttendanceReport() {
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
       doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
+      doc.text({ align: "center" });
       const headers = ["NO.", "NAMA SISWA", "NISN", "KELAS", "HADIR", "SAKIT", "IZIN", "ALPHA", "TOTAL"];
       const colWidths = [11, 85, 42, 38, 18, 18, 18, 18, 15];
       
