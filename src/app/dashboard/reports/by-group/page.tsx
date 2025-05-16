@@ -307,7 +307,7 @@ export default function GroupAttendanceReport() {
       doc.setFontSize(14);
       doc.setFont("helvetica");
       doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
-      doc.text(`Kode Pos ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
+      doc.text(`NPSN ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
       doc.setLineWidth(0.5);
       doc.line(margin, margin + 18, pageWidth - margin, margin + 18);
           
