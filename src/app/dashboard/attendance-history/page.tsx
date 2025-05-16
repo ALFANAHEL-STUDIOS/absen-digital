@@ -231,11 +231,11 @@ export default function AttendanceHistory() {
       const contentWidth = pageWidth - (margin * 2);
       
       // Add KOP Sekolah
-      pdfDoc.setFontSize(16);
+      pdfDoc.setFontSize(14);
       pdfDoc.setFont("helvetica", "bold");
       pdfDoc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin + 6, { align: "center" });
       
-      pdfDoc.setFontSize(11);
+      pdfDoc.setFontSize(12);
       pdfDoc.setFont("helvetica", "normal");
       pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
       pdfDoc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
@@ -245,12 +245,12 @@ export default function AttendanceHistory() {
       pdfDoc.line(margin, margin + 22, pageWidth - margin, margin + 22);
       
       // Add title
-      pdfDoc.setFontSize(14);
+      pdfDoc.setFontSize(12);
       pdfDoc.setFont("helvetica", "bold");
       pdfDoc.text("LAPORAN RIWAYAT KEHADIRAN SISWA", pageWidth / 2, margin + 32, { align: "center" });
       
       // Add filter information
-      pdfDoc.setFontSize(10);
+      pdfDoc.setFontSize(11);
       pdfDoc.setFont("helvetica", "normal");
       
       // Add date range
@@ -340,10 +340,10 @@ export default function AttendanceHistory() {
           pdfDoc.addPage();
           
           // Add KOP Sekolah to new page (simplified)
-          pdfDoc.setFontSize(12);
+          pdfDoc.setFontSize(14);
           pdfDoc.setFont("helvetica", "bold");
           pdfDoc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin + 6, { align: "center" });
-          pdfDoc.setFontSize(9);
+          pdfDoc.setFontSize(12);
           pdfDoc.setFont("helvetica", "normal");
           pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
           pdfDoc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
@@ -380,7 +380,7 @@ export default function AttendanceHistory() {
       const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
       
       pdfDoc.setFontSize(10);
-      pdfDoc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin - 40, signatureY - 10, { align: "right" });
+      //pdfDoc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin - 40, signatureY - 10, { align: "right" });
       
       pdfDoc.text("Mengetahui,", leftSignatureX, signatureY, { align: "center" });
       pdfDoc.text("Kepala Sekolah", leftSignatureX, signatureY + 5, { align: "center" });
