@@ -287,7 +287,7 @@ export default function StudentReport() {
       doc.setFont("helvetica", "bold");
       doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
       
-      doc.setFontSize(11);
+      doc.setFontSize(14);
       doc.setFont("helvetica", "normal");
       doc.text(schoolInfo.address || "Alamat Sekolah", pageWidth / 2, margin + 7, { align: "center" });
       doc.text(`NPSN ${schoolInfo.npsn || "12345678"}`, pageWidth / 2, margin + 14, { align: "center" });
@@ -298,7 +298,7 @@ export default function StudentReport() {
       
       // Add report title
       doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
+      doc.setFont("helvetica", "normal");
       doc.text("REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK", pageWidth / 2, margin + 30, { align: "center" });
       
       // Add month, student name and class
@@ -329,7 +329,7 @@ export default function StudentReport() {
       doc.setFillColor(230, 230, 230);
       doc.rect(tableX, tableY, tableWidth, rowHeight, 'F');
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
+      doc.setFontSize(11);
       
       for (let i = 0; i < tableHeaders.length; i++) {
         doc.text(tableHeaders[i], tableX + colWidths[i] / 2 + (i * colWidths[i]), tableY + 6, { align: "center" });
@@ -371,15 +371,15 @@ export default function StudentReport() {
       doc.text("Mengetahui", pageWidth / 4, signatureY);
       doc.text("Pengelola Data", (pageWidth * 3) / 4, signatureY);
       
-      doc.text("KEPALA SEKOLAH,", pageWidth / 4, signatureY + 5);
+      doc.text("Kepala Sekolah,", pageWidth / 4, signatureY + 5);
       doc.text("Administrator Sekolah,", (pageWidth * 3) / 4, signatureY + 5);
       
       // Add space for signatures
       doc.text(schoolInfo.principalName || "Kepala Sekolah", pageWidth / 4, signatureY + 30);
       doc.text(userData?.name || "Administrator", (pageWidth * 3) / 4, signatureY + 30);
       
-      doc.text(`NIP. ${schoolInfo.principalNip || "..............................................."}`, pageWidth / 4, signatureY + 35);
-      doc.text("NIP. ...............................................", (pageWidth * 3) / 4, signatureY + 35);
+      doc.text(`NIP. ${schoolInfo.principalNip || ".................................."}`, pageWidth / 4, signatureY + 35);
+      doc.text("NIP. ..................................", (pageWidth * 3) / 4, signatureY + 35);
       
       // Save the PDF
       const fileName = `Rekap_Siswa_${selectedStudent?.name || "Unknown"}_${format(new Date(), "yyyyMMdd")}.pdf`;
@@ -481,7 +481,7 @@ export default function StudentReport() {
       const headerData = [
         [schoolInfo.name.toUpperCase()],
         [schoolInfo.address],
-        [`NPSN: ${schoolInfo.npsn}`],
+        [`NPSN : ${schoolInfo.npsn}`],
         [""],
         ["LAPORAN KEHADIRAN SISWA"],
         [`Periode: ${startDateFormatted} - ${endDateFormatted}`],
@@ -548,14 +548,14 @@ export default function StudentReport() {
       headerData.push(
         [""],
         [""],
-        [`${schoolInfo.address}, ${currentDate}`],
+        //[`${schoolInfo.address}, ${currentDate}`],
         [""],
-        ["Mengetahui,", "", "", "", "Wali Kelas"],
-        ["Kepala Sekolah", "", "", "", ""],
+        ["Mengetahui,", "", "", "", "Wali Kelas,"],
+        ["Kepala Sekolah,", "", "", "", ""],
         ["", "", "", "", ""],
         ["", "", "", "", ""],
         ["", "", "", "", ""],
-        [schoolInfo.principalName || "Kepala Sekolah", "", "", "", teacherName || "Wali Kelas"],
+        [schoolInfo.principalName || "Kepala Sekolah", "", "", "", teacherName || "Wali Kelas,"],
         [`NIP. ${schoolInfo.principalNip || "..........................."}`, "", "", "", "NIP. ..............................."]
       );
       
@@ -692,8 +692,7 @@ export default function StudentReport() {
                     </div>
                     <h2 className="text-lg font-semibold">Rekap Bulanan: {currentMonth}</h2>
                   </div>
-                  
-                  
+                                   
                 </div>
                 
                 {monthlySummary && (
