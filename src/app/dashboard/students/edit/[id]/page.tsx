@@ -254,7 +254,7 @@ export default function EditStudent({ params }: { params: { id: string } }) {
               
               <div>
                 <label htmlFor="telegramNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                  Nomor Telegram
+                  ID Telegram
                 </label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -311,7 +311,7 @@ export default function EditStudent({ params }: { params: { id: string } }) {
               <motion.button
                 type="submit"
                 disabled={saving}
-                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
+                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:orange-500 active:bg-orange-600 transition-colors"
                 whileTap={{ scale: 0.95 }}
               >
                 {saving ? (
