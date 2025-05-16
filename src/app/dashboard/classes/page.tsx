@@ -373,10 +373,10 @@ export default function Classes() {
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                  className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors"
                 >
                   <Save size={18} />
-                  {editingClassId ? "Perbarui" : "Simpan"}
+                  {editingClassId ? "Perbarui" : "Simpan Data"}
                 </button>
               </div>
             </form>
