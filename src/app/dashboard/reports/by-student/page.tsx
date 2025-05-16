@@ -643,16 +643,17 @@ export default function StudentReport() {
                       <div className="font-medium">{student.name}</div>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${
                         selectedStudent?.id === student.id
-                          ? "bg-blue-500/30 text-white"
-                          : "bg-gray-100 text-gray-600"
+                          ? ""
+                          : ""
                       }`}>
-                        Kelas {student.class || student.kelas || '-'}
+                        {/*Kelas {student.class || student.kelas || '-'}*/}
                       </span>
                     </div>
                     <div className="text-sm opacity-80">
                       NISN : {student.nisn}
-                      Kelas {student.kelas}
                     </div>
+                    <div className="text-sm opacity-80">
+                    Kelas {student.kelas}
                   </div>
                 ))
               ) : (
