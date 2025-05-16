@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       sizes: "32x32",
       type: "image/png"
     }, {
-      url: "/favicon.ico",
+      url: "https://icons.iconarchive.com/icons/martz90/circle/256/qr-code-icon.png",
       sizes: "48x48",
       type: "image/x-icon"
     }],
