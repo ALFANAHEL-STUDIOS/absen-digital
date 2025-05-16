@@ -297,10 +297,10 @@ export default function Reports() {
           
           {/* Group Report - Admin and Teacher only */}
           {(userRole === 'admin' || userRole === 'teacher') && (
-            <Link href="/dashboard/reports/by-group" className="bg-amber-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-amber-200 text-gray-800">
+            <Link href="/dashboard/reports/by-group" className="bg-green-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-green-200 text-gray-800">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-amber-100 p-3 rounded-full mb-3">
-                  <Users className="h-6 w-6 text-amber-600" />
+                <div className="bg-green-100 p-3 rounded-full mb-3">
+                  <Users className="h-6 w-6 text-green-600" />
                 </div>
                 <h3 className="font-medium text-gray-800 mb-1">Laporan Absen Rombel</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Rombel</p>
@@ -311,10 +311,10 @@ export default function Reports() {
           {/* Student Report - Different behavior based on role */}
           {userRole === 'student' ? (
             // For students - direct link to their own report
-            <Link href={`/dashboard/reports/by-student?id=${userData?.id || ''}`} className="bg-green-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-green-200 text-gray-800">
+            <Link href={`/dashboard/reports/by-student?id=${userData?.id || ''}`} className="bg-amber-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-amber-200 text-gray-800">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-green-100 p-3 rounded-full mb-3">
-                  <User className="h-6 w-6 text-green-600" />
+                <div className="bg-amber-100 p-3 rounded-full mb-3">
+                  <User className="h-6 w-6 text-amber-600" />
                 </div>
                 <h3 className="font-medium text-gray-800 mb-1">Rekap Kehadiran Saya</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Pribadi</p>
@@ -322,10 +322,10 @@ export default function Reports() {
             </Link>
           ) : (
             // For admin and teacher - link to student selection
-            <Link href="/dashboard/reports/by-student" className="bg-green-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-green-200 text-gray-800">
+            <Link href="/dashboard/reports/by-student" className="bg-amber-50 rounded-xl shadow-sm p-5 hover:shadow-md transition-all border border-amber-200 text-gray-800">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-green-100 p-3 rounded-full mb-3">
-                  <User className="h-6 w-6 text-green-600" />
+                <div className="bg-amber-100 p-3 rounded-full mb-3">
+                  <User className="h-6 w-6 text-amber-600" />
                 </div>
                 <h3 className="font-medium text-gray-800 mb-1">Rekap Per Siswa</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Setiap Siswa</p>
