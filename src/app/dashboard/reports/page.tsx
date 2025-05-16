@@ -149,7 +149,7 @@ export default function Reports() {
     <div className="pb-20 md:pb-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-800">
-          Laporan Bulan: {formattedMonth}
+          Laporan Bulan : {formattedMonth}
         </h1>
         
         <div className="flex items-center space-x-2">
@@ -167,7 +167,6 @@ export default function Reports() {
           </button>
         </div>
       </div>
-      
       <p className="text-gray-500 mb-6">Ringkasan Kehadiran Siswa dan Rekap Laporan</p>
       
       {/* Attendance Summary Cards */}
