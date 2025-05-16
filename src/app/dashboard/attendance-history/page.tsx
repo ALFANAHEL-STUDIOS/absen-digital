@@ -731,7 +731,7 @@ export default function AttendanceHistory() {
                         {record.time}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-xs text-sm text-gray-600">{record.studentName}</div>
+                        <div className="text-sm text-gray-600">{record.studentName}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {record.class}
