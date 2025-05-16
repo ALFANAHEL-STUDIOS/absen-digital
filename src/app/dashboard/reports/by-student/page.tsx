@@ -627,7 +627,7 @@ export default function StudentReport() {
               {/* Filter by class feature removed as requested */}
             </div>
             
-            <div className="space-y-2 max-h-[500px] overflow-y-auto">
+            <div className="space-y-2 max-h-[400px] overflow-y-auto">
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
                   <div
@@ -640,7 +640,7 @@ export default function StudentReport() {
                     onClick={() => handleStudentSelect(student)}
                   >
                     <div className="flex items-center gap-1.5">
-                      <div className="font-medium">{student.name}</div>
+                      <div className="font-small">{student.name}</div>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${
                         selectedStudent?.id === student.id
                           ? "bg-blue-500/30 text-white"
