@@ -804,7 +804,8 @@ export default function MonthlyAttendanceReport() {
             <h2 className="text-xl font-bold uppercase">SD NEGERI 2 SENDANG AYU</h2>
             <p className="text-gray-600 font-medium">Sendang Ayu Kecamatan Padang Ratu</p>
           </div>*/}
-          
+
+
           <div className="text-center p-4">
             <h2 className="text-gray-800 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
             <p className="text-gray-800 font-bold">{schoolInfo.address}</p>
