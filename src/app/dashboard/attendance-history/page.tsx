@@ -360,7 +360,7 @@ export default function AttendanceHistory() {
           
           xPos = margin;
           pdfDoc.setFont("helvetica", "bold");
-          pdfDoc.setFontSize(10);
+          pdfDoc.setFontSize(11);
           
           headers.forEach((header, i) => {
             pdfDoc.text(header, xPos + 3, yPos);
