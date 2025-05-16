@@ -57,7 +57,7 @@ export default function HomePage() {
         <div className="container-custom px-3 sm:px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <QrCode className="h-7 w-7" />
-            <span className="font-bold text-xl">ABSEN DIGITAL</span>
+            <span className="font-bold text-xl">ABSENSI DIGITAL</span>
           </div>
           <div className="hidden md:flex space-x-3">
             <Link href="/login" className="px-4 py-1.5 rounded-md border border-white/50 text-white text-sm font-medium hover:bg-orange-500 transition-colors flex items-center gap-2 backdrop-blur-sm">
@@ -115,7 +115,7 @@ export default function HomePage() {
             
             <h1 className="text-center font-bold text-3xl md:text-5xl mb-4 leading-tight">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-600 to-secondary">
-                ABSENSI SISWA MODERN DENGAN<br />QR CODE
+                ABSENSI SISWA MODERN DENGAN<br/>QR CODE
               </span>
             </h1>
             
@@ -501,7 +501,7 @@ export default function HomePage() {
               <div>
                 <h3 className="font-bold text-base mb-3">ABSENSI SISWA</h3>
                 <p className="max-w-md mb-4 text-gray-200 text-sm">
-                  Solusi Absensi Digital untuk Instansi Pendidikan yang Bermutu.
+                  Solusi Absensi Digital untuk Pendidikan yang Bermutu.
                 </p>
                 <div className="flex space-x-3">
                   <a href="#" className="hover:text-secondary transition-colors">
