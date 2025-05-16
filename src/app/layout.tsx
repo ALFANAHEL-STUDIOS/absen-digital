@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   publisher: "ABSENSI DIGITAL - Siswa Dengan QR Code Team",
   icons: {
     icon: [{
-      url: "/favicon-16x16.png",
+      url: "https://cdn.kibrispdr.org/data/824/qr-code-icon-png-41.png",
       sizes: "16x16",
       type: "image/png"
     }, {
-      url: "/favicon-32x32.png",
+      url: "https://cdn.kibrispdr.org/data/824/qr-code-icon-png-41.png",
       sizes: "32x32",
       type: "image/png"
     }, {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       type: "image/png"
     }]
   },
-  manifest: "/site.webmanifest",
+  manifest: "https://cdn.medcom.id/dynamic/content/2022/06/09/1436288/BlGKjpqYCI.jpg?w=1024",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
