@@ -516,9 +516,9 @@ export default function GroupAttendanceReport() {
         </div>
         <hr className="border-t border-gray-800 mt-1 mb-6" /> 
         <div className="text-center mb-4 sm:mb-6">
-          <h3 className="text-base sm:text-gray-650 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
+          <h3 className="text-base sm:text-gray-610 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
         
-          <p className="text-xs sm:text-sm sm:text-gray-650 mt-1">
+          <p className="text-xs sm:text-sm sm:text-gray-610 mt-1">
             Dari Tanggal : {format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} <br className="sm:hidden" /> Sampai Tanggal : {format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}
           </p>
         </div>
@@ -534,27 +534,27 @@ export default function GroupAttendanceReport() {
                 <table className="min-w-full bg-white border">
                   <thead className="bg-green-100">
                     <tr>
-                      <th className="border px-2 sm:px-4 py-2 font-bold text-xs sm:text-sm">Nama Siswa</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Sakit</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Izin</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Alpha</th>
-                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Total</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-left font-bold text-xs sm:text-sm">Nama Siswa</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Sakit</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Izin</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Alpha</th>
+                      <th className="text-gray-600 border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     {students.map((student, index) => (
                       <tr key={student.id} className={index % 2 === 0 ? "bg-gray-50" : ""}>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm">{student.name}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.nisn}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.class}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.hadir}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.sakit}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.izin}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.alpha}</td>
-                        <td className="border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.total}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm">{student.name}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.nisn}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.class}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.hadir}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.sakit}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.izin}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.alpha}</td>
+                        <td className="text-gray-600 border px-2 sm:px-4 py-1 sm:py-2 text-center text-xs sm:text-sm">{student.total}</td>
                       </tr>
                     ))}
                   </tbody>
