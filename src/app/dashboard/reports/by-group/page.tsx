@@ -344,10 +344,10 @@ export default function GroupAttendanceReport() {
       const signatureWidth = (pageWidth - margin * 2) / 2;
       
       doc.text("Mengetahui,", margin + signatureWidth * 0.25, yPos + 20, { align: "center" });
-      doc.text("Administrator", margin + signatureWidth * 1.75, yPos + 20, { align: "center" });
+      doc.text("Admin Pengelola Data", margin + signatureWidth * 1.75, yPos + 20, { align: "center" });
       
       doc.text("Kepala Sekolah", margin + signatureWidth * 0.25, yPos + 25, { align: "center" });
-      doc.text("Sekolah", margin + signatureWidth * 1.75, yPos + 25, { align: "center" });
+      doc.text("Absensi QR Code,", margin + signatureWidth * 1.75, yPos + 25, { align: "center" });
       
       doc.setFont("helvetica", "bold");
       doc.text(schoolInfo.principalName, margin + signatureWidth * 0.25, yPos + 45, { align: "center" });
