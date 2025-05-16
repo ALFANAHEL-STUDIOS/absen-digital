@@ -651,7 +651,7 @@ export default function StudentReport() {
                           ? "bg-blue-500/30 text-white"
                           : "bg-gray-100 text-gray-600"
                       }`}>
-                         {student.class || student.kelas || '-'}
+                       Kelas {student.class || student.kelas || '-'}
                       </span>
                     </div>
                 ))
