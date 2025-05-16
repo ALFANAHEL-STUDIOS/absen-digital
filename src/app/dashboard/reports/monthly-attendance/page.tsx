@@ -779,7 +779,7 @@ export default function MonthlyAttendanceReport() {
         
         
         {/* Attendance Summary Cards */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
+        {/*<div className="grid grid-cols-2 gap-4 mb-6">
           <div className="bg-blue-100 p-4 rounded-lg">
             <h3 className="text-sm font-medium text-gray-700 mb-1">Hadir</h3>
             <p className="text-3xl font-bold text-blue-700">58.8%</p>
@@ -796,14 +796,14 @@ export default function MonthlyAttendanceReport() {
             <h3 className="text-sm font-medium text-gray-700 mb-1">Alpha</h3>
             <p className="text-3xl font-bold text-red-700">8.8%</p>
           </div>
-        </div>
+        </div>*/}
         
         {/* School Information and Table */}
         <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <div className="text-center p-4 border-b border-gray-200">
+          {/*<div className="text-center p-4 border-b border-gray-200">
             <h2 className="text-xl font-bold uppercase">SD NEGERI 2 SENDANG AYU</h2>
             <p className="text-gray-600 font-medium">Sendang Ayu Kecamatan Padang Ratu</p>
-          </div>
+          </div>*/}
           <div className="text-center p-4">
             <h2 className="text-xl font-bold uppercase">{schoolInfo.name}</h2>
             <p className="text-gray-600 font-bold">{schoolInfo.address}</p>
