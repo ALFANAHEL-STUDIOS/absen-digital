@@ -311,7 +311,7 @@ export default function EditStudent({ params }: { params: { id: string } }) {
               <motion.button
                 type="submit"
                 disabled={saving}
-                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:orange-500 active:bg-orange-600 transition-colors"
+                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors"
                 whileTap={{ scale: 0.95 }}
               >
                 {saving ? (
