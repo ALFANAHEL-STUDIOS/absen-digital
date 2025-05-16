@@ -243,7 +243,7 @@ export default function GroupAttendanceReport() {
       yPos += 8;
       
       // Draw table rows
-      doc.setFontSize(12);
+      doc.setFontSize(11);
       students.forEach((student, index) => {
         // Alternating row background
         if (index % 2 === 0) {
@@ -300,21 +300,20 @@ export default function GroupAttendanceReport() {
           doc.addPage();
           
           // Add header to new page (simplified)
-          doc.setFontSize(12);
-          doc.setFont("helvetica", "bold");
-          doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin + 6, { align: "center" });
-          doc.setFontSize(9);
-          doc.setFont("helvetica", "normal");
-          doc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
-          doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
-          
-          // Add horizontal line
-          doc.setLineWidth(0.5);
-          doc.line(margin, margin + 22, pageWidth - margin, margin + 22);
+          doc.setFontSize(15);
+      doc.setFont("helvetica");
+      doc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
+      
+      doc.setFontSize(14);
+      doc.setFont("helvetica");
+      doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
+      doc.text(`Kode Pos ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
+      doc.setLineWidth(0.5);
+      doc.line(margin, margin + 18, pageWidth - margin, margin + 18);
           
           // Add title (simplified for continuation pages)
           doc.setFontSize(12);
-          doc.text(`REKAP LAPORAN KEHADIRAN SISWA - ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`, pageWidth / 2, margin + 30, { align: "center" });
+          doc.text(`REKAP LAPORAN KEHADIRAN SISWA - ${selectedClass === "all" ? "(LANJUTAN)" : selectedClass}`, pageWidth / 2, margin + 30, { align: "center" });
           
           yPos = margin + 40;
           
@@ -338,8 +337,8 @@ export default function GroupAttendanceReport() {
       
       // Add footer with signature section
       const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
-      doc.setFontSize(12);
-      doc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin, yPos + 15, { align: "right" });
+      doc.setFontSize(11);
+      //doc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin, yPos + 15, { align: "right" });
       
       const signatureWidth = (pageWidth - margin * 2) / 2;
       
