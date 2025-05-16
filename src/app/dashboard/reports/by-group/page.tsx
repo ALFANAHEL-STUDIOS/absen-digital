@@ -216,7 +216,7 @@ export default function GroupAttendanceReport() {
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
       doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
-      const headers = ["NO.", "NAMA SISWA", "NISN", "KELAS", "HADIR", "SAKIT", "IZIN", "ALPHA", "TOTAL"];
+      const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
       const colWidths = [13, 57, 28, 18, 15, 15, 15, 15, 15];
       
       let yPos = margin + 48;
@@ -230,7 +230,7 @@ export default function GroupAttendanceReport() {
       let xPos = margin;
       
       // Draw column headers
-      doc.setFontSize(12);
+      doc.setFontSize(11);
       doc.setTextColor(0);
       headers.forEach((header, i) => {
         if (i > 0) {
@@ -243,7 +243,7 @@ export default function GroupAttendanceReport() {
       yPos += 8;
       
       // Draw table rows
-      doc.setFontSize(11);
+      doc.setFontSize(10);
       students.forEach((student, index) => {
         // Alternating row background
         if (index % 2 === 0) {
@@ -327,7 +327,7 @@ export default function GroupAttendanceReport() {
             if (i > 0) {
               doc.line(xPos, yPos, xPos, yPos + 8);
             }
-            doc.setFontSize(11);
+            doc.setFontSize(10);
             doc.text(header, xPos + 2, yPos + 5.5);
             xPos += colWidths[i];
           });
