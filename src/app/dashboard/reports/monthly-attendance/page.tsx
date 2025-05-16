@@ -902,7 +902,7 @@ export default function MonthlyAttendanceReport() {
           )}
           <span className="font-medium">Download Laporan Excel</span>
         </button>
-        <hr className="border-t border-white-100 mt-1 mb-6" />
+        <hr className="border-t border-none mt-1 mb-4" />
       </div>
     </div>
   );
