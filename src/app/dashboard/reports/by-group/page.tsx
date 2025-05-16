@@ -267,11 +267,11 @@ export default function GroupAttendanceReport() {
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.nisn || "", xPos + colWidths[2]/2, yPos + 5 ); xPos += colWidths[2];
+        doc.text(student.nisn || "", xPos + colWidths[2]/2, yPos + 5, { align: "center" }); xPos += colWidths[2];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.class || "", xPos + colWidths[3]/2, yPos + 5 ); xPos += colWidths[3];
+        doc.text(student.class || "", xPos + colWidths[3]/2, yPos + 5, { align: "center" }); xPos += colWidths[3];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
