@@ -249,22 +249,22 @@ export default function AdminDashboard({
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         Nama
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         Kelas
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         Tanggal
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         Waktu
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         Catatan
                       </th>
                     </tr>
@@ -274,7 +274,7 @@ export default function AdminDashboard({
                       recentAttendance.map((record) => (
                         <tr key={record.id}>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
-                            <div className="text-sm text-gray-500">{record.studentName}</div>
+                            <div className="text-sm text-gray-600">{record.studentName}</div>
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                             {record.class}
