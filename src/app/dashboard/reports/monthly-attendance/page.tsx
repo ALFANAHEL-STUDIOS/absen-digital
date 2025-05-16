@@ -812,7 +812,7 @@ export default function MonthlyAttendanceReport() {
           </div>
           <hr className="border-t border-gray-800 mt-1 mb-3" />
 
-          <div className="text-center mb-4">
+          <div className="text-center mb-12">
             <h3 className="text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
             <p className="text-gray-600">BULAN {formattedMonth.toUpperCase()}</p>
           </div>
