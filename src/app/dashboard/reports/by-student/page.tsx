@@ -646,10 +646,10 @@ export default function StudentReport() {
                     <div className="text-sm opacity-80">
                       NISN : {student.nisn}
                     </div>
-                  <span className={`text-xs px-2 py-0.5 rounded ${
+                  <span className={`text-xs rounded ${
                         selectedStudent?.id === student.id
-                          ? "bg-blue-500/30 text-white"
-                          : "bg-gray-100 text-gray-600"
+                          ? "bg-blue text-white"
+                          : "bg-white text-gray-600"
                       }`}>
                        KELAS {student.class || student.kelas || '-'}
                       </span>
