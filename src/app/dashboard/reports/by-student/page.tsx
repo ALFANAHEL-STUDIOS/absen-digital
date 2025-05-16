@@ -635,7 +635,7 @@ export default function StudentReport() {
                     className={`p-3 rounded-lg cursor-pointer transition-colors ${
                       selectedStudent?.id === student.id
                         ? "bg-blue-600 text-white"
-                        : "hover:bg-blue-600"
+                        : "hover:bg-gray-100"
                     }`}
                     onClick={() => handleStudentSelect(student)}
                   >
@@ -649,7 +649,7 @@ export default function StudentReport() {
                   <span className={`text-xs rounded ${
                         selectedStudent?.id === student.id
                           ? "bg-blue text-white"
-                          : "bg-white text-gray-600"
+                          : "bg-white text-gray-100"
                       }`}>
                        KELAS {student.class || student.kelas || '-'}
                       </span>
