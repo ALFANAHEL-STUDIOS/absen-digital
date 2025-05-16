@@ -208,7 +208,7 @@ export default function AddStudent() {
               
               <div>
                 <label htmlFor="telegramNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                  Nomor Telegram
+                  ID Telegram
                 </label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -246,14 +246,14 @@ export default function AddStudent() {
               <button
                 type="submit"
                 disabled={saving}
-                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
+                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:orange-500 active:bg-orange-600 transition-colors"
               >
                 {saving ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
                 ) : (
                   <Save size={20} />
                 )}
-                Simpan
+                Simpan Data
               </button>
             </div>
           </div>
