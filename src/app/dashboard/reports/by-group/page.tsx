@@ -183,7 +183,7 @@ export default function GroupAttendanceReport() {
     try {
       // Create PDF document
       const doc = new jsPDF({
-        orientation: "landscape",
+        orientation: "portrait",
         unit: "mm",
         format: "a4"
       });
@@ -216,8 +216,8 @@ export default function GroupAttendanceReport() {
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
       doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
-      const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
-      const colWidths = [13, 67, 48, 38, 18, 18, 18, 18, 15];
+      const headers = ["NO.", "NAMA SISWA", "NISN", "KELAS", "HADIR", "SAKIT", "IZIN", "ALPHA", "TOTAL"];
+      const colWidths = [13, 57, 28, 18, 15, 15, 15, 15, 15];
       
       let yPos = margin + 48;
       
@@ -267,11 +267,11 @@ export default function GroupAttendanceReport() {
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.nisn || "", xPos + colWidths[2]/2, yPos + 5, { align: "center" }); xPos += colWidths[2];
+        doc.text(student.nisn || "", xPos + colWidths[2]/2, yPos + 5, ); xPos += colWidths[2];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
-        doc.text(student.class || "", xPos + colWidths[3]/2, yPos + 5, { align: "center" }); xPos += colWidths[3];
+        doc.text(student.class || "", xPos + colWidths[3]/2, yPos + 5, ); xPos += colWidths[3];
         
         // Draw vertical line
         doc.line(xPos, yPos, xPos, yPos + 7);
