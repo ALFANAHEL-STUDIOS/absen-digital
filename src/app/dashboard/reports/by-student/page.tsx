@@ -635,7 +635,7 @@ export default function StudentReport() {
                     className={`p-3 rounded-lg cursor-pointer transition-colors ${
                       selectedStudent?.id === student.id
                         ? "bg-blue-600 text-white"
-                        : "hover:bg-gray-100"
+                        : "hover:bg-blue-600"
                     }`}
                     onClick={() => handleStudentSelect(student)}
                   >
