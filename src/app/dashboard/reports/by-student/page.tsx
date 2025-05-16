@@ -641,18 +641,18 @@ export default function StudentReport() {
                   >
                     <div className="flex items-center gap-1.5">
                       <div className="font-medium">{student.name}</div>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                      
+                    </div>
+                    <div className="text-sm opacity-80">
+                      NISN : {student.nisn}
+                    </div>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
                         selectedStudent?.id === student.id
                           ? "bg-blue-500/30 text-white"
                           : "bg-gray-100 text-gray-600"
                       }`}>
                          {student.class || student.kelas || '-'}
                       </span>
-                    </div>
-                    <div className="text-sm opacity-80">
-                      NISN : {student.nisn}
-                    </div>
-                  
                     </div>
                 ))
               ) : (
