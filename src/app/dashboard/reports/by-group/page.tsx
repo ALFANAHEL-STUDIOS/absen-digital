@@ -527,9 +527,6 @@ export default function GroupAttendanceReport() {
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 text-primary animate-spin" />
           </div>
-       <div class1="flex justify-left items-left h-64">
-            <Loader2 className="h-12 w-12 text-primary animate-spin" />
-          </div>
         ) : students.length > 0 ? (
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <div className="inline-block min-w-full align-middle">
@@ -537,7 +534,7 @@ export default function GroupAttendanceReport() {
                 <table className="min-w-full bg-white border">
                   <thead className="bg-green-100">
                     <tr>
-                      <th class1="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Siswa</th>
+                      <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Nama Siswa</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">NISN</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Kelas</th>
                       <th className="border px-2 sm:px-4 py-2 text-center font-bold text-xs sm:text-sm">Hadir</th>
