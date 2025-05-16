@@ -249,22 +249,22 @@ export default function AdminDashboard({
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs text-sm font-bold text-gray-500 uppercase tracking-wider">
                         Nama
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs text-sm font-bold text-gray-500 uppercase tracking-wider">
                         Kelas
-                      </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      </th> 
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs text-sm font-bold text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs text-sm font-bold text-gray-500 uppercase tracking-wider">
                         Tanggal
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs text-sm font-bold text-gray-500 uppercase tracking-wider">
                         Waktu
                       </th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs text-sm font-bold text-gray-500 uppercase tracking-wider">
                         Catatan
                       </th>
                     </tr>
