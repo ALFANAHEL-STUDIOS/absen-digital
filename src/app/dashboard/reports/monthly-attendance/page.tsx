@@ -816,7 +816,7 @@ export default function MonthlyAttendanceReport() {
           
           <div className="text-center mb-4">
             <h3 className="text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
-            <p className="text-gray-600 font-medium">BULAN {formattedMonth.toUpperCase()}</p>
+            <p className="text-gray-600 font-small">BULAN {formattedMonth.toUpperCase()}</p>
           </div>
 
           
@@ -864,20 +864,20 @@ export default function MonthlyAttendanceReport() {
                   {/* Total row */}
                   {filteredStudents.length > 0 && (
                     <tr className="bg-gray-200 font-medium">
-                      <td colSpan={3} className="border px-2 py-2 font-bold text-sm text-center">TOTAL</td>
-                      <td className="border px-2 py-2 text-center font-bold text-sm">
+                      <td colSpan={3} className="text-gray-600 border px-2 py-2 font-bold text-sm text-center">TOTAL</td>
+                      <td className="text-gray-600 border px-2 py-2 text-center font-bold text-sm">
                         {filteredStudents.reduce((sum, student) => sum + student.hadir, 0)}
                       </td>
-                      <td className="border px-2 py-2 text-center font-bold text-sm">
+                      <td className="text-gray-600 border px-2 py-2 text-center font-bold text-sm">
                         {filteredStudents.reduce((sum, student) => sum + student.sakit, 0)}
                       </td>
-                      <td className="border px-2 py-2 text-center font-bold text-sm">
+                      <td className="text-gray-600 border px-2 py-2 text-center font-bold text-sm">
                         {filteredStudents.reduce((sum, student) => sum + student.izin, 0)}
                       </td>
-                      <td className="border px-2 py-2 text-center font-bold text-sm">
+                      <td className="text-gray-600 border px-2 py-2 text-center font-bold text-sm">
                         {filteredStudents.reduce((sum, student) => sum + student.alpha, 0)}
                       </td>
-                      <td className="border px-2 py-2 text-center font-bold text-sm">
+                      <td className="text-gray-600 border px-2 py-2 text-center font-bold text-sm">
                         {filteredStudents.reduce((sum, student) => sum + student.total, 0)}
                       </td>
                     </tr>
