@@ -303,9 +303,9 @@ export default function StudentReport() {
       
       // Add month, student name and class
       const currentMonth = format(new Date(), "MMMM yyyy", { locale: id });
-      doc.setFontSize(12);
+      doc.setFontSize(13);
       doc.text(`BULAN : ${currentMonth.toUpperCase()}`, pageWidth / 2, margin + 38, { align: "center" });
-      doc.text(`NAMA : ${selectedStudent?.name || ""}`, pageWidth / 2, margin + 46, { align: "center" });
+      doc.text(`NAMA SISWA : ${selectedStudent?.name || ""}`, pageWidth / 2, margin + 46, { align: "center" });
       doc.text(`KELAS ${selectedStudent?.kelas || selectedStudent?.class || ""}`, pageWidth / 2, margin + 54, { align: "center" });
       
       // Add attendance summary table
@@ -368,17 +368,17 @@ export default function StudentReport() {
       // Add signature section - moved closer to the table (30 units closer)
       const signatureY = tableY + 30; // Reduced from typical values like 60
       
-      doc.text("Mengetahui", pageWidth / 3, signatureY);
+      doc.text("Mengetahui", pageWidth / 5, signatureY);
       doc.text("Pengelola Data", (pageWidth * 3) / 4, signatureY);
       
-      doc.text("Kepala Sekolah,", pageWidth / 3, signatureY + 5);
+      doc.text("Kepala Sekolah,", pageWidth / 5, signatureY + 5);
       doc.text("Administrator Sekolah,", (pageWidth * 3) / 4, signatureY + 5);
       
       // Add space for signatures
-      doc.text(schoolInfo.principalName || "Kepala Sekolah", pageWidth / 3, signatureY + 30);
+      doc.text(schoolInfo.principalName || "Kepala Sekolah", pageWidth / 5, signatureY + 30);
       doc.text(userData?.name || "Administrator", (pageWidth * 3) / 4, signatureY + 30);
       
-      doc.text(`NIP. ${schoolInfo.principalNip || ".................................."}`, pageWidth / 3, signatureY + 35);
+      doc.text(`NIP. ${schoolInfo.principalNip || ".................................."}`, pageWidth / 5, signatureY + 35);
       doc.text("NIP. ..................................", (pageWidth * 3) / 4, signatureY + 35);
       
       // Save the PDF
