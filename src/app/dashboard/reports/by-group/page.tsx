@@ -202,7 +202,7 @@ export default function GroupAttendanceReport() {
       doc.setFontSize(14);
       doc.setFont("helvetica");
       doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
-      doc.text(`Kode Pos ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
+      doc.text(`NPSN ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
       doc.setLineWidth(0.5);
       doc.line(margin, margin + 18, pageWidth - margin, margin + 18);
 
@@ -217,7 +217,7 @@ export default function GroupAttendanceReport() {
       doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
       const headers = ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"];
-      const colWidths = [11, 61, 52, 48, 18, 18, 18, 18, 15];
+      const colWidths = [13, 67, 48, 38, 18, 18, 18, 18, 15];
       
       let yPos = margin + 48;
       
@@ -313,7 +313,7 @@ export default function GroupAttendanceReport() {
           
           // Add title (simplified for continuation pages)
           doc.setFontSize(12);
-          doc.text(`REKAP LAPORAN KEHADIRAN SISWA - ${selectedClass === "all" ? "(LANJUTAN)" : selectedClass}`, pageWidth / 2, margin + 30, { align: "center" });
+          doc.text(`REKAPITULASI LAPORAN ABSENSI SISWA - ${selectedClass === "all" ? "(LANJUTAN)" : selectedClass}`, pageWidth / 2, margin + 30, { align: "center" });
           
           yPos = margin + 40;
           
@@ -327,6 +327,7 @@ export default function GroupAttendanceReport() {
             if (i > 0) {
               doc.line(xPos, yPos, xPos, yPos + 8);
             }
+            doc.setFontSize(11);
             doc.text(header, xPos + 2, yPos + 5.5);
             xPos += colWidths[i];
           });
