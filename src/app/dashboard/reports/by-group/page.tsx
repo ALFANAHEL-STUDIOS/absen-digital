@@ -524,7 +524,7 @@ export default function GroupAttendanceReport() {
         </div>
         
         {loading ? (
-          <div className="flex h-64">
+          <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 text-primary animate-spin" />
           </div>
         ) : students.length > 0 ? (
