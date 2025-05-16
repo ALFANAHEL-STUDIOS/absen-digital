@@ -302,13 +302,13 @@ export default function UserManagement() {
                         >
                           <Edit size={18} />
                         </button>
-                        <button
+                        {/*<button
                           onClick={() => handleDeleteUser(user.id)}
                           className="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-50"
                           title="Hapus pengguna"
                         >
                           <Trash2 size={18} />
-                        </button>
+                        </button>*/}
                       </div>
                     </td>
                   </tr>
