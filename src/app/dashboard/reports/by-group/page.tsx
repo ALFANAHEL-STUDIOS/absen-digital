@@ -376,9 +376,9 @@ export default function GroupAttendanceReport() {
     try {
       // Create worksheet data with school information
       const wsData = [
-        ["NAMA SEKOLAH"],
-        ["Alamat"],
-        ["NPSN"],
+        //["NAMA SEKOLAH"],
+        //["Alamat"],
+        //["NPSN"],
         [],
         ["REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK"],
         [`KELAS : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`],
@@ -417,7 +417,7 @@ export default function GroupAttendanceReport() {
       wsData.push(
         [],
         [],
-        [`${schoolInfo.address}, ${format(new Date(), "d MMMM yyyy", { locale: id })}`],
+        //[`${schoolInfo.address}, ${format(new Date(), "d MMMM yyyy", { locale: id })}`],
         [],
         ["Mengetahui,", "", "", "", "Administrator"],
         ["Kepala Sekolah", "", "", "", "Sekolah"],
