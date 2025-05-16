@@ -651,7 +651,7 @@ export default function MonthlyAttendanceReport() {
       
       // Add "Siswa dengan Sakit Terbanyak" section
       headerData.push(["Siswa dengan Sakit Terbanyak :"]);
-      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Sakit"]);
       topStudentsBySakit.forEach((student, index) => {
         headerData.push([
           index + 1,
@@ -667,7 +667,7 @@ export default function MonthlyAttendanceReport() {
       
       // Add "Siswa dengan Izin Terbanyak" section
       headerData.push(["Siswa dengan Izin Terbanyak :"]);
-      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Izin"]);
       topStudentsByIzin.forEach((student, index) => {
         headerData.push([
           index + 1,
@@ -683,7 +683,7 @@ export default function MonthlyAttendanceReport() {
       
       // Add "Siswa dengan Alpha Terbanyak" section
       headerData.push(["Siswa dengan Alpha Terbanyak :"]);
-      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Hadir"]);
+      headerData.push(["No.", "Nama Siswa", "NISN", "Kelas", "Jumlah Alpha"]);
       topStudentsByAlpha.forEach((student, index) => {
         headerData.push([
           index + 1,
