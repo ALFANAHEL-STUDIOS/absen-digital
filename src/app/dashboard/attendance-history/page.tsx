@@ -698,7 +698,7 @@ export default function AttendanceHistory() {
                     Tanggal
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-500 uppercase tracking-wider">
-                    Waktu Absensi
+                    Waktu
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-500 uppercase tracking-wider">
                     Nama Siswa
@@ -731,7 +731,7 @@ export default function AttendanceHistory() {
                         {record.time}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{record.studentName}</div>
+                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{record.studentName}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {record.class}
