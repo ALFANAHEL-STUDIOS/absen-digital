@@ -445,7 +445,7 @@ export default function UserManagement() {
                 <button
                   type="submit"
                   disabled={formLoading}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center gap-2"
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-orange-500 active:bg-orange-600 flex items-center gap-2"
                 >
                   {formLoading ? (
                     <Loader2 className="animate-spin h-4 w-4 mr-1" />
