@@ -280,7 +280,7 @@ export default function StudentReport() {
       
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
-      const margin = 15;
+      const margin = 20;
       
       // Add school header
       doc.setFontSize(16);
