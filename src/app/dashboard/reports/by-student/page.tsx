@@ -627,7 +627,7 @@ export default function StudentReport() {
               {/* Filter by class feature removed as requested */}
             </div>
             
-            <div className="space-y-2 max-h-[400px] overflow-y-auto">
+            <div className="space-y-2 max-h-[500px] overflow-y-auto">
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
                   <div
@@ -646,15 +646,13 @@ export default function StudentReport() {
                           ? "bg-blue-500/30 text-white"
                           : "bg-gray-100 text-gray-600"
                       }`}>
-                        {/*Kelas {student.class || student.kelas || '-'}*/}
+                        Kelas {student.class || student.kelas || '-'}
                       </span>
                     </div>
                     <div className="text-sm opacity-80">
                       NISN : {student.nisn}
                     </div>
-                    <div className="text-sm opacity-80">
-                    Kelas {student.kelas}
-                  </div>
+                  
                     </div>
                 ))
               ) : (
