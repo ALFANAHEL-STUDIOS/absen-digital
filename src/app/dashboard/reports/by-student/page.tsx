@@ -650,7 +650,8 @@ export default function StudentReport() {
                       </span>
                     </div>
                     <div className="text-sm opacity-80">
-                      NISN: {student.nisn}
+                      NISN : {student.nisn}
+                      Kelas {student.kelas}
                     </div>
                   </div>
                 ))
@@ -676,8 +677,8 @@ export default function StudentReport() {
                   <div>
                     <h3 className="text-xl font-semibold">{selectedStudent.name}</h3>
                     <div className="opacity-90 space-y-1 mt-1">
-                      <div>NISN: {selectedStudent.nisn}</div>
-                      <div>Kelas: {selectedStudent.class || selectedStudent.kelas}</div>
+                      <div>NISN : {selectedStudent.nisn}</div>
+                      <div>Kelas : {selectedStudent.class || selectedStudent.kelas}</div>
                       
                     </div>
                   </div>
@@ -691,7 +692,7 @@ export default function StudentReport() {
                     <div className="bg-amber-100 p-2 rounded-lg mr-3">
                       <Calendar className="h-6 w-6 text-amber-600" />
                     </div>
-                    <h2 className="text-lg font-semibold">Rekap Bulanan: {currentMonth}</h2>
+                    <h2 className="text-lg font-semibold">Rekap Bulanan : {currentMonth}</h2>
                   </div>
                                    
                 </div>
