@@ -246,7 +246,7 @@ export default function AddStudent() {
               <button
                 type="submit"
                 disabled={saving}
-                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:orange-500 active:bg-orange-600 transition-colors"
+                className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors"
               >
                 {saving ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
