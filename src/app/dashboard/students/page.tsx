@@ -253,7 +253,7 @@ export default function Students() {
             </p>
             <Link
               href="/dashboard/students/add"
-              className="bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition-colors"
+              className="flex items-center justify-center w-full md:w-auto gap-2 bg-blue-500 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition-colors"
             >
               Tambah Data Siswa
             </Link>
