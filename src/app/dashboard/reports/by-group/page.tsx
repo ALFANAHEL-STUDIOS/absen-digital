@@ -243,7 +243,7 @@ export default function GroupAttendanceReport() {
       yPos += 8;
       
       // Draw table rows
-      doc.setFontSize(10);
+      //doc.setFontSize(10);
       students.forEach((student, index) => {
         // Alternating row background
         if (index % 2 === 0) {
