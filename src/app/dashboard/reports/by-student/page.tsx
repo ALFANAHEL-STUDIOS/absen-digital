@@ -57,7 +57,7 @@ export default function StudentReport() {
     name: "Sekolah Dasar Negeri 1",
     address: "Jl. Pendidikan No. 123, Kota",
     npsn: "12345678",
-    principalName: "Drs. Ahmad Sulaiman, M.Pd.",
+    principalName: "............................",
     principalNip: ""
   });
   const [teacherName, setTeacherName] = useState("Budi Santoso, S.Pd.");
@@ -74,7 +74,7 @@ export default function StudentReport() {
               name: data.name || "Sekolah Dasar Negeri 1",
               address: data.address || "Jl. Pendidikan No. 123, Kota",
               npsn: data.npsn || "12345678",
-              principalName: data.principalName || "Drs. Ahmad Sulaiman, M.Pd.",
+              principalName: data.principalName || "............................",
               principalNip: data.principalNip || ""
             });
           }
@@ -693,28 +693,7 @@ export default function StudentReport() {
                     <h2 className="text-lg font-semibold">Rekap Bulanan: {currentMonth}</h2>
                   </div>
                   
-                  <div className="w-full sm:w-48">
-                    <select 
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                      onChange={(e) => {
-                        // This would normally fetch data for the selected month
-                        toast.success(`Data bulan ${e.target.value} berhasil dimuat`);
-                      }}
-                    >
-                      <option value="Januari">Januari 2025</option>
-                      <option value="Februari">Februari 2025</option>
-                      <option value="Maret">Maret 2025</option>
-                      <option value="April">April 2025</option>
-                      <option value="Mei" selected>Mei 2025</option>
-                      <option value="Juni">Juni 2025</option>
-                      <option value="Juli">Juli 2025</option>
-                      <option value="Agustus">Agustus 2025</option>
-                      <option value="September">September 2025</option>
-                      <option value="Oktober">Oktober 2025</option>
-                      <option value="November">November 2025</option>
-                      <option value="Desember">Desember 2025</option>
-                    </select>
-                  </div>
+                  
                 </div>
                 
                 {monthlySummary && (
