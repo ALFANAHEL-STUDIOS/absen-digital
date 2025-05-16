@@ -230,7 +230,7 @@ export default function GroupAttendanceReport() {
       let xPos = margin;
       
       // Draw column headers
-      doc.setFontSize(10);
+      doc.setFontSize(12);
       doc.setTextColor(0);
       headers.forEach((header, i) => {
         if (i > 0) {
@@ -243,7 +243,7 @@ export default function GroupAttendanceReport() {
       yPos += 8;
       
       // Draw table rows
-      doc.setFontSize(9);
+      doc.setFontSize(12);
       students.forEach((student, index) => {
         // Alternating row background
         if (index % 2 === 0) {
@@ -338,7 +338,7 @@ export default function GroupAttendanceReport() {
       
       // Add footer with signature section
       const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
-      doc.setFontSize(10);
+      doc.setFontSize(12);
       doc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin, yPos + 15, { align: "right" });
       
       const signatureWidth = (pageWidth - margin * 2) / 2;
@@ -381,7 +381,7 @@ export default function GroupAttendanceReport() {
         //["NPSN"],
         [],
         ["REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK"],
-        [`KELAS : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`],
+        [`Kelas : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`],
         [`Dari Tanggal : ${format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} Sampai Tanggal : ${format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}`],
         [],
         ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
