@@ -274,7 +274,7 @@ export default function AdminDashboard({
                       recentAttendance.map((record) => (
                         <tr key={record.id}>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
-                            <div className="font-medium text-gray-900 text-xs">{record.studentName}</div>
+                            <div className="text-sm text-gray-500">{record.studentName}</div>
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                             {record.class}
