@@ -224,7 +224,7 @@ export default function AdminDashboard({
                 <Users className="h-4 sm:h-5 w-4 sm:w-5 text-white mr-1.5 sm:mr-2" />
                 <h3 className="text-xs sm:text-sm font-medium text-white">Akun Aktif</h3>
               </div>
-              <p className="text-xl sm:text-2xl font-bold text-white">1</p>
+              <p className="text-xl sm:text-2xl font-bold text-white">01</p>
               <div className="text-xs text-white mt-1 sm:mt-2">
                 <span>Pada Semester ini</span>
               </div>
