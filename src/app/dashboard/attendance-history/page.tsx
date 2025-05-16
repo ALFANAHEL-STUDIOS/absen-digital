@@ -701,7 +701,7 @@ export default function AttendanceHistory() {
                     Waktu
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-500 uppercase tracking-wider">
-                    Nama Absensi Siswa
+                    Nama Siswa
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-gray-500 uppercase tracking-wider">
                     Kelas
