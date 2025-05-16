@@ -524,6 +524,7 @@ export default function UserManagement() {
                   <select
                     id="edit-role"
                     name="role"
+                    disabled
                     value={formData.role}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
