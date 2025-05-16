@@ -805,16 +805,16 @@ export default function MonthlyAttendanceReport() {
             <p className="text-gray-600 font-medium">Sendang Ayu Kecamatan Padang Ratu</p>
           </div>*/}
           
-          <div className="text-center p-4">
+          <div className="text-center p-4 mb-8">
             <h2 className="text-gray-600 font-bold uppercase">{schoolInfo.name}</h2>
             <p className="text-gray-600 font-bold">{schoolInfo.address}</p>
             <p className="text-gray-600 font-bold">NPSN {schoolInfo.npsn}</p>
           </div>
           
-          <hr className="border-t border-gray-400 mt-1 mb-6" />
+          <hr className="border-t border-gray-400 mt-1 mb-4" />
 
           
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <h3 className="text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
             <p className="text-gray-600">BULAN {formattedMonth.toUpperCase()}</p>
           </div>
