@@ -655,6 +655,7 @@ export default function StudentReport() {
                     <div className="text-sm opacity-80">
                     Kelas {student.kelas}
                   </div>
+                    </div>
                 ))
               ) : (
                 <div className="text-center py-8 text-gray-500">
