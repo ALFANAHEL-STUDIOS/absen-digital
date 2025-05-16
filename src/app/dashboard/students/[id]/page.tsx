@@ -78,12 +78,7 @@ export default function StudentDetail({ params }: { params: { id: string } }) {
           </div>
           <p className="text-xs text-center text-gray-500 mb-4">NISN: {student.nisn}</p>
           <div className="flex flex-col space-y-2">
-            <Link 
-              href={`/dashboard/students/qr/${student.id}`}
-              className="text-sm text-primary hover:underline"
-            >
-              Lihat Kartu QR
-            </Link>
+            
             <Link 
               href={`/dashboard/students/edit/${student.id}`}
               className="text-sm text-blue-600 hover:underline flex items-center"
@@ -169,7 +164,7 @@ export default function StudentDetail({ params }: { params: { id: string } }) {
                   <Phone className="h-4 w-4 text-gray-500" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Nomor Telegram</p>
+                  <p className="text-xs text-gray-500">ID Telegram</p>
                   <p className="font-medium text-sm">{student.telegramNumber}</p>
                 </div>
               </div>
