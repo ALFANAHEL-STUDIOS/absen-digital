@@ -327,7 +327,7 @@ export default function GroupAttendanceReport() {
             if (i > 0) {
               doc.line(xPos, yPos, xPos, yPos + 8);
             }
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             doc.text(header, xPos + 2, yPos + 5.5);
             xPos += colWidths[i];
           });
