@@ -700,8 +700,8 @@ export default function MonthlyAttendanceReport() {
       headerData.push([]);
       
       // Add signature
-      headerData.push(["", "Mengetahui", "", "", "", "", "", "Administrator Sekolah"]);
-      headerData.push(["", "Kepala Sekolah,", "", "", "", "", "", "Nama Sekolah,"]);
+      headerData.push(["", "Mengetahui", "", "", "", "", "", "Pengelola Data"]);
+      headerData.push(["", "Kepala Sekolah,", "", "", "", "", "", "Absensi Siswa QR Code,"]);
       headerData.push([]);
       headerData.push([]);
       headerData.push([]);
