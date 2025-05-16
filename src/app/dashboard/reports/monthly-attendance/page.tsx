@@ -815,13 +815,13 @@ export default function MonthlyAttendanceReport() {
 
           
           <div className="text-center mb-4">
-            <h3 className="text-lg uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
-            <p className="font-medium">BULAN {formattedMonth.toUpperCase()}</p>
+            <h3 className="text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
+            <p className="text-gray-600 font-medium">BULAN {formattedMonth.toUpperCase()}</p>
           </div>
 
           
           {loading ? (
-            <div className="flex justify-center items-center h-64">
+            <div className="flex h-64">
               <Loader2 className="h-12 w-12 text-primary animate-spin" />
             </div>
           ) : (
@@ -829,28 +829,28 @@ export default function MonthlyAttendanceReport() {
               <table className="min-w-full border">
                 <thead>
                   <tr className="bg-green-100">
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Nama Siswa</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">NISN</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Kelas</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Hadir</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Sakit</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Izin</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Alpha</th>
-                    <th className="border px-2 py-2 text-center text-sm font-bold text-gray-700">Total</th>
+                    <th className="text-gray-600 border px-2 py-2 text-left text-sm font-bold text-gray-700">NAMA SISWA</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">NISN</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">KELAS</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">HADIR</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">SAKIT</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">IZIN</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">ALPHA</th>
+                    <th className="text-gray-600 border px-2 py-2 text-center text-sm font-bold text-gray-700">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredStudents.length > 0 ? (
                     filteredStudents.map((student, index) => (
                       <tr key={student.id} className={index % 2 === 0 ? "bg-gray-50" : ""}>
-                        <td className="border px-2 py-1 text-xs sm:text-sm">{student.name}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.nisn}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.class}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.hadir}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.sakit}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.izin}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.alpha}</td>
-                        <td className="border px-2 py-1 text-xs sm:text-sm text-center">{student.total}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm">{student.name}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.nisn}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.class}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.hadir}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.sakit}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.izin}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.alpha}</td>
+                        <td className="text-gray-600 border px-2 py-1 text-xs sm:text-sm text-center">{student.total}</td>
                       </tr>
                     ))
                   ) : (
