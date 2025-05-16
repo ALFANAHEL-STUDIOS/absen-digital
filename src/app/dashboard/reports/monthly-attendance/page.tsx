@@ -806,16 +806,15 @@ export default function MonthlyAttendanceReport() {
           </div>*/}
           
           <div className="text-center p-4">
-            <h2 className="text-gray-600 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
-            <p className="text-gray-600 font-bold">{schoolInfo.address}</p>
-            <p className="text-gray-600 font-bold">NPSN : {schoolInfo.npsn}</p>
+            <h2 className="text-gray-800 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
+            <p className="text-gray-800 font-bold">{schoolInfo.address}</p>
+            <p className="text-gray-800 font-bold">NPSN : {schoolInfo.npsn}</p>
           </div>
           <hr className="border-t border-gray-800 mt-1 mb-10" />
-          <div className="text-center mb-10">
+          <div className="text-center">
             <h3 className="text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
             <p className="text-gray-600">BULAN {formattedMonth.toUpperCase()}</p>
           </div>
-          
           {loading ? (
             <div className="flex h-64">
               <Loader2 className="h-12 w-12 text-primary animate-spin" />
