@@ -238,7 +238,7 @@ export default function HomePage() {
             
             <div className="flex justify-center">
               <Link href="/register" className="btn-primary text-lg group flex items-center gap-2 hover:bg-orange-500">
-                DAFTAR SEKARANG
+                MULAI SEKARANG
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
