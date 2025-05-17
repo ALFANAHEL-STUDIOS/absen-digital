@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       type: "image/x-icon"
     }],
     apple: [{
-      url: "/apple-touch-icon.png",
+      url: "https://cdn.kibrispdr.org/data/824/qr-code-icon-png-41.png",
       sizes: "180x180",
       type: "image/png"
     }]
