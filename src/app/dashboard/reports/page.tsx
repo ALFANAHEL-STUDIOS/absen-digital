@@ -301,7 +301,7 @@ export default function Reports() {
                 <div className="bg-green-100 p-3 rounded-full mb-3">
                   <Users className="h-6 w-6 text-green-600" />
                 </div>
-                <h3 className="font-medium text-gray-800 mb-1">Laporan Absen Rombel</h3>
+                <h3 className="font-medium text-gray-800 mb-1">Rekap Per Tanggal</h3>
                 <p className="text-sm text-gray-500">Laporan Kehadiran Rombel</p>
               </div>
             </Link>
