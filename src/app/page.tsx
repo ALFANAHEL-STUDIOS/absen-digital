@@ -237,7 +237,7 @@ export default function HomePage() {
             </div>
             
             <div className="flex justify-center">
-              <Link href="/register" className="btn-primary text-lg group flex items-center gap-2 hover:bg-orange-500">
+              <Link href="/login" className="btn-primary text-lg group flex items-center gap-2 hover:bg-orange-500">
                 MULAI SEKARANG
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -488,7 +488,7 @@ export default function HomePage() {
               href="/register" 
               className="btn-primary text-base px-6 py-2 flex items-center justify-center gap-1.5 group mx-auto hover:bg-secondary transition-colors w-auto"
             >
-              <span className="inline-block">Mulai Sekarang</span>
+              <span className="inline-block">Daftar Sekarang</span>
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
