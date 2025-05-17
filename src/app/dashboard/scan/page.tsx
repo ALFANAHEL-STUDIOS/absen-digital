@@ -190,7 +190,7 @@ export default function ScanQR() {
       }
       
       setSubmitted(true);
-      toast.success("Absensi berhasil disimpan dan notifikasi dikirim");
+      toast.success("Absensi berhasil disimpan dan notifikasi dikirim ke Telegram");
       
     } catch (error) {
       console.error("Error recording attendance:", error);
