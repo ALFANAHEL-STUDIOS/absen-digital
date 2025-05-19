@@ -219,7 +219,7 @@ export default function AttendanceHistory() {
       
       // Create a new PDF document
       const pdfDoc = new jsPDF({
-        orientation: "landscape",
+        orientation: "portrait",
         unit: "mm",
         format: "a4"
       });
