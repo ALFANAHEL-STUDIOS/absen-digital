@@ -678,7 +678,7 @@ export default function StudentReport() {
                     <h3 className="text-xl font-semibold">{selectedStudent.name}</h3>
                     <div className="opacity-90 space-y-1 mt-1">
                       <div>NISN : {selectedStudent.nisn}</div>
-                      <div>Kelas : {selectedStudent.class || selectedStudent.kelas}</div>
+                      <div>Kelas {selectedStudent.class || selectedStudent.kelas}</div>
                       
                     </div>
                   </div>
