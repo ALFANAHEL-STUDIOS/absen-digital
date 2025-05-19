@@ -212,10 +212,10 @@ export default function Classes() {
               setFormData({ name: "", level: "1", room: "", teacherName: "" });
               setShowAddModal(true);
             }}
-            className="flex items-center justify-center w-full md:w-auto gap-2 bg-blue-500 text-white px-5 py-2.5 rounded-lg hover:bg-orange-600 active:bg-blue-700 transition-colors"
+            className="flex items-center justify-center w-full md:w-auto gap-2 bg-blue-900 text-white px-5 py-2.5 rounded-lg hover:bg-orange-600 active:bg-blue-700 transition-colors"
           >
             <Plus size={18} />
-            Tambah Kelas
+            Tambah Kelas Batu
           </button>
         )}
       </div>
