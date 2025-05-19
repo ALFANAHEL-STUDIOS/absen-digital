@@ -467,11 +467,11 @@ export default function AttendanceHistory() {
       const headerData = [
         [schoolInfo.name.toUpperCase()],
         [schoolInfo.address],
-        [`NPSN: ${schoolInfo.npsn}`],
+        [`NPSN : ${schoolInfo.npsn}`],
         [""],
         ["LAPORAN KEHADIRAN SISWA"],
-        [`Periode: ${format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} - ${format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}`],
-        [selectedClass !== "all" ? `Kelas: ${selectedClass}` : "Semua Kelas"],
+        [`Periode : ${format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} - ${format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}`],
+        [selectedClass !== "all" ? `Kelas : ${selectedClass}` : "Semua Kelas"],
         [""],
       ];
       
