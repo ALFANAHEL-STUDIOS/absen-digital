@@ -256,7 +256,7 @@ export default function AttendanceHistory() {
       // Add date range
       const startDate = format(new Date(dateRange.start), "d MMMM yyyy", { locale: id });
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
-      pdfDoc.text(`Periode: ${startDate} - ${endDate}`, pageWidth / 2, margin + 40, { align: "center" });
+      pdfDoc.text(`Periode : ${startDate} - ${endDate}`, pageWidth / 2, margin + 40, { align: "center" });
       
       // Add class filter if selected
       if (selectedClass !== "all") {
@@ -346,7 +346,7 @@ export default function AttendanceHistory() {
           pdfDoc.setFontSize(12);
           pdfDoc.setFont("helvetica", "normal");
           pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
-          pdfDoc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
+          pdfDoc.text(`NPSN : ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
           
           // Add horizontal line
           pdfDoc.setLineWidth(0.5);
