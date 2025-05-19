@@ -215,7 +215,7 @@ export default function Classes() {
             className="flex items-center justify-center w-full md:w-auto gap-2 bg-blue-900 text-white px-5 py-2.5 rounded-lg hover:bg-orange-600 active:bg-blue-700 transition-colors"
           >
             <Plus size={18} />
-            Tambah Kelas Batu
+            Tambah Kelas Baru
           </button>
         )}
       </div>
