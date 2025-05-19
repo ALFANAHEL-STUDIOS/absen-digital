@@ -327,6 +327,7 @@ export default function EditStudent({ params }: { params: { id: string } }) {
           </div>
         </form>
       </div>
+      <hr className="border-t border-none mb-5" />
     </div>
   );
 }
