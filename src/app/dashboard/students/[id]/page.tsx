@@ -91,7 +91,7 @@ export default function StudentDetail({ params }: { params: { id: string } }) {
 
         {/* Student Information */}
         <div className="bg-white rounded-xl shadow-sm p-5 md:col-span-2">
-          <h2 className="text-sm font-semibold mb-3 border-b pb-2">INFORMASI SISWA</h2>
+          <h2 className="text-base font-semibold mb-4 border-b pb-2">INFORMASI SISWA</h2>
         
           <div className="space-y-3">
             <div className="flex items-start">
@@ -217,4 +217,5 @@ export default function StudentDetail({ params }: { params: { id: string } }) {
       </div>
     </div>
   );
+  <hr className="border-t border-none mb-5" />
 }
