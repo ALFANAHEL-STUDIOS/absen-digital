@@ -256,7 +256,7 @@ export default function AttendanceHistory() {
       // Add date range
       const startDate = format(new Date(dateRange.start), "d MMMM yyyy", { locale: id });
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
-      pdfDoc.text(`Periode : ${startDate} - ${endDate}`, pageWidth / 2, margin + 40, { align: "center" });
+      pdfDoc.text(`Periode : ${startDate} - Sampai : ${endDate}`, pageWidth / 2, margin + 40, { align: "center" });
       
       // Add class filter if selected
       if (selectedClass !== "all") {
