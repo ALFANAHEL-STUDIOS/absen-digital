@@ -498,7 +498,7 @@ export default function ScanQR() {
                   </p>
                   <motion.button
                     onClick={() => setScanning(true)}
-                    className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-orange-500 active:bg-orange-700 transition-colors"
                     whileTap={{ scale: 0.95 }}
                   >
                     <QrCode className="h-5 w-5 inline-block mr-2" /> 
@@ -518,7 +518,7 @@ export default function ScanQR() {
                   >
                     <button
                       onClick={() => setScanning(false)}
-                      className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="bg-gray-200 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 active:bg-orange-700 transition-colors"
                     >
                       Batalkan Scan...
                     </button>
@@ -529,6 +529,7 @@ export default function ScanQR() {
           </div>
         )}
       </div>
+      <hr className="border-t border-none mb-4" />
     </div>
   );
 }
