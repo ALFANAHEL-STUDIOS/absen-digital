@@ -260,7 +260,7 @@ export default function AttendanceHistory() {
       
       // Add class filter if selected
       if (selectedClass !== "all") {
-        pdfDoc.text(`Kelas: ${selectedClass}`, pageWidth / 2, margin + 46, { align: "center" });
+        pdfDoc.text(`Kelas ${selectedClass}`, pageWidth / 2, margin + 46, { align: "center" });
       }
       
       // Table headers
