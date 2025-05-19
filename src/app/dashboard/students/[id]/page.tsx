@@ -215,7 +215,7 @@ export default function StudentDetail({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
+      <hr className="border-t border-none mb-5" />
     </div>
   );
-  <hr className="border-t border-none mb-5" />
 }
