@@ -238,7 +238,7 @@ export default function AttendanceHistory() {
       pdfDoc.setFontSize(12);
       pdfDoc.setFont("helvetica", "normal");
       pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
-      pdfDoc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
+      pdfDoc.text(`NPSN : ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
       
       // Add horizontal line
       pdfDoc.setLineWidth(0.5);
@@ -265,7 +265,7 @@ export default function AttendanceHistory() {
       
       // Table headers
       const headers = ["Tanggal", "Waktu", "Nama Siswa", "Kelas", "Status", "Catatan"];
-      const colWidths = [25, 20, 60, 20, 20, 40];
+      const colWidths = [25, 20, 65, 20, 20, 40];
       
       let yPos = margin + 55;
       
