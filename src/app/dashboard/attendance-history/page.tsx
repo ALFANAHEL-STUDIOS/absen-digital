@@ -765,6 +765,7 @@ export default function AttendanceHistory() {
           </div>
         </div>
       )}
+      <hr className="border-t border-none mb-5" />
     </div>
   );
 }
