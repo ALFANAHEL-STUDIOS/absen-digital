@@ -214,10 +214,10 @@ export default function GroupAttendanceReport() {
       // Add date range
       const startDate = format(new Date(dateRange.start), "d MMMM yyyy", { locale: id });
       const endDate = format(new Date(dateRange.end), "d MMMM yyyy", { locale: id });
-      doc.text(`Dari Tanggal : ${startDate} Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
+      doc.text(`Dari Tanggal : ${startDate} - Sampai Tanggal : ${endDate}`, pageWidth / 2, margin + 38, { align: "center" });
       // Draw table headers
      
-      const headers = ["NO.", "NAMA SISWA", "           NISN", "     KELAS", "HADIR", " SAKIT", "   IZIN", " ALPHA", "        TOTAL"];
+      const headers = ["NO.", "                NAMA SISWA", "           NISN", "     KELAS", " HADIR", " SAKIT", "   IZIN", " ALPHA", "        TOTAL"];
       const colWidths = [11, 85, 38, 28, 18, 18, 18, 18, 33];
       let yPos = margin + 48;
       
@@ -360,7 +360,7 @@ export default function GroupAttendanceReport() {
       const fileName = `Laporan_Kehadiran_Rombel_${format(new Date(), "yyyyMMdd")}.pdf`;
       doc.save(fileName);
       
-      toast.success(`Laporan kelas ${selectedClass === "all" ? "Semua Kelas" : selectedClass} berhasil diunduh sebagai ${fileName}`);
+      toast.success(`Laporan ${selectedClass === "all" ? "Semua Kelas" : selectedClass} berhasil diunduh ${fileName}`);
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast.error("Gagal mengunduh laporan PDF");
@@ -382,7 +382,7 @@ export default function GroupAttendanceReport() {
         [],
         ["REKAPITULASI LAPORAN ABSENSI PESERTA DIDIK"],
         [`Kelas : ${selectedClass === "all" ? "Semua Kelas" : selectedClass}`],
-        [`Dari Tanggal : ${format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} Sampai Tanggal : ${format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}`],
+        [`Dari Tanggal : ${format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} - Sampai Tanggal : ${format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}`],
         [],
         ["No.", "Nama Siswa", "NISN", "Kelas", "Hadir", "Sakit", "Izin", "Alpha", "Total"]
       ];
