@@ -265,7 +265,7 @@ export default function AttendanceHistory() {
       
       // Table headers
       const headers = ["Tanggal", "Waktu", "Nama Siswa", "Kelas", "Status", "Catatan"];
-      const colWidths = [25, 20, 50, 16, 18, 40];
+      const colWidths = [24, 19, 50, 15, 17, 40];
       
       let yPos = margin + 55;
       
