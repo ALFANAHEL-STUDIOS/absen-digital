@@ -244,7 +244,7 @@ export default function MonthlyAttendanceReport() {
       doc.setFontSize(11);
       doc.setFont("helvetica", "normal");
       doc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
-      doc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
+      doc.text(`NPSN : ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
       
       // Add horizontal line
       doc.setLineWidth(0.5);
