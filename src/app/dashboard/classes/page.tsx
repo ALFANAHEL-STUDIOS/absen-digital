@@ -396,8 +396,8 @@ export default function Classes() {
         onCancel={() => setDeleteDialogOpen(false)}
         icon={<AlertTriangle size={20} className="text-red-500" />}
       />
-    </div>
-    <hr className="border-t border-none mb-4" />
+       <hr className="border-t border-none mb-4" />
       <hr className="border-t border-none mb-1" />
+    </div>
   );
 }
