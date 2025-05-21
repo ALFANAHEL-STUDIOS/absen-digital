@@ -318,7 +318,7 @@ const DashboardLayout = ({
         
         <nav className="p-3 space-y-0.5" data-unique-id="ff065f1e-0df6-4488-861e-e8140380e4b5" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
           {/* Dashboard - All users */}
-          <Link href="/dashboard" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="1e9c529c-82a5-4049-94c1-4bd414b6e97b" data-file-name="app/dashboard/layout.tsx">
+          <Link href="/dashboard" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="1e9c529c-82a5-4049-94c1-4bd414b6e97b" data-file-name="app/dashboard/layout.tsx">
             <Home size={20} />
             <span data-unique-id="4e323106-056f-4f76-a3fd-103ee10a9ac6" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="3e93f570-a6bc-4992-b747-75827596abb0" data-file-name="app/dashboard/layout.tsx">Dashboard</span></span>
           </Link>
