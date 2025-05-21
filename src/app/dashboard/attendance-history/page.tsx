@@ -265,7 +265,7 @@ export default function AttendanceHistory() {
       
       // Table headers
       const headers = ["Tanggal", "Waktu", "Nama Siswa", "Kelas", "Status", "Catatan"];
-      const colWidths = [24, 19, 54, 15, 17, 36];
+      const colWidths = [23, 18, 60, 14, 16, 34];
       
       let yPos = margin + 55;
       
@@ -373,7 +373,7 @@ export default function AttendanceHistory() {
       });
       
       // Add signature section
-      const signatureY = Math.min(yPos + 30, pageHeight - margin - 80);
+      const signatureY = Math.min(yPos + 30, pageHeight - margin - 60);
       const leftSignatureX = margin + 40;
       const rightSignatureX = pageWidth - margin - 40;
       
