@@ -373,13 +373,13 @@ export default function AttendanceHistory() {
       });
       
       // Add signature section
-      const signatureY = Math.min(yPos + 30, pageHeight - margin - 60);
+      const signatureY = Math.min(yPos + 30, pageHeight - margin - 70);
       const leftSignatureX = margin + 40;
       const rightSignatureX = pageWidth - margin - 40;
       
       const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
       
-      pdfDoc.setFontSize(10);
+      pdfDoc.setFontSize(11);
       //pdfDoc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin - 40, signatureY - 10, { align: "right" });
       
       pdfDoc.text("Mengetahui,", leftSignatureX, signatureY, { align: "center" });
