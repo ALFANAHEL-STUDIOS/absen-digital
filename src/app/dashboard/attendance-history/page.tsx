@@ -265,7 +265,7 @@ export default function AttendanceHistory() {
       
       // Table headers
       const headers = ["Tanggal", "Waktu", "Nama Siswa", "Kelas", "Status", "Catatan"];
-      const colWidths = [24, 19, 50, 15, 17, 40];
+      const colWidths = [24, 19, 54, 15, 17, 36];
       
       let yPos = margin + 55;
       
@@ -379,7 +379,7 @@ export default function AttendanceHistory() {
       
       const currentDate = format(new Date(), "d MMMM yyyy", { locale: id });
       
-      pdfDoc.setFontSize(11);
+      pdfDoc.setFontSize(10);
       //pdfDoc.text(`${schoolInfo.address}, ${currentDate}`, pageWidth - margin - 40, signatureY - 10, { align: "right" });
       
       pdfDoc.text("Mengetahui,", leftSignatureX, signatureY, { align: "center" });
