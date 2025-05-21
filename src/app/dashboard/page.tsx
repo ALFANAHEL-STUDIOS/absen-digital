@@ -129,7 +129,7 @@ export default function Dashboard() {
     };
 
     fetchSchoolData();
-    setUserName(user?.displayName || "Pengguna");
+    setUserName(user?.displayName || "Selamat Datang");
     
     // Check if the user is an admin without school setup
     if (typeof window !== 'undefined' && userRole === 'admin') {
@@ -154,7 +154,7 @@ export default function Dashboard() {
         </h1>
         <div className="flex items-center mt-1 text-gray-500">
           <Home size={14} className="mr-1.5" />
-          <span className="font-medium text-xs">SELAMAT DATANG DI ABSENSI DIGITAL</span>
+          <span className="font-medium text-xs">SISTEM ABSENSI DIGITAL GURU DAN SISWA</span>
         </div>
       </div>
 
