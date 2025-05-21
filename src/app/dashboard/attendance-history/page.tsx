@@ -373,7 +373,7 @@ export default function AttendanceHistory() {
       });
       
       // Add signature section
-      const signatureY = Math.min(yPos + 30, pageHeight - margin - 40);
+      const signatureY = Math.min(yPos + 30, pageHeight - margin - 80);
       const leftSignatureX = margin + 40;
       const rightSignatureX = pageWidth - margin - 40;
       
