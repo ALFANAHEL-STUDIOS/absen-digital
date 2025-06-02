@@ -245,7 +245,7 @@ export default function Dashboard() {
   };
   return <div className="min-h-screen bg-gray-50" data-unique-id="81d88c60-ab91-4765-9a53-78553fc563b4" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
       {/* Announcements Banner */}
-      {announcements.length > 0 && showAnnouncement && <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white" data-unique-id="8603c446-c922-40ad-91bd-1d771bb0cd43" data-file-name="app/dashboard/page.tsx">
+      {announcements.length > 0 && showAnnouncement && <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl" data-unique-id="8603c446-c922-40ad-91bd-1d771bb0cd43" data-file-name="app/dashboard/page.tsx">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3" data-unique-id="34a805f4-6e58-4d6b-bb57-80443e205893" data-file-name="app/dashboard/page.tsx">
             <div className="flex items-center justify-between" data-unique-id="fbbb811f-297e-4c6e-8663-f0d8451de3de" data-file-name="app/dashboard/page.tsx">
               <div className="flex items-center space-x-3" data-unique-id="08179a77-76a0-4555-9a77-7ca7857b9629" data-file-name="app/dashboard/page.tsx">
