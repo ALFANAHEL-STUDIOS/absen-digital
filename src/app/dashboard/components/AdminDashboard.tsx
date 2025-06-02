@@ -299,22 +299,22 @@ export default function AdminDashboard({
                 <table className="min-w-full divide-y divide-gray-200" data-unique-id="a68ffdc1-a053-41c1-bdb6-c54774dced0f" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                   <thead className="bg-gray-50" data-unique-id="0a0d4d4c-82d4-4df9-8f62-946316dddfe9" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                     <tr data-unique-id="fdb21544-734a-4b23-a05a-18fd130fa42a" data-file-name="app/dashboard/components/AdminDashboard.tsx">
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="155229d6-3bd8-45e4-a5f6-14f362e5bae9" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="3d012e65-dabe-4a01-b58f-c058a0c3b15b" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="155229d6-3bd8-45e4-a5f6-14f362e5bae9" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="3d012e65-dabe-4a01-b58f-c058a0c3b15b" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                         Nama
                       </span></th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="690a35f5-6281-46a1-b362-630a3bf2067a" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="fd783f09-7891-496f-bf18-e067c0c17eb1" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="690a35f5-6281-46a1-b362-630a3bf2067a" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="fd783f09-7891-496f-bf18-e067c0c17eb1" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                         Kelas
                       </span></th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="ca76c58b-2f8e-422f-b0e1-498bc4337339" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="84f875c4-7a39-4aeb-9161-2aa80aef142d" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="ca76c58b-2f8e-422f-b0e1-498bc4337339" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="84f875c4-7a39-4aeb-9161-2aa80aef142d" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                         Status
                       </span></th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="f8675923-2a67-4770-a17c-a4d5eca695ac" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="6c101672-5c5b-4b51-ad84-0e3b936d2547" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="f8675923-2a67-4770-a17c-a4d5eca695ac" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="6c101672-5c5b-4b51-ad84-0e3b936d2547" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                         Tanggal
                       </span></th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="c0656139-a8f0-4486-8def-e91573e2a587" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="d02b7121-a597-438b-9b02-c05d3437aa24" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="c0656139-a8f0-4486-8def-e91573e2a587" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="d02b7121-a597-438b-9b02-c05d3437aa24" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                         Waktu
                       </span></th>
-                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="0d7f74cc-b052-4e31-975b-a091b8b5c26c" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="1963469e-3c6e-43e0-9500-53377da4ea92" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+                      <th scope="col" className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="0d7f74cc-b052-4e31-975b-a091b8b5c26c" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="1963469e-3c6e-43e0-9500-53377da4ea92" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                         Catatan
                       </span></th>
                     </tr>
@@ -322,7 +322,7 @@ export default function AdminDashboard({
                   <tbody className="bg-white divide-y divide-gray-200" data-unique-id="223ccd70-517c-44e7-b6d2-cb399a1f9f1c" data-file-name="app/dashboard/components/AdminDashboard.tsx" data-dynamic-text="true">
                     {recentAttendance.length > 0 ? recentAttendance.map(record => <tr key={record.id} data-is-mapped="true" data-unique-id="f11e8f19-4067-4080-9a4f-11c4446e7f41" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap" data-is-mapped="true" data-unique-id="a1fdda44-c36f-44f4-ba8c-f29b4fc30a52" data-file-name="app/dashboard/components/AdminDashboard.tsx">
-                            <div className="font-medium text-gray-900 text-xs" data-is-mapped="true" data-unique-id="0c6254f3-a6e4-4746-b0a8-4247f4d6f825" data-file-name="app/dashboard/components/AdminDashboard.tsx" data-dynamic-text="true">{record.studentName}</div>
+                            <div className="font-medium text-gray-700 text-xs" data-is-mapped="true" data-unique-id="0c6254f3-a6e4-4746-b0a8-4247f4d6f825" data-file-name="app/dashboard/components/AdminDashboard.tsx" data-dynamic-text="true">{record.studentName}</div>
                           </td>
                           <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500" data-is-mapped="true" data-unique-id="3424d140-1c3b-442e-af82-0b77c66137de" data-file-name="app/dashboard/components/AdminDashboard.tsx" data-dynamic-text="true">
                             {record.class}
