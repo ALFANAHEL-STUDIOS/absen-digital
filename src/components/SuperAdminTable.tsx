@@ -335,8 +335,6 @@ export default function SuperAdminTable() {
         </table>
       </div>
 
-    
-   
     </div>; 
 }
 
