@@ -119,7 +119,7 @@ export default function TeacherDashboard({
                   <div className="bg-[#4361EE] bg-opacity-20 p-2 sm:p-3 rounded-full mb-2 sm:mb-3" data-unique-id="ccc4a34d-71a4-40e4-ad43-24ed381528d5" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                     <QrCode className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="609c4162-2414-4e4b-a9a8-f0a71c182604" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="2e07b892-3dbd-4194-a764-9d852b6f9a02" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Scan QR Code</span></h3>
+                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="609c4162-2414-4e4b-a9a8-f0a71c182604" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="2e07b892-3dbd-4194-a764-9d852b6f9a02" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Absensi Siswa</span></h3>
                 </div>
               </Link>
               
@@ -128,7 +128,7 @@ export default function TeacherDashboard({
                   <div className="bg-[#F72585] bg-opacity-20 p-2 sm:p-3 rounded-full mb-2 sm:mb-3" data-unique-id="47489796-2b71-4aa9-9a0a-517c54d8383a" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                     <QrCode className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="122f5cd2-39aa-4e19-8248-734fe6d62309" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="ac2dcf78-63d1-48f8-bad2-b8d8e7c1b434" data-file-name="app/dashboard/components/TeacherDashboard.tsx">QR Code Siswa</span></h3>
+                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="122f5cd2-39aa-4e19-8248-734fe6d62309" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="ac2dcf78-63d1-48f8-bad2-b8d8e7c1b434" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Kartu QR Siswa</span></h3>
                 </div>
               </Link>
               
@@ -137,14 +137,14 @@ export default function TeacherDashboard({
                   <div className="bg-[#21A366] bg-opacity-20 p-2 sm:p-3 rounded-full mb-2 sm:mb-3" data-unique-id="e2281a01-9f0a-41c3-b11f-0895ab3f5e48" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                     <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="b5c6afcb-97e6-4013-b638-9ab0a7f20f77" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="d32a2fc9-a7d4-4dae-ba5a-910272448399" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Laporan</span></h3>
+                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="b5c6afcb-97e6-4013-b638-9ab0a7f20f77" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="d32a2fc9-a7d4-4dae-ba5a-910272448399" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Laporan Siswa</span></h3>
                 </div>
               </Link>
               
               <Link href="/dashboard/students" className="bg-[#F77F00] rounded-xl shadow-sm p-4 sm:p-5 hover:shadow-md transition-all" data-unique-id="e0e80fc5-0680-4fa3-99da-442407547c15" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                 <div className="flex flex-col items-center justify-center" data-unique-id="1ce3bb65-6fdf-406f-bb94-6e3cf8cd5e8c" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                   <div className="bg-[#F77F00] bg-opacity-20 p-2 sm:p-3 rounded-full mb-2 sm:mb-3" data-unique-id="5cdbbac1-c7dc-4c25-b62d-b98f02c7a55c" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
-                    <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
                   <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="173cbdc5-7ac9-40ec-92d4-97c6b841c0a3" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="39d4d96f-49e3-47fc-a39d-386d58761837" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Daftar Siswa</span></h3>
                 </div>
@@ -155,16 +155,16 @@ export default function TeacherDashboard({
                   <div className="bg-[#7B2CBF] bg-opacity-20 p-2 sm:p-3 rounded-full mb-2 sm:mb-3" data-unique-id="3a2eb2df-62bd-4eb5-ab5d-1feeb5200ac7" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                     <QrCode className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="dfb50062-edc3-4e96-a6ba-71f0bbc6b5b8" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="ec59fc72-8691-49f1-b3f6-13a8e85f95bd" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Scan Absensi Guru</span></h3>
+                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="dfb50062-edc3-4e96-a6ba-71f0bbc6b5b8" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="ec59fc72-8691-49f1-b3f6-13a8e85f95bd" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Absensi Guru</span></h3>
                 </div>
               </Link>
               
-              <Link href="/dashboard/absensi-guru/reports" className="bg-[#4361EE] rounded-xl shadow-sm p-4 sm:p-5 hover:shadow-md transition-all" data-unique-id="0927d2b6-f13d-450a-9aed-f073dff1b4a5" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+              <Link href="/dashboard/profile-user" className="bg-[#4361EE] rounded-xl shadow-sm p-4 sm:p-5 hover:shadow-md transition-all" data-unique-id="0927d2b6-f13d-450a-9aed-f073dff1b4a5" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                 <div className="flex flex-col items-center justify-center" data-unique-id="742981d1-5f9d-4112-beee-68cdaf934354" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                   <div className="bg-[#4361EE] bg-opacity-20 p-2 sm:p-3 rounded-full mb-2 sm:mb-3" data-unique-id="5b61b2f0-a4af-4c2b-a904-7d367fbffa11" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
-                    <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="f89bcb28-45c0-4b22-b124-316c23390feb" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="7ecccc9f-5e96-4e83-a54e-894007aead8c" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Laporan Absensi Guru</span></h3>
+                  <h3 className="font-medium text-white text-center text-xs sm:text-sm" data-unique-id="f89bcb28-45c0-4b22-b124-316c23390feb" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="7ecccc9f-5e96-4e83-a54e-894007aead8c" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Profile Saya</span></h3>
                 </div>
               </Link>
             </div>
