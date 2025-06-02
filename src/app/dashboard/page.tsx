@@ -263,9 +263,9 @@ export default function Dashboard() {
         </div>}
 
       {/* Dashboard Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+      <div className="max-w-7xl mx-auto px-14 sm:px-16 lg:px-18 py-18" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
         {/* Quick Action Buttons */}
-        <div className="flex justify-end space-x-3 mb-4" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+        {/*<div className="flex justify-end space-x-3 mb-4" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
           {hasActiveAnnouncements && <motion.button initial={{
           scale: 0.9,
           opacity: 0
@@ -311,7 +311,7 @@ export default function Dashboard() {
                 {expirationStatus.isExpired ? 'Sudah Kedaluwarsa' : `${expirationStatus.daysLeft} Hari Lagi`}
               </span>
             </motion.button>}
-        </div>
+        </div>*/}
 
         {/* Dashboard Header */}
         <div className="mb-6" data-unique-id="762335b4-4fb7-4c36-a4b0-fa741ac90f35" data-file-name="app/dashboard/page.tsx">
