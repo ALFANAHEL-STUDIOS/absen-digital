@@ -79,26 +79,26 @@ export default function TeacherDashboard({
       setAttendanceStats(stats);
     }
   }, [recentAttendance]);
-  return <div data-unique-id="b2bdf128-80b2-4847-89ba-07ae715eca63" data-file-name="app/dashboard/components/TeacherDashboard.tsx" data-dynamic-text="true">
+  return <div data-unique-id="5ef19a16-aac9-498d-8903-b01634fd5891" data-file-name="app/dashboard/components/TeacherDashboard.tsx" data-dynamic-text="true">
       {/* Dashboard content */}
 
       {showDynamicDashboard ?
     // Dynamic Dashboard
-    <div className="mb-6" data-unique-id="372a84fc-9562-45b4-8c28-93b17e63edc1" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+    <div className="mb-6" data-unique-id="776caf38-6a74-4bbb-81a3-e7fa1c889b20" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
           <DynamicDashboard userRole={userRole} schoolId={schoolId} />
         </div> : <>
           {/* School Information */}
-          <div className="bg-blue-600 text-white p-5 mb-6 rounded-xl" data-unique-id="167de4ba-04a1-4bbc-b2b1-627059ec6b1e" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
-            <div className="flex items-center mb-1" data-unique-id="e5198226-ae0c-4301-bc67-38458b0302a0" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+          <div className="bg-blue-600 text-white p-5 mb-6 rounded-xl" data-unique-id="3957d8b2-0b7e-4bb4-a397-52a3bcc30197" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+            <div className="flex items-center mb-1" data-unique-id="11c15353-00cd-4c55-b54b-e1c063040f0f" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
               <School className="h-4 w-4 text-white mr-1.5" />
-              <h3 className="text-sm font-medium text-white" data-unique-id="24ae26b7-2666-43d1-beaa-e28d6a6e26cf" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="4b642b14-52e2-4c3e-80b8-4f42324965a3" data-file-name="app/dashboard/components/TeacherDashboard.tsx">DATA SEKOLAH</span></h3>
+              <h3 className="text-sm font-medium text-white" data-unique-id="af19962b-0c21-45fe-b468-2606274dbdb8" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="6045d6ec-2734-450e-ae37-0501f054a3aa" data-file-name="app/dashboard/components/TeacherDashboard.tsx">DATA SEKOLAH</span></h3>
             </div>
-            <p className="text-lg font-bold text-white" data-unique-id="b9b5c997-d164-40af-9755-ead36b048bda" data-file-name="app/dashboard/components/TeacherDashboard.tsx" data-dynamic-text="true">{schoolName}</p>
-            <div className="flex items-center mt-2 text-xs text-white" data-unique-id="eedb1b54-cefa-4442-9160-9e201892a075" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
-              <span data-unique-id="b2ce065c-a20e-443d-8f76-1c3ec7133d09" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="180fac83-74c7-4eda-b0e3-59e07a49a5f8" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Tahun Pelajaran 2024/2025</span></span>
-              <span className="mx-2" data-unique-id="d0fe6278-14b7-400c-928b-923ec9c0481b" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="22c34a2f-31d8-42c1-8116-88ac1bf2057e" data-file-name="app/dashboard/components/TeacherDashboard.tsx">•</span></span>
-              <span className="flex items-center" data-unique-id="3d6fc1a9-bb3b-4cc2-98e6-ed4c993d86a8" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
-                <span className="mr-1 h-2 w-2 bg-green-300 rounded-full inline-block animate-pulse" data-unique-id="6200e012-67ce-4126-a968-6feed7e5bf94" data-file-name="app/dashboard/components/TeacherDashboard.tsx"></span><span className="editable-text" data-unique-id="b5638a78-e366-4c0d-8d77-794060167e6f" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+            <p className="text-lg font-bold text-white" data-unique-id="22bf21ed-07ae-4075-a901-2132244d34e0" data-file-name="app/dashboard/components/TeacherDashboard.tsx" data-dynamic-text="true">{schoolName}</p>
+            <div className="flex items-center mt-2 text-xs text-white" data-unique-id="1c4f0cbe-896d-4af2-ae57-d09e1f795869" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+              <span data-unique-id="366ead59-107f-4baf-8657-42c9c715db00" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="019198a2-4ab9-4361-b642-560ca0dfd1f8" data-file-name="app/dashboard/components/TeacherDashboard.tsx">Tahun Pelajaran 2024/2025</span></span>
+              <span className="mx-2" data-unique-id="ae1b8da0-f1a3-4be6-abc2-e95c60926ce3" data-file-name="app/dashboard/components/TeacherDashboard.tsx"><span className="editable-text" data-unique-id="028b453e-545c-4448-a2d4-d8e69ea718a0" data-file-name="app/dashboard/components/TeacherDashboard.tsx">•</span></span>
+              <span className="flex items-center" data-unique-id="91fae385-0789-4247-ad6e-784f35626695" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
+                <span className="mr-1 h-2 w-2 bg-green-300 rounded-full inline-block animate-pulse" data-unique-id="74d9e76c-0966-44d4-a987-cb7f764fd78d" data-file-name="app/dashboard/components/TeacherDashboard.tsx"></span><span className="editable-text" data-unique-id="5e1a8b87-fddf-42c4-a7ca-bbe0ff7fd333" data-file-name="app/dashboard/components/TeacherDashboard.tsx">
                 Aktif
               </span></span>
             </div>
