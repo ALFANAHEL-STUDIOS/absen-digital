@@ -255,7 +255,7 @@ export default function SuperAdminTable() {
           <thead className="bg-gray-50" data-unique-id="f599cbdb-588e-44b7-9bef-45097f6e9456" data-file-name="components/SuperAdminTable.tsx">
             <tr data-unique-id="e5d20f58-6b6e-4bd5-b390-a8a842463b3c" data-file-name="components/SuperAdminTable.tsx">
               <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="5ac010b4-f4e6-4f6d-bfdd-72709222dd65" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="c1f281e2-9c1b-430f-994f-453844329a16" data-file-name="components/SuperAdminTable.tsx">No</span></th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="d543bc69-4078-408a-adf8-19082eb75e9e" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="1689b077-6d60-4c52-8131-a08dcc498e4f" data-file-name="components/SuperAdminTable.tsx"></span></th>
+              
               <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="7536831a-e9a8-48c0-9326-abcd1c317930" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="a755030d-2894-4012-ab3c-78925a09efba" data-file-name="components/SuperAdminTable.tsx">Email</span></th>
               <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="9247916d-da18-4237-adb0-81ac5de54817" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="922fd62d-233f-4cb3-81c5-dccc3b5bacf4" data-file-name="components/SuperAdminTable.tsx">Nama Sekolah</span></th>
               <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="d9053f3b-115e-484b-85b8-37a45f2faf12" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="694ee908-8f08-44ef-871f-96fc80251054" data-file-name="components/SuperAdminTable.tsx">Status</span></th>
@@ -278,14 +278,7 @@ export default function SuperAdminTable() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-unique-id="890c1553-44ca-4397-92b6-06fe1f9eb8bf" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
                     {index + 1}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap" data-unique-id="ed5f6ffc-d340-4dd9-98ae-25e69b975ed1" data-file-name="components/SuperAdminTable.tsx">
-                    <div className="flex items-center" data-unique-id="b16c33e8-8fb4-4b77-bbec-e00e017d4a72" data-file-name="components/SuperAdminTable.tsx">
-                      
-                      <div className="ml-4" data-unique-id="45efc6c2-085a-4042-994f-2db1376617d4" data-file-name="components/SuperAdminTable.tsx">
-                        <div className="text-sm font-medium text-gray-900" data-unique-id="eaa99bea-35aa-48f5-bff8-fdaa48e2f825" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true"></div>
-                      </div>
-                    </div>
-                  </td>
+                  
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-unique-id="0a19b8af-c825-4b5b-b609-91ea5ebaa1cb" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
                     {account.email}
                   </td>
