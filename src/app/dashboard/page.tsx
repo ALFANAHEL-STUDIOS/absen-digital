@@ -265,8 +265,8 @@ export default function Dashboard() {
       {/* Dashboard Content */}
       <div className="max-w-7xl mx-auto px-14 sm:px-16 lg:px-18 py-18" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
         {/* Quick Action Buttons */}
-        {/*<div className="flex justify-end space-x-3 mb-4" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
-          {hasActiveAnnouncements && <motion.button initial={{
+        <div className="flex justify-end space-x-3 mb-1" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+          {hasActiveAnnouncements && {/*<motion.button initial={{
           scale: 0.9,
           opacity: 0
         }} animate={{
@@ -286,7 +286,7 @@ export default function Dashboard() {
                 <Bell className="h-4 w-4" />
               </motion.div>
               <span className="text-sm font-medium" data-unique-id="aa23c0c5-a586-4fad-95c0-429c9bec6d8d" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="c770e236-a7fd-4607-ac53-8cfe133b8c33" data-file-name="app/dashboard/page.tsx">Lihat Pengumuman</span></span>
-            </motion.button>}
+            </motion.button>}*/}
             
           {(expirationStatus.isNearExpiry || expirationStatus.isExpired) && <motion.button initial={{
           scale: 0.9,
@@ -311,7 +311,7 @@ export default function Dashboard() {
                 {expirationStatus.isExpired ? 'Sudah Kedaluwarsa' : `${expirationStatus.daysLeft} Hari Lagi`}
               </span>
             </motion.button>}
-        </div>*/}
+        </div>
 
         {/* Dashboard Header */}
         <div className="mb-6" data-unique-id="762335b4-4fb7-4c36-a4b0-fa741ac90f35" data-file-name="app/dashboard/page.tsx">
@@ -323,7 +323,7 @@ export default function Dashboard() {
           </h1>
           <div className="flex items-center mt-1 text-gray-500" data-unique-id="7f35e0a7-5766-4b57-bd4c-c36f1bb5407a" data-file-name="app/dashboard/page.tsx">
             <Home size={14} className="mr-1.5" />
-            <span className="font-medium text-xs" data-unique-id="30872479-1379-44c6-81f2-689839523f35" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="64bfdd39-3d85-4ca7-b1f9-8b79573fe201" data-file-name="app/dashboard/page.tsx">SELAMAT DATANG DI ABSENSI DIGITAL</span></span>
+            <span className="font-medium text-xs" data-unique-id="30872479-1379-44c6-81f2-689839523f35" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="64bfdd39-3d85-4ca7-b1f9-8b79573fe201" data-file-name="app/dashboard/page.tsx">SISTEM ABSENSI DIGITAL GURU DAN SISWA</span></span>
           </div>
         </div>
 
