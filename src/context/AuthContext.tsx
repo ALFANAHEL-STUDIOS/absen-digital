@@ -2,22 +2,10 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { 
-  User, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  updateProfile
-} from "firebase/auth";
-import { 
-  doc, 
-  setDoc, 
-  getDoc, 
-  serverTimestamp 
-} from "firebase/firestore";
+import { toast } from "react-hot-toast";
+import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
-
 interface AuthContextType {
   user: User | null;
   userRole: string | null;
@@ -29,9 +17,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   updateUserProfile: (data: any) => Promise<void>;
 }
-
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -39,52 +25,92 @@ export const useAuth = () => {
   }
   return context;
 };
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({
+  children
+}: {
+  children: ReactNode;
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
   const [schoolId, setSchoolId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<any>(null);
   const router = useRouter();
+  // Check user's active status and fetch user data
+  const checkUserActiveStatus = async (user: User) => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
 
+        // Check if account is active
+        if (data.isActive === false) {
+          await signOut(auth);
+          toast.error("Akun Anda telah dinonaktifkan oleh administrator. Silakan hubungi support untuk bantuan.");
+          return null;
+        }
+
+        // Check expiry date if not forever
+        if (data.expiryType !== "forever" && data.expiryDate) {
+          const expiryDate = data.expiryDate.toDate();
+          const now = new Date();
+          if (now > expiryDate) {
+            await signOut(auth);
+            toast.error("Masa berlaku akun Anda telah habis. Silakan hubungi administrator untuk perpanjangan.");
+            return null;
+          }
+        }
+        return data;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error checking user status:", error);
+      return null;
+    }
+  };
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
       setUser(currentUser);
-      
       if (currentUser) {
         try {
-          const userDocRef = doc(db, "users", currentUser.uid);
-          const userDoc = await getDoc(userDocRef);
-          if (userDoc.exists()) {
-            const userDataObj = userDoc.data();
-            setUserRole(userDataObj.role);
-            setSchoolId(userDataObj.schoolId);
-            setUserData(userDataObj);
-            
+          // Check if user account is active
+          const userData = await checkUserActiveStatus(currentUser);
+          if (userData) {
+            setUserRole(userData.role);
+            setSchoolId(userData.schoolId);
+            setUserData(userData);
+
             // Store role in localStorage for persistence
             if (typeof window !== 'undefined') {
-              localStorage.setItem('userRole', userDataObj.role);
-              if (userDataObj.schoolId) {
-                localStorage.setItem('schoolId', userDataObj.schoolId);
+              localStorage.setItem('userRole', userData.role);
+              if (userData.schoolId) {
+                localStorage.setItem('schoolId', userData.schoolId);
               }
-              
+
               // Store if user is new and needs to setup school
-              if (userDataObj.role === 'admin' && !userDataObj.schoolId) {
+              if (userData.role === 'admin' && !userData.schoolId) {
                 localStorage.setItem('needsSchoolSetup', 'true');
               } else {
                 localStorage.removeItem('needsSchoolSetup');
               }
             }
+          } else {
+            // User is inactive or expired, clear state
+            setUserRole(null);
+            setSchoolId(null);
+            setUserData(null);
           }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
+        } catch (error: any) {
+          console.error("Error in auth state change:", error);
+          setUserRole(null);
+          setSchoolId(null);
+          setUserData(null);
         }
       } else {
         setUserRole(null);
         setSchoolId(null);
         setUserData(null);
-        
+
         // Clear localStorage
         if (typeof window !== 'undefined') {
           localStorage.removeItem('userRole');
@@ -92,13 +118,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           localStorage.removeItem('needsSchoolSetup');
         }
       }
-      
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
-  
+
   // Check authorization for routes based on role
   const checkAuthorization = useCallback((requiredRoles?: string[]) => {
     if (!userRole) return false;
@@ -111,17 +135,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
       await updateProfile(user, {
         displayName: name
       });
-      
+
       // Create a school document if user is an administrator
       let schoolId = null;
       if (role === 'admin') {
         // Create a new school ID using the user's ID
         schoolId = user.uid;
-        
+
         // Create a school document with proper data structure
         const schoolData = {
           name: '',
@@ -132,10 +155,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           createdAt: serverTimestamp(),
           createdBy: user.uid
         };
-        
         await setDoc(doc(db, "schools", schoolId), schoolData);
       }
-      
+
       // Create a user document with proper data structure
       const userData = {
         name,
@@ -144,39 +166,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         schoolId,
         createdAt: serverTimestamp()
       };
-      
       await setDoc(doc(db, "users", user.uid), userData);
-      
       setUserRole(role);
       setSchoolId(schoolId);
-      
     } catch (error) {
       console.error("Error signing up:", error);
       throw error;
     }
   }, []);
-
   const login = useCallback(async (email: string, password: string) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
-      // Fetch user role and school ID
-      const userDocRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userDocRef);
-      
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setUserRole(userData.role);
-        setSchoolId(userData.schoolId);
+
+      // Additional check after sign in
+      const userData = await checkUserActiveStatus(user);
+      if (!userData) {
+        // User is inactive, the checkUserActiveStatus function will handle sign out and show error
+        throw new Error("Account is inactive");
       }
-      
-    } catch (error) {
+
+      // Set user data if active
+      setUserRole(userData.role);
+      setSchoolId(userData.schoolId);
+      setUserData(userData);
+    } catch (error: any) {
       console.error("Error logging in:", error);
+      if (error.message === "Account is inactive") {
+        // Error already handled in checkUserActiveStatus
+        throw error;
+      }
       throw error;
     }
   }, []);
-
   const logout = useCallback(async () => {
     try {
       await signOut(auth);
@@ -187,12 +209,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       throw error;
     }
   }, []);
-
   const updateUserProfile = useCallback(async (data: any) => {
     try {
       if (user) {
-        await setDoc(doc(db, "users", user.uid), data, { merge: true });
-        
+        await setDoc(doc(db, "users", user.uid), data, {
+          merge: true
+        });
         if (data.displayName) {
           await updateProfile(user, {
             displayName: data.displayName
@@ -217,10 +239,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     updateUserProfile
   }), [user, userRole, schoolId, loading, userData, signup, login, logout, updateUserProfile]);
-
-  return (
-    <AuthContext.Provider value={value}>
+  return <AuthContext.Provider value={value}>
       {children}
-    </AuthContext.Provider>
-  );
+    </AuthContext.Provider>;
 };
