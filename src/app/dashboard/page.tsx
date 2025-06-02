@@ -266,7 +266,7 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto px-14 sm:px-16 lg:px-18 py-18" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
         {/* Quick Action Buttons */}
         <div className="flex justify-end space-x-3 mb-1" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
-          {hasActiveAnnouncements && {/*<motion.button initial={{
+          {/* {hasActiveAnnouncements && <motion.button initial={{
           scale: 0.9,
           opacity: 0
         }} animate={{
@@ -286,7 +286,7 @@ export default function Dashboard() {
                 <Bell className="h-4 w-4" />
               </motion.div>
               <span className="text-sm font-medium" data-unique-id="aa23c0c5-a586-4fad-95c0-429c9bec6d8d" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="c770e236-a7fd-4607-ac53-8cfe133b8c33" data-file-name="app/dashboard/page.tsx">Lihat Pengumuman</span></span>
-            </motion.button>}*/}
+            </motion.button>}
             
           {(expirationStatus.isNearExpiry || expirationStatus.isExpired) && <motion.button initial={{
           scale: 0.9,
@@ -310,7 +310,7 @@ export default function Dashboard() {
               <span className="text-sm font-medium" data-unique-id="27c7ccc8-c788-4bd1-b5c8-35e674a4c1e6" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
                 {expirationStatus.isExpired ? 'Sudah Kedaluwarsa' : `${expirationStatus.daysLeft} Hari Lagi`}
               </span>
-            </motion.button>}
+            </motion.button>}*/}
         </div>
 
         {/* Dashboard Header */}
