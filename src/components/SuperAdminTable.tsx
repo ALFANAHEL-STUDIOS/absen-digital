@@ -228,9 +228,7 @@ export default function SuperAdminTable() {
     return "active";
   };
   if (loading) {
-    return 
-         
-    <div className="bg-white rounded-xl shadow-sm p-6" data-unique-id="6c7951d7-68bc-4d0e-92e7-8fe0032c8205" data-file-name="components/SuperAdminTable.tsx">
+    return <div className="bg-white rounded-xl shadow-sm p-6" data-unique-id="6c7951d7-68bc-4d0e-92e7-8fe0032c8205" data-file-name="components/SuperAdminTable.tsx">
         <div className="animate-pulse" data-unique-id="f4f91f56-7e28-4def-aa43-19c49ceba610" data-file-name="components/SuperAdminTable.tsx">
           <div className="h-6 bg-gray-200 rounded mb-4" data-unique-id="821f4bee-9045-453e-9fa6-5d533f16ca56" data-file-name="components/SuperAdminTable.tsx"></div>
           <div className="space-y-3" data-unique-id="30a15c21-7466-4cb1-8c27-3cea19b3bd45" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
@@ -238,11 +236,8 @@ export default function SuperAdminTable() {
           </div>
         </div>
       </div>;
-  }    
-  
-  return 
- 
-  <div className="bg-white rounded-xl shadow-sm overflow-hidden" data-unique-id="0a82fbbf-82cb-418d-86b5-55178ddd0779" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
+  }
+  return <div className="bg-white rounded-xl shadow-sm overflow-hidden" data-unique-id="0a82fbbf-82cb-418d-86b5-55178ddd0779" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4" data-unique-id="4a3cefb0-3709-42bb-9a69-a4f8409847c1" data-file-name="components/SuperAdminTable.tsx">
         <div className="flex items-center justify-between" data-unique-id="bbc5507c-0f80-435b-8f96-bea86b7f8f0e" data-file-name="components/SuperAdminTable.tsx">
           <div className="flex items-center space-x-3" data-unique-id="0df2b52d-4d30-4316-8128-117c42d5b6d1" data-file-name="components/SuperAdminTable.tsx">
@@ -259,12 +254,12 @@ export default function SuperAdminTable() {
         <table className="w-full" data-unique-id="06e72a4a-8f51-4327-b27d-ba3128913669" data-file-name="components/SuperAdminTable.tsx">
           <thead className="bg-gray-50" data-unique-id="f599cbdb-588e-44b7-9bef-45097f6e9456" data-file-name="components/SuperAdminTable.tsx">
             <tr data-unique-id="e5d20f58-6b6e-4bd5-b390-a8a842463b3c" data-file-name="components/SuperAdminTable.tsx">
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="5ac010b4-f4e6-4f6d-bfdd-72709222dd65" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="c1f281e2-9c1b-430f-994f-453844329a16" data-file-name="components/SuperAdminTable.tsx">No</span></th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="d543bc69-4078-408a-adf8-19082eb75e9e" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="1689b077-6d60-4c52-8131-a08dcc498e4f" data-file-name="components/SuperAdminTable.tsx">Nama Admin</span></th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="7536831a-e9a8-48c0-9326-abcd1c317930" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="a755030d-2894-4012-ab3c-78925a09efba" data-file-name="components/SuperAdminTable.tsx">Email</span></th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="9247916d-da18-4237-adb0-81ac5de54817" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="922fd62d-233f-4cb3-81c5-dccc3b5bacf4" data-file-name="components/SuperAdminTable.tsx">Nama Sekolah</span></th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="d9053f3b-115e-484b-85b8-37a45f2faf12" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="694ee908-8f08-44ef-871f-96fc80251054" data-file-name="components/SuperAdminTable.tsx">Status</span></th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider" data-unique-id="6c118641-5c8d-46c8-ae4d-bd1e87ab63f0" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="d848588e-a009-4dd0-962a-b1fc344067ac" data-file-name="components/SuperAdminTable.tsx">Masa Berlaku</span></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="5ac010b4-f4e6-4f6d-bfdd-72709222dd65" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="c1f281e2-9c1b-430f-994f-453844329a16" data-file-name="components/SuperAdminTable.tsx">No</span></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="d543bc69-4078-408a-adf8-19082eb75e9e" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="1689b077-6d60-4c52-8131-a08dcc498e4f" data-file-name="components/SuperAdminTable.tsx">Nama Admin</span></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="7536831a-e9a8-48c0-9326-abcd1c317930" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="a755030d-2894-4012-ab3c-78925a09efba" data-file-name="components/SuperAdminTable.tsx">Email</span></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="9247916d-da18-4237-adb0-81ac5de54817" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="922fd62d-233f-4cb3-81c5-dccc3b5bacf4" data-file-name="components/SuperAdminTable.tsx">Nama Sekolah</span></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="d9053f3b-115e-484b-85b8-37a45f2faf12" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="694ee908-8f08-44ef-871f-96fc80251054" data-file-name="components/SuperAdminTable.tsx">Status</span></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="6c118641-5c8d-46c8-ae4d-bd1e87ab63f0" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="d848588e-a009-4dd0-962a-b1fc344067ac" data-file-name="components/SuperAdminTable.tsx">Masa Berlaku</span></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200" data-unique-id="e5a01635-12c0-4f25-8324-49248d744aa0" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
@@ -283,7 +278,7 @@ export default function SuperAdminTable() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-unique-id="890c1553-44ca-4397-92b6-06fe1f9eb8bf" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
                     {index + 1}
                   </td>
-              <td className="px-6 py-4 whitespace-nowrap" data-unique-id="ed5f6ffc-d340-4dd9-98ae-25e69b975ed1" data-file-name="components/SuperAdminTable.tsx">
+                  <td className="px-6 py-4 whitespace-nowrap" data-unique-id="ed5f6ffc-d340-4dd9-98ae-25e69b975ed1" data-file-name="components/SuperAdminTable.tsx">
                     <div className="flex items-center" data-unique-id="b16c33e8-8fb4-4b77-bbec-e00e017d4a72" data-file-name="components/SuperAdminTable.tsx">
                       <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-white font-medium" data-unique-id="518df61f-fb43-41ca-8d17-9ddbd0b8da3a" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
                         {account.adminName.charAt(0).toUpperCase()}
@@ -302,7 +297,7 @@ export default function SuperAdminTable() {
                   <td className="px-6 py-4 whitespace-nowrap" data-unique-id="cfd1596d-8ac3-47f4-aab7-38de4258f726" data-file-name="components/SuperAdminTable.tsx">
                     <button onClick={() => toggleAccountStatus(account.id, account.isActive)} disabled={isActionLoading} className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 ${account.isActive ? 'bg-green-100 text-green-800 hover:bg-green-200' : 'bg-red-100 text-red-800 hover:bg-red-200'} ${isActionLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} data-unique-id="3b714b47-4930-456d-af0f-a3f2c2ba2221" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
                       {isActionLoading ? <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" data-unique-id="36eee893-a90c-4733-9191-2039e4b5b391" data-file-name="components/SuperAdminTable.tsx" /> : account.isActive ? <Eye className="h-4 w-4" data-unique-id="556a720a-dead-4141-9fc0-94c12473ae71" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true" /> : <EyeOff className="h-4 w-4" data-unique-id="29ad1d93-e137-4404-98da-df5f8db83712" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true" />}
-                      <span data-unique-id="9d015ba1-6379-4097-b2c2-2c99c52280f9" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">{account.isActive ? '' : ''}</span>
+                      <span data-unique-id="9d015ba1-6379-4097-b2c2-2c99c52280f9" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">{account.isActive ? 'Aktif' : 'Nonaktif'}</span>
                     </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap" data-unique-id="9852957a-0662-4673-9a29-f52ce05afaba" data-file-name="components/SuperAdminTable.tsx">
@@ -334,7 +329,7 @@ export default function SuperAdminTable() {
           </tbody>
         </table>
       </div>
-
-    </div>; 
+      
+      
+    </div>;
 }
-
