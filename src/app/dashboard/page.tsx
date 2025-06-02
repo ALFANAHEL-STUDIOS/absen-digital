@@ -263,7 +263,7 @@ export default function Dashboard() {
         </div>}
 
       {/* Dashboard Content */}
-      <div className="max-w-7xl mx-auto px-14 sm:px-16 lg:px-18 py-18" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+      <div className="max-w-7xl mx-auto px-4 sm:px-2 lg:px-8 py-0" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
         {/* Quick Action Buttons */}
         <div className="flex justify-end space-x-3 mb-1" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
           {/* {hasActiveAnnouncements && <motion.button initial={{
@@ -314,7 +314,7 @@ export default function Dashboard() {
         </div>
 
         {/* Dashboard Header */}
-        <div className="mb-6" data-unique-id="762335b4-4fb7-4c36-a4b0-fa741ac90f35" data-file-name="app/dashboard/page.tsx">
+        <div className="mb-4" data-unique-id="762335b4-4fb7-4c36-a4b0-fa741ac90f35" data-file-name="app/dashboard/page.tsx">
           <h1 className="text-2xl font-bold text-gray-800" data-unique-id="e44f3f1c-4564-4c82-a3dd-f3841f91ca57" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true"><span className="editable-text" data-unique-id="42f96034-a9ca-423d-90ec-3f642a79108d" data-file-name="app/dashboard/page.tsx">
             Hai, </span>{userName}
             {userRole && <span className="ml-2 text-xs font-normal px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full" data-unique-id="4456f6f1-da61-4816-99eb-52aedb8c2dcd" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
