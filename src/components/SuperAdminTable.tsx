@@ -237,12 +237,58 @@ export default function SuperAdminTable() {
         </div>
       </div>;
   }
-  return <div className="bg-white rounded-xl shadow-sm overflow-hidden" data-unique-id="0a82fbbf-82cb-418d-86b5-55178ddd0779" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
+  return 
+    
+  {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-unique-id="6c5b64f1-6fe5-4c00-9ee0-200a02c2998a" data-file-name="app/dashboard/alfanahel/page.tsx">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="087f5c72-7af7-4e7d-a740-e9c4192d0044" data-file-name="app/dashboard/alfanahel/page.tsx">
+            <div className="flex items-center justify-between" data-unique-id="8cb32d07-903e-4244-bd9e-92392aaccff6" data-file-name="app/dashboard/alfanahel/page.tsx">
+              <div data-unique-id="efe7346a-b494-41ed-9c2a-8133fe5ae53a" data-file-name="app/dashboard/alfanahel/page.tsx">
+                <p className="text-blue-100 text-sm font-medium" data-unique-id="23f079cf-9818-4908-a60f-a91d2bda632e" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="87a9cd92-1a82-410e-aa0d-a209e5ba9543" data-file-name="app/dashboard/alfanahel/page.tsx">Total Sekolah</span></p>
+                <p className="text-3xl font-bold" data-unique-id="6a253f8c-6191-402e-9d2a-e4440f12b96d" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="7ce4b2fc-1f46-4448-88dc-a7316fe2b2a8" data-file-name="app/dashboard/alfanahel/page.tsx">{accounts.length}</span></p>
+              </div>
+              <Users className="h-10 w-10 text-blue-200" />
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="5edac8cf-fcb6-49d5-ac11-9047a63dbbb9" data-file-name="app/dashboard/alfanahel/page.tsx">
+            <div className="flex items-center justify-between" data-unique-id="badf5772-9982-432a-8535-c75e5e3c5223" data-file-name="app/dashboard/alfanahel/page.tsx">
+              <div data-unique-id="256e0e73-db2a-4c66-a040-f2bc54df8272" data-file-name="app/dashboard/alfanahel/page.tsx">
+                <p className="text-green-100 text-sm font-medium" data-unique-id="670f591e-80e9-4797-862f-7e36b3907d4d" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="e7b010ab-ea5c-4c1c-b960-d338a5dd21d3" data-file-name="app/dashboard/alfanahel/page.tsx">Akun Aktif</span></p>
+                <p className="text-3xl font-bold" data-unique-id="6364244f-f6ae-4f5f-a25e-33dbd9da6544" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="b2de3401-4a84-4bc3-b489-5e869cefdffa" data-file-name="app/dashboard/alfanahel/page.tsx">{accounts.filter(a => a.isActive).length}</span></p>
+              </div>
+              <Calendar className="h-10 w-10 text-green-200" data-unique-id="60f6dbd9-abd9-4ec6-8748-5611aed4a75e" data-file-name="app/dashboard/alfanahel/page.tsx" />
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="13023e23-ab66-4067-b4f3-21406289865e" data-file-name="app/dashboard/alfanahel/page.tsx">
+            <div className="flex items-center justify-between" data-unique-id="dc8ed8de-901e-4080-8ee0-59a71f4e20c7" data-file-name="app/dashboard/alfanahel/page.tsx">
+              <div data-unique-id="7e92866c-b35d-48ea-852c-fb612098d522" data-file-name="app/dashboard/alfanahel/page.tsx">
+                <p className="text-orange-100 text-sm font-medium" data-unique-id="1c7a3f03-01a4-4c15-82af-61bb35ca5788" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="1a0ce6a2-3750-4da1-b46b-8d907cfaf61c" data-file-name="app/dashboard/alfanahel/page.tsx">Akan Nonaktif</span></p>
+                <p className="text-3xl font-bold" data-unique-id="48910224-5262-4444-a37d-6de560774cf2" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="aeda99a3-ed9b-4b22-8f9f-18c0b56f991b" data-file-name="app/dashboard/alfanahel/page.tsx">{accounts.filter(a => !a.isActive).length}</span></p>
+              </div>
+              <AlertTriangle className="h-10 w-10 text-orange-200" />
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="63c0d6e9-2cfb-4ff0-88d2-4a836cc7b0d4" data-file-name="app/dashboard/alfanahel/page.tsx">
+            <div className="flex items-center justify-between" data-unique-id="aff95766-e9d1-437c-abdc-b8aebc5facab" data-file-name="app/dashboard/alfanahel/page.tsx">
+              <div data-unique-id="9ce4b382-dd90-4eb4-b807-af7b7dfcd270" data-file-name="app/dashboard/alfanahel/page.tsx">
+                <p className="text-purple-100 text-sm font-medium" data-unique-id="3748d8fb-7c5d-49c0-82fe-3baf9ae24724" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="f66468f4-3512-4f78-a9c5-172443158d46" data-file-name="app/dashboard/alfanahel/page.tsx">Pengumuman</span></p>
+                <p className="text-3xl font-bold" data-unique-id="1006801e-251f-47f8-b5e6-b5ae274aee50" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="c78c76d1-6f94-40c5-be0e-77f39304cf07" data-file-name="app/dashboard/alfanahel/page.tsx">1</span></p>
+              </div>
+              <Bell className="h-10 w-10 text-purple-200" />
+            </div>
+          </div>
+        </div>
+  
+  
+  <div className="bg-white rounded-xl shadow-sm overflow-hidden" data-unique-id="0a82fbbf-82cb-418d-86b5-55178ddd0779" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4" data-unique-id="4a3cefb0-3709-42bb-9a69-a4f8409847c1" data-file-name="components/SuperAdminTable.tsx">
         <div className="flex items-center justify-between" data-unique-id="bbc5507c-0f80-435b-8f96-bea86b7f8f0e" data-file-name="components/SuperAdminTable.tsx">
           <div className="flex items-center space-x-3" data-unique-id="0df2b52d-4d30-4316-8128-117c42d5b6d1" data-file-name="components/SuperAdminTable.tsx">
             <Users className="h-6 w-6 text-white" />
-            <h2 className="text-xl font-semibold text-white" data-unique-id="3ea6f939-112c-41c7-b6cf-e77b6ff6c9f4" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="6b06f1b4-f630-4e61-b8e0-ac1090a1dcdd" data-file-name="components/SuperAdminTable.tsx">Manajemen Akun Sekolah</span></h2>
+            <h2 className="text-xl font-semibold text-white" data-unique-id="3ea6f939-112c-41c7-b6cf-e77b6ff6c9f4" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="6b06f1b4-f630-4e61-b8e0-ac1090a1dcdd" data-file-name="components/SuperAdminTable.tsx">Manajemen Akun</span></h2>
           </div>
           <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm font-medium" data-unique-id="c12384b5-7901-41d6-9f29-f971f4e42475" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
             {accounts.length}<span className="editable-text" data-unique-id="7860792a-27a2-4b1b-9eaa-b1f056141c76" data-file-name="components/SuperAdminTable.tsx"> Akun
@@ -254,12 +300,12 @@ export default function SuperAdminTable() {
         <table className="w-full" data-unique-id="06e72a4a-8f51-4327-b27d-ba3128913669" data-file-name="components/SuperAdminTable.tsx">
           <thead className="bg-gray-50" data-unique-id="f599cbdb-588e-44b7-9bef-45097f6e9456" data-file-name="components/SuperAdminTable.tsx">
             <tr data-unique-id="e5d20f58-6b6e-4bd5-b390-a8a842463b3c" data-file-name="components/SuperAdminTable.tsx">
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="5ac010b4-f4e6-4f6d-bfdd-72709222dd65" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="c1f281e2-9c1b-430f-994f-453844329a16" data-file-name="components/SuperAdminTable.tsx">No</span></th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="d543bc69-4078-408a-adf8-19082eb75e9e" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="1689b077-6d60-4c52-8131-a08dcc498e4f" data-file-name="components/SuperAdminTable.tsx">Nama Admin</span></th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="7536831a-e9a8-48c0-9326-abcd1c317930" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="a755030d-2894-4012-ab3c-78925a09efba" data-file-name="components/SuperAdminTable.tsx">Email</span></th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="9247916d-da18-4237-adb0-81ac5de54817" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="922fd62d-233f-4cb3-81c5-dccc3b5bacf4" data-file-name="components/SuperAdminTable.tsx">Nama Sekolah</span></th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="d9053f3b-115e-484b-85b8-37a45f2faf12" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="694ee908-8f08-44ef-871f-96fc80251054" data-file-name="components/SuperAdminTable.tsx">Status</span></th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-unique-id="6c118641-5c8d-46c8-ae4d-bd1e87ab63f0" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="d848588e-a009-4dd0-962a-b1fc344067ac" data-file-name="components/SuperAdminTable.tsx">Masa Berlaku</span></th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="5ac010b4-f4e6-4f6d-bfdd-72709222dd65" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="c1f281e2-9c1b-430f-994f-453844329a16" data-file-name="components/SuperAdminTable.tsx">No</span></th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="d543bc69-4078-408a-adf8-19082eb75e9e" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="1689b077-6d60-4c52-8131-a08dcc498e4f" data-file-name="components/SuperAdminTable.tsx">Nama Admin</span></th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="7536831a-e9a8-48c0-9326-abcd1c317930" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="a755030d-2894-4012-ab3c-78925a09efba" data-file-name="components/SuperAdminTable.tsx">Email</span></th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="9247916d-da18-4237-adb0-81ac5de54817" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="922fd62d-233f-4cb3-81c5-dccc3b5bacf4" data-file-name="components/SuperAdminTable.tsx">Nama Sekolah</span></th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="d9053f3b-115e-484b-85b8-37a45f2faf12" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="694ee908-8f08-44ef-871f-96fc80251054" data-file-name="components/SuperAdminTable.tsx">Status</span></th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" data-unique-id="6c118641-5c8d-46c8-ae4d-bd1e87ab63f0" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="d848588e-a009-4dd0-962a-b1fc344067ac" data-file-name="components/SuperAdminTable.tsx">Masa Berlaku</span></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200" data-unique-id="e5a01635-12c0-4f25-8324-49248d744aa0" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
@@ -331,7 +377,7 @@ export default function SuperAdminTable() {
       </div>
       
       {/* Info Footer */}
-      <div className="bg-gray-50 px-6 py-4 border-t border-gray-200" data-unique-id="c36ae77d-aa3c-487a-bcf9-aa26c1262854" data-file-name="components/SuperAdminTable.tsx">
+      {/*<div className="bg-gray-50 px-6 py-4 border-t border-gray-200" data-unique-id="c36ae77d-aa3c-487a-bcf9-aa26c1262854" data-file-name="components/SuperAdminTable.tsx">
         <div className="flex items-center justify-between text-sm text-gray-600" data-unique-id="0d3d62c1-d119-411f-a363-1610ca7564ee" data-file-name="components/SuperAdminTable.tsx">
           <div className="flex items-center space-x-4" data-unique-id="c84b6faf-88a3-4af8-9cba-5cbec2af51d7" data-file-name="components/SuperAdminTable.tsx">
             <div className="flex items-center space-x-1" data-unique-id="bb273a0e-421e-4571-aed7-07967886372a" data-file-name="components/SuperAdminTable.tsx">
@@ -347,6 +393,6 @@ export default function SuperAdminTable() {
             Total: </span>{accounts.length}<span className="editable-text" data-unique-id="dcb44138-ee53-4dfa-8daa-6448b73253c5" data-file-name="components/SuperAdminTable.tsx"> akun | Aktif: </span>{accounts.filter(a => a.isActive).length}<span className="editable-text" data-unique-id="0e262b66-ddb7-4758-ae1c-9a4651edf286" data-file-name="components/SuperAdminTable.tsx"> | Nonaktif: </span>{accounts.filter(a => !a.isActive).length}
           </div>
         </div>
-      </div>
+      </div>*/}
     </div>;
 }
