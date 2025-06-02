@@ -382,7 +382,7 @@ export default function AdminDashboard({
                   <div className="bg-amber-400 bg-opacity-30 p-3 rounded-full mb-3" data-unique-id="2cfa9f92-e119-4144-a6f0-41564e22578a" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                     <Settings className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center" data-unique-id="e63d0bed-5d71-4516-a0d8-f5095c351f84" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="f28c81bf-0c2a-4e86-9e74-da1310769c62" data-file-name="app/dashboard/components/AdminDashboard.tsx">Riwayat Absen</span></h3>
+                  <h3 className="font-medium text-white text-center" data-unique-id="e63d0bed-5d71-4516-a0d8-f5095c351f84" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="f28c81bf-0c2a-4e86-9e74-da1310769c62" data-file-name="app/dashboard/components/AdminDashboard.tsx">Riwayat Absensi</span></h3>
                 </div>
               </Link>
               
