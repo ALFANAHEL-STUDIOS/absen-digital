@@ -132,7 +132,7 @@ export default function Students() {
               <select className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary appearance-none bg-white" value={selectedClass} onChange={e => setSelectedClass(e.target.value)} data-unique-id="e183b770-5bd6-4543-a56b-b502e568e6d5" data-file-name="app/dashboard/students/page.tsx" data-dynamic-text="true">
                 <option value="all" data-unique-id="61019c5b-9008-46cd-8554-998e2ed8dfec" data-file-name="app/dashboard/students/page.tsx"><span className="editable-text" data-unique-id="594f587f-ea40-405c-b6ff-17c365cd272f" data-file-name="app/dashboard/students/page.tsx">Semua Kelas</span></option>
                 {classes.map(className => <option key={className} value={className} data-is-mapped="true" data-unique-id="70a9a7ce-3d03-465c-a2bd-bc74ffc83955" data-file-name="app/dashboard/students/page.tsx" data-dynamic-text="true"><span className="editable-text" data-is-mapped="true" data-unique-id="e97b4990-2a62-4688-899d-741b982c63e2" data-file-name="app/dashboard/students/page.tsx">
-                    Kelas </span>{className}
+                    </span>{className}
                   </option>)}
               </select>
             </div>
