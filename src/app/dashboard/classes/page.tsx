@@ -1,403 +1,324 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { db } from "@/lib/firebase";
-import { 
-  collection, 
-  getDocs, 
-  doc, 
-  addDoc, 
-  deleteDoc, 
-  updateDoc, 
-  serverTimestamp, 
-  query, 
-  orderBy 
-} from "firebase/firestore";
-import { 
-  Plus, 
-  Edit, 
-  Trash2, 
-  BookOpen, 
-  User, 
-  Users, 
-  School, 
-  Save, 
-  X,
-  AlertTriangle
-} from "lucide-react";
+import { Plus, Search, Edit, Trash2, Users, BookOpen, Save, X } from "lucide-react";
 import { toast } from "react-hot-toast";
-import dynamic from 'next/dynamic';
-
-const ConfirmDialog = dynamic(() => import('@/components/ConfirmDialog'), {
-  ssr: false
-});
-
+import { motion, AnimatePresence } from "framer-motion";
 interface ClassData {
-  id: string;
-  name: string;
-  level: string;
-  room: string;
-  teacherName: string;
-  studentCount: number;
+ id?: string;
+ name: string;
+ teacherName: string;
+ capacity: number;
+ description: string;
+ createdAt?: any;
 }
+export default function ClassesPage() {
+ const { schoolId, userRole } = useAuth();
+ const [classes, setClasses] = useState<ClassData[]>([]);
+ const [loading, setLoading] = useState(true);
+ const [showAddModal, setShowAddModal] = useState(false);
+ const [editingClass, setEditingClass] = useState<ClassData | null>(null);
+ const [searchQuery, setSearchQuery] = useState("");
+ const [saving, setSaving] = useState(false);
+ const [formData, setFormData] = useState<ClassData>({
+   name: "",
+   teacherName: "",
+   capacity: 30,
+   description: ""
+ });
+ // Fetch classes
+ useEffect(() => {
+   fetchClasses();
+ }, [schoolId]);
+ const fetchClasses = async () => {
+   if (!schoolId) return;
 
-export default function Classes() {
-  const { schoolId, userRole } = useAuth();
-  const [classes, setClasses] = useState<ClassData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [editingClassId, setEditingClassId] = useState<string | null>(null);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [classToDelete, setClassToDelete] = useState<string | null>(null);
-  
-  const [formData, setFormData] = useState({
-    name: "",
-    level: "1",
-    room: "",
-    teacherName: "",
-  });
-  
-  const levelOptions = Array.from({ length: 12 }, (_, i) => ({
-    value: `${i + 1}`,
-    label: `${i + 1}`
-  }));
+   try {
+     setLoading(true);
+     const { classApi } = await import('@/lib/api');
+     const fetchedClasses = await classApi.getAll(schoolId);
+     setClasses(fetchedClasses || []);
+   } catch (error) {
+     console.error("Error fetching classes:", error);
+     toast.error("Gagal mengambil data kelas");
+   } finally {
+     setLoading(false);
+   }
+ };
+ const handleSubmit = async (e: React.FormEvent) => {
+   e.preventDefault();
+   if (!schoolId) return;
+   try {
+     setSaving(true);
+     const { classApi } = await import('@/lib/api');
 
-  useEffect(() => {
-    fetchClasses();
-  }, [schoolId]);
+     if (editingClass) {
+       // Update existing class
+       await classApi.update(schoolId, editingClass.id!, formData);
+       toast.success("Kelas berhasil diperbarui");
+     } else {
+       // Create new class
+       await classApi.create(schoolId, formData);
+       toast.success("Kelas berhasil ditambahkan");
+     }
 
-  const fetchClasses = async () => {
-    if (!schoolId) return;
-    
-    try {
-      setLoading(true);
-      const { collection, getDocs, query, orderBy } = await import('firebase/firestore');
-      const classesRef = collection(db, `schools/${schoolId}/classes`);
-      const classesQuery = query(classesRef, orderBy('name', 'asc'));
-      const snapshot = await getDocs(classesQuery);
-      
-      const fetchedClasses: ClassData[] = [];
-      snapshot.forEach((doc) => {
-        fetchedClasses.push({
-          id: doc.id,
-          ...doc.data()
-        } as ClassData);
-      });
-      
-      // Calculate student count for each class
-      if (fetchedClasses.length > 0) {
-        const studentsRef = collection(db, `schools/${schoolId}/students`);
-        const studentsSnapshot = await getDocs(studentsRef);
-        
-        const studentsByClass: {[key: string]: number} = {};
-        studentsSnapshot.forEach((doc) => {
-          const studentData = doc.data();
-          const studentClass = studentData.class;
-          
-          if (studentClass) {
-            studentsByClass[studentClass] = (studentsByClass[studentClass] || 0) + 1;
-          }
-        });
-        
-        // Update student count in fetched classes
-        fetchedClasses.forEach(classData => {
-          classData.studentCount = studentsByClass[classData.name] || 0;
-        });
-      }
-      
-      setClasses(fetchedClasses);
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-      toast.error("Gagal mengambil data kelas dari database");
-    } finally {
-      setLoading(false);
-    }
-  };
+     // Reset form and close modal
+     setFormData({
+       name: "",
+       teacherName: "",
+       capacity: 30,
+       description: ""
+     });
+     setShowAddModal(false);
+     setEditingClass(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+     // Refresh classes list
+     await fetchClasses();
+   } catch (error) {
+     console.error("Error saving class:", error);
+     toast.error("Gagal menyimpan kelas");
+   } finally {
+     setSaving(false);
+   }
+ };
+ const handleEdit = (classData: ClassData) => {
+   setEditingClass(classData);
+   setFormData({
+     name: classData.name,
+     teacherName: classData.teacherName,
+     capacity: classData.capacity,
+     description: classData.description
+   });
+   setShowAddModal(true);
+ };
+ const handleDelete = async (classId: string) => {
+   if (!schoolId || !confirm("Apakah Anda yakin ingin menghapus kelas ini?")) return;
+   try {
+     const { classApi } = await import('@/lib/api');
+     await classApi.delete(schoolId, classId);
+     toast.success("Kelas berhasil dihapus");
+     await fetchClasses();
+   } catch (error) {
+     console.error("Error deleting class:", error);
+     toast.error("Gagal menghapus kelas");
+   }
+ };
+ const filteredClasses = classes.filter(cls =>
+   cls.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+   cls.teacherName.toLowerCase().includes(searchQuery.toLowerCase())
+ );
+ return (
+   <div className="p-6">
+     <div className="flex items-center justify-between mb-6">
+       <div>
+         <h1 className="text-3xl font-bold text-gray-900">Manajemen Kelas</h1>
+         <p className="text-gray-600 mt-1">Kelola kelas dan data pengajar</p>
+       </div>
+       {userRole === 'admin' && (
+         <button
+           onClick={() => setShowAddModal(true)}
+           className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
+         >
+           <Plus size={20} />
+           Tambah Kelas
+         </button>
+       )}
+     </div>
+     {/* Search */}
+     <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+       <div className="relative">
+         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+         <input
+           type="text"
+           placeholder="Cari kelas atau nama guru..."
+           value={searchQuery}
+           onChange={(e) => setSearchQuery(e.target.value)}
+           className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+         />
+       </div>
+     </div>
+     {/* Classes Grid */}
+     {loading ? (
+       <div className="flex justify-center items-center h-64">
+         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+       </div>
+     ) : (
+       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+         {filteredClasses.map((cls) => (
+           <motion.div
+             key={cls.id}
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+           >
+             <div className="flex items-center justify-between mb-4">
+               <div className="flex items-center gap-3">
+                 <div className="bg-blue-100 p-2 rounded-lg">
+                   <BookOpen className="h-6 w-6 text-blue-600" />
+                 </div>
+                 <div>
+                   <h3 className="font-semibold text-gray-900">{cls.name}</h3>
+                   <p className="text-sm text-gray-500">Kapasitas: {cls.capacity} siswa</p>
+                 </div>
+               </div>
+               {userRole === 'admin' && (
+                 <div className="flex gap-2">
+                   <button
+                     onClick={() => handleEdit(cls)}
+                     className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                   >
+                     <Edit size={16} />
+                   </button>
+                   <button
+                     onClick={() => handleDelete(cls.id!)}
+                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                   >
+                     <Trash2 size={16} />
+                   </button>
+                 </div>
+               )}
+             </div>
 
-  const handleAddClass = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!schoolId) {
-      toast.error("Tidak dapat mengakses data sekolah");
-      return;
-    }
-    
-    try {
-      const { classApi } = await import('@/lib/api');
-      await classApi.create(schoolId, {
-        ...formData,
-        studentCount: 0
-      });
-      
-      setShowAddModal(false);
-      setFormData({ name: "", level: "1", room: "", teacherName: "" });
-      fetchClasses();
-    } catch (error) {
-      console.error("Error adding class:", error);
-    }
-  };
-
-  const handleEditClass = (classData: ClassData) => {
-    setEditingClassId(classData.id);
-    setFormData({
-      name: classData.name,
-      level: classData.level,
-      room: classData.room,
-      teacherName: classData.teacherName,
-    });
-    setShowAddModal(true);
-  };
-
-  const handleUpdateClass = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!schoolId || !editingClassId) {
-      return;
-    }
-    
-    try {
-      const { classApi } = await import('@/lib/api');
-      await classApi.update(schoolId, editingClassId, formData);
-      
-      setShowAddModal(false);
-      setEditingClassId(null);
-      setFormData({ name: "", level: "1", room: "", teacherName: "" });
-      fetchClasses();
-    } catch (error) {
-      console.error("Error updating class:", error);
-    }
-  };
-
-  const handleDeleteClass = async (classId: string) => {
-    if (!schoolId) {
-      return;
-    }
-    
-    setClassToDelete(null);
-    setDeleteDialogOpen(false);
-    
-    try {
-      const { classApi } = await import('@/lib/api');
-      await classApi.delete(schoolId, classId);
-      fetchClasses();
-      toast.success("Kelas berhasil dihapus");
-    } catch (error) {
-      console.error("Error deleting class:", error);
-      toast.error("Gagal menghapus kelas");
-    }
-  };
-  
-  const openDeleteDialog = (classId: string) => {
-    setClassToDelete(classId);
-    setDeleteDialogOpen(true);
-  };
-
-  return (
-    <div className="pb-20 md:pb-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-        <div className="flex items-center mb-4 md:mb-0">
-          <BookOpen className="h-7 w-7 text-primary mr-3" />
-          <h1 className="text-2xl font-bold text-gray-800 text-center md:text-left">DAFTAR KELAS</h1>
-        </div>
-        {userRole === 'admin' && (
-          <button
-            onClick={() => {
-              setEditingClassId(null);
-              setFormData({ name: "", level: "1", room: "", teacherName: "" });
-              setShowAddModal(true);
-            }}
-            className="flex items-center justify-center w-full md:w-auto gap-2 bg-blue-900 text-white px-5 py-2.5 rounded-lg hover:bg-orange-600 active:bg-blue-700 transition-colors"
-          >
-            <Plus size={18} />
-            Tambah Kelas Baru
-          </button>
-        )}
-      </div>
-
-      {classes.length > 0 ? (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 md:gap-6">
-          {classes.map((classData) => (
-            <div key={classData.id} className={`${
-              classData.id.charCodeAt(0) % 5 === 0 ? "bg-indigo-100" : 
-              classData.id.charCodeAt(0) % 5 === 1 ? "bg-emerald-100" : 
-              classData.id.charCodeAt(0) % 5 === 2 ? "bg-amber-100" : 
-              classData.id.charCodeAt(0) % 5 === 3 ? "bg-rose-100" : 
-              "bg-cyan-100"
-            } rounded-xl shadow-sm overflow-hidden`}>
-              <div className="p-5">
-                <div className="flex items-center mb-4">
-                  <div className="bg-primary/10 p-2 rounded-full mr-3">
-                    <BookOpen className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">{classData.name}</h3>
-                  </div>
-                </div>
-                
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4 text-gray-400" />
-                    <span className="text-gray-700">Wali Kelas: {classData.teacherName}</span>
-                  </div>
-                </div>
-                
-                <div className="flex justify-end gap-2 mt-4">
-                  {userRole === 'admin' && (
-                    <>
-                      <button
-                        onClick={() => handleEditClass(classData)}
-                        className="p-2 text-blue-600 rounded hover:bg-blue-100 hover:bg-opacity-20"
-                        title="Edit Kelas"
-                      >
-                        <Edit size={18} />
-                      </button>
-                      <button
-                        onClick={() => openDeleteDialog(classData.id)}
-                        className="p-2 text-red-600 rounded hover:bg-red-100 hover:bg-opacity-20"
-                        title="Hapus Kelas"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="bg-white rounded-xl shadow-sm p-10 text-center">
-          <div className="flex flex-col items-center">
-            <div className="bg-gray-100 rounded-full p-3 mb-4">
-              <BookOpen className="h-8 w-8 text-gray-400" />
-            </div>
-            <p className="text-gray-500 mb-4">Belum ada data.</p>
-            <button
-              onClick={() => {
-                setEditingClassId(null);
-                setFormData({ name: "", level: "1", room: "", teacherName: "" });
-                setShowAddModal(true);
-              }}
-              className="bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              Tambah Kelas
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Add/Edit Class Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
-          <div className="bg-white rounded-xl shadow-lg max-w-md w-full mx-3 sm:mx-auto">
-            <div className="flex justify-between items-center p-5 border-b">
-              <h3 className="text-lg font-semibold">
-                {editingClassId ? "Edit Kelas" : "Tambah Kelas Baru"}
-              </h3>
-              <button
-                onClick={() => setShowAddModal(false)}
-                className="rounded-full p-1 hover:bg-gray-100"
-              >
-                <X size={20} />
-              </button>
-            </div>
-            
-            <form onSubmit={editingClassId ? handleUpdateClass : handleAddClass}>
-              <div className="p-5 space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Nama Kelas
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                    placeholder="Contoh: VII A"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="level" className="block text-sm font-medium text-gray-700 mb-1">
-                    Tingkat/Kelas
-                  </label>
-                  <select
-                    id="level"
-                    name="level"
-                    value={formData.level}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                    required
-                  >
-                    {levelOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        Kelas {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label htmlFor="teacherName" className="block text-sm font-medium text-gray-700 mb-1">
-                    Nama Wali Kelas
-                  </label>
-                  <input
-                    type="text"
-                    id="teacherName"
-                    name="teacherName"
-                    value={formData.teacherName}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                    placeholder="Nama lengkap wali kelas"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <div className="flex justify-end gap-3 p-5 border-t">
-                <button
-                  type="button"
-                  onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors"
-                >
-                  <Save size={18} />
-                  {editingClassId ? "Perbarui" : "Simpan Data"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      
-      {/* Confirmation Dialog */}
-      <ConfirmDialog
-        isOpen={deleteDialogOpen}
-        title="Konfirmasi Hapus Kelas"
-        message="Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini tidak dapat dibatalkan."
-        confirmLabel="Hapus"
-        cancelLabel="Batal"
-        confirmColor="bg-red-500 hover:bg-red-600" 
-        onConfirm={() => classToDelete && handleDeleteClass(classToDelete)}
-        onCancel={() => setDeleteDialogOpen(false)}
-        icon={<AlertTriangle size={20} className="text-red-500" />}
-      />
-       <hr className="border-t border-none mb-4" />
-      <hr className="border-t border-none mb-1" />
-    </div>
-  );
+             <div className="space-y-2">
+               <div className="flex items-center gap-2">
+                 <Users className="h-4 w-4 text-gray-400" />
+                 <span className="text-sm text-gray-600">Wali Kelas: {cls.teacherName}</span>
+               </div>
+               {cls.description && (
+                 <p className="text-sm text-gray-600 mt-2">{cls.description}</p>
+               )}
+             </div>
+           </motion.div>
+         ))}
+       </div>
+     )}
+     {filteredClasses.length === 0 && !loading && (
+       <div className="text-center py-12">
+         <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+         <h3 className="text-lg font-medium text-gray-900 mb-2">Belum ada kelas</h3>
+         <p className="text-gray-600">Mulai dengan menambahkan kelas baru</p>
+       </div>
+     )}
+     {/* Add/Edit Modal */}
+     <AnimatePresence>
+       {showAddModal && (
+         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+           <motion.div
+             initial={{ opacity: 0, scale: 0.95 }}
+             animate={{ opacity: 1, scale: 1 }}
+             exit={{ opacity: 0, scale: 0.95 }}
+             className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4"
+           >
+             <div className="p-6">
+               <div className="flex items-center justify-between mb-4">
+                 <h2 className="text-xl font-semibold">
+                   {editingClass ? 'Edit Kelas' : 'Tambah Kelas Baru'}
+                 </h2>
+                 <button
+                   onClick={() => {
+                     setShowAddModal(false);
+                     setEditingClass(null);
+                     setFormData({
+                       name: "",
+                       teacherName: "",
+                       capacity: 30,
+                       description: ""
+                     });
+                   }}
+                   className="text-gray-400 hover:text-gray-600"
+                 >
+                   <X size={24} />
+                 </button>
+               </div>
+               <form onSubmit={handleSubmit} className="space-y-4">
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-1">
+                     Nama Kelas
+                   </label>
+                   <input
+                     type="text"
+                     value={formData.name}
+                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     placeholder="Contoh: Kelas 1A"
+                     required
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-1">
+                     Nama Wali Kelas
+                   </label>
+                   <input
+                     type="text"
+                     value={formData.teacherName}
+                     onChange={(e) => setFormData({ ...formData, teacherName: e.target.value })}
+                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     placeholder="Nama lengkap wali kelas"
+                     required
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-1">
+                     Kapasitas Siswa
+                   </label>
+                   <input
+                     type="number"
+                     value={formData.capacity}
+                     onChange={(e) => setFormData({ ...formData, capacity: parseInt(e.target.value) || 30 })}
+                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     min="1"
+                     max="50"
+                     required
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-1">
+                     Deskripsi (Opsional)
+                   </label>
+                   <textarea
+                     value={formData.description}
+                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     rows={3}
+                     placeholder="Deskripsi tambahan tentang kelas"
+                   />
+                 </div>
+                 <div className="flex gap-3 pt-4">
+                   <button
+                     type="button"
+                     onClick={() => {
+                       setShowAddModal(false);
+                       setEditingClass(null);
+                       setFormData({
+                         name: "",
+                         teacherName: "",
+                         capacity: 30,
+                         description: ""
+                       });
+                     }}
+                     className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                   >
+                     Batal
+                   </button>
+                   <button
+                     type="submit"
+                     disabled={saving}
+                     className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                   >
+                     {saving ? (
+                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                     ) : (
+                       <Save size={16} />
+                     )}
+                     {saving ? 'Menyimpan...' : (editingClass ? 'Update' : 'Simpan')}
+                   </button>
+                 </div>
+               </form>
+             </div>
+           </motion.div>
+         </div>
+       )}
+     </AnimatePresence>
+   </div>
+ );
 }
