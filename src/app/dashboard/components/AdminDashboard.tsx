@@ -391,7 +391,7 @@ export default function AdminDashboard({
                   <div className="bg-green-400 bg-opacity-30 p-3 rounded-full mb-3" data-unique-id="9fdf47f8-f40c-4d09-a3b9-74fe8dbd969f" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                     <UserPlus className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center" data-unique-id="41df2729-f74a-4961-a28e-dffc5d4bc10b" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="4997bb31-914d-483e-8322-a3472eeeb786" data-file-name="app/dashboard/components/AdminDashboard.tsx">Manajemen User</span></h3>
+                  <h3 className="font-medium text-white text-center" data-unique-id="41df2729-f74a-4961-a28e-dffc5d4bc10b" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="4997bb31-914d-483e-8322-a3472eeeb786" data-file-name="app/dashboard/components/AdminDashboard.tsx">Setting User</span></h3>
                 </div>
               </Link>
             </div>
