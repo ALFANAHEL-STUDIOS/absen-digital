@@ -151,7 +151,7 @@ export default function AddStudent() {
                {loadingClasses ? (
                  <div className="flex items-center justify-center py-2.5 border border-gray-300 rounded-lg bg-gray-50">
                    <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
-                   <span className="ml-2 text-sm text-gray-500">Memuat kelas...</span>
+                   <span className="ml-2 text-sm text-gray-500">Memuat data kelas...</span>
                  </div>
                ) : (
                  <select
