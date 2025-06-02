@@ -345,8 +345,8 @@ export default function SuperAdminTable() {
             <div className="flex items-center space-x-1" data-unique-id="16f84299-db4a-4a19-a6cb-26823fb1474b" data-file-name="components/SuperAdminTable.tsx">
               <EyeOff className="h-4 w-4 text-red-500" />
               <span data-unique-id="bffb3ded-3bfc-4344-ad49-815946c9202a" data-file-name="components/SuperAdminTable.tsx"><span className="editable-text" data-unique-id="0dcb9b48-2417-42d4-81ea-7040f7bd2546" data-file-name="components/SuperAdminTable.tsx">Akun nonaktif tidak dapat login ke sistem</span></span>
-            </div>
-          </div>*/}
+            </div>*/}
+          </div>
           <div className="text-gray-400" data-unique-id="62d9a391-a473-491c-b8c5-6225222a7aa7" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true"><span className="editable-text" data-unique-id="7b2f0a5d-6453-4c6f-b916-fac8ddef67b2" data-file-name="components/SuperAdminTable.tsx">
             Total: </span>{accounts.length}<span className="editable-text" data-unique-id="dcb44138-ee53-4dfa-8daa-6448b73253c5" data-file-name="components/SuperAdminTable.tsx"> akun | Aktif: </span>{accounts.filter(a => a.isActive).length}<span className="editable-text" data-unique-id="0e262b66-ddb7-4758-ae1c-9a4651edf286" data-file-name="components/SuperAdminTable.tsx"> | Nonaktif: </span>{accounts.filter(a => !a.isActive).length}
           </div>
