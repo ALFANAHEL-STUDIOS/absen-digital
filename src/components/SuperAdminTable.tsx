@@ -337,7 +337,10 @@ export default function SuperAdminTable() {
 
     
    
-    </div>;
+    </div>; 
+}
+
+
 
 
 {/* Stats Cards */}
@@ -382,5 +385,3 @@ export default function SuperAdminTable() {
             </div>
           </div>
         </div>
-  
-}
