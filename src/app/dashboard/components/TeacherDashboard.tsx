@@ -172,7 +172,6 @@ export default function TeacherDashboard({
         </>}
     <hr className="border-t border-none mb-5" />
     <hr className="border-t border-none mb-5" />
-    <hr className="border-t border-none mb-5" />
-    <hr className="border-t border-none mb-5" />
+    
     </div>;
 }
