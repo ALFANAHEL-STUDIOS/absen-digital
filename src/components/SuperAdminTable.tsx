@@ -229,7 +229,19 @@ export default function SuperAdminTable() {
   };
   if (loading) {
     return 
-      
+         
+    <div className="bg-white rounded-xl shadow-sm p-6" data-unique-id="6c7951d7-68bc-4d0e-92e7-8fe0032c8205" data-file-name="components/SuperAdminTable.tsx">
+        <div className="animate-pulse" data-unique-id="f4f91f56-7e28-4def-aa43-19c49ceba610" data-file-name="components/SuperAdminTable.tsx">
+          <div className="h-6 bg-gray-200 rounded mb-4" data-unique-id="821f4bee-9045-453e-9fa6-5d533f16ca56" data-file-name="components/SuperAdminTable.tsx"></div>
+          <div className="space-y-3" data-unique-id="30a15c21-7466-4cb1-8c27-3cea19b3bd45" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
+            {[...Array(5)].map((_, i) => <div key={i} className="h-12 bg-gray-200 rounded" data-unique-id="ec3662af-0af6-4376-9af7-a1df63453da5" data-file-name="components/SuperAdminTable.tsx"></div>)}
+          </div>
+        </div>
+      </div>;
+  }
+
+
+ 
        {/* Info Footer */}
       <div className="bg-gray-50 px-6 py-4 border-t border-gray-200" data-unique-id="c36ae77d-aa3c-487a-bcf9-aa26c1262854" data-file-name="components/SuperAdminTable.tsx">
         <div className="flex items-center justify-between text-sm text-gray-600" data-unique-id="0d3d62c1-d119-411f-a363-1610ca7564ee" data-file-name="components/SuperAdminTable.tsx">
@@ -251,16 +263,9 @@ export default function SuperAdminTable() {
     
     
     
-    
-    <div className="bg-white rounded-xl shadow-sm p-6" data-unique-id="6c7951d7-68bc-4d0e-92e7-8fe0032c8205" data-file-name="components/SuperAdminTable.tsx">
-        <div className="animate-pulse" data-unique-id="f4f91f56-7e28-4def-aa43-19c49ceba610" data-file-name="components/SuperAdminTable.tsx">
-          <div className="h-6 bg-gray-200 rounded mb-4" data-unique-id="821f4bee-9045-453e-9fa6-5d533f16ca56" data-file-name="components/SuperAdminTable.tsx"></div>
-          <div className="space-y-3" data-unique-id="30a15c21-7466-4cb1-8c27-3cea19b3bd45" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
-            {[...Array(5)].map((_, i) => <div key={i} className="h-12 bg-gray-200 rounded" data-unique-id="ec3662af-0af6-4376-9af7-a1df63453da5" data-file-name="components/SuperAdminTable.tsx"></div>)}
-          </div>
-        </div>
-      </div>;
-  }
+
+
+  
   return <div className="bg-white rounded-xl shadow-sm overflow-hidden" data-unique-id="0a82fbbf-82cb-418d-86b5-55178ddd0779" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4" data-unique-id="4a3cefb0-3709-42bb-9a69-a4f8409847c1" data-file-name="components/SuperAdminTable.tsx">
         <div className="flex items-center justify-between" data-unique-id="bbc5507c-0f80-435b-8f96-bea86b7f8f0e" data-file-name="components/SuperAdminTable.tsx">
