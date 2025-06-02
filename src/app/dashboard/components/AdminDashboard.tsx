@@ -239,7 +239,7 @@ export default function AdminDashboard({
 
           {/* Admin-specific stats overview */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6" data-unique-id="4e2cb6e1-7215-4686-8276-2e66dca1423e" data-file-name="app/dashboard/components/AdminDashboard.tsx">
-            <div className="bg-blue-500 rounded-xl p-3 sm:p-5 text-white" data-unique-id="d33fbd02-1864-4566-bd15-e49e339ee0cd" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+            <div className="bg-[#7B2CBF] rounded-xl p-3 sm:p-5 text-white" data-unique-id="d33fbd02-1864-4566-bd15-e49e339ee0cd" data-file-name="app/dashboard/components/AdminDashboard.tsx">
               <div className="flex items-center mb-1" data-unique-id="c082589a-ae43-49dc-8f5c-6f839af59844" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                 <Users className="h-4 sm:h-5 w-4 sm:w-5 text-white mr-1.5 sm:mr-2" />
                 <h3 className="text-xs sm:text-sm font-medium text-white" data-unique-id="cc6cd030-f9a9-42c4-a663-2d89309a74bc" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="247fd0ee-e65d-4652-8909-6ab15d29bbd6" data-file-name="app/dashboard/components/AdminDashboard.tsx">Total Siswa</span></h3>
@@ -250,7 +250,7 @@ export default function AdminDashboard({
               </div>
             </div>
             
-            <div className="bg-purple-500 rounded-xl p-3 sm:p-5 text-white" data-unique-id="bf0c5e3f-98a1-4783-8335-1f3c6e1739a9" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+            <div className="bg-orange-500 rounded-xl p-3 sm:p-5 text-white" data-unique-id="bf0c5e3f-98a1-4783-8335-1f3c6e1739a9" data-file-name="app/dashboard/components/AdminDashboard.tsx">
               <div className="flex items-center mb-1" data-unique-id="4cbd4725-e1fd-4d58-9c45-cfddc967370f" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                 <BookOpen className="h-4 sm:h-5 w-4 sm:w-5 text-white mr-1.5 sm:mr-2" />
                 <h3 className="text-xs sm:text-sm font-medium text-white" data-unique-id="9ff35b75-d14d-4cc5-9300-c0928e887282" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="6d0887b0-041d-4e7a-a5e5-7cf8315721f0" data-file-name="app/dashboard/components/AdminDashboard.tsx">Total Kelas</span></h3>
@@ -261,7 +261,7 @@ export default function AdminDashboard({
               </div>
             </div>
             
-            <div className="bg-orange-500 rounded-xl p-3 sm:p-5 text-white" data-unique-id="411c25fe-cc66-460d-b099-5e0c09fe7e93" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+            <div className="bg-[#21A366] rounded-xl p-3 sm:p-5 text-white" data-unique-id="411c25fe-cc66-460d-b099-5e0c09fe7e93" data-file-name="app/dashboard/components/AdminDashboard.tsx">
               <div className="flex items-center mb-1" data-unique-id="02758734-8065-4142-8b7b-7f264cd41aa5" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                 <TrendingUp className="h-4 sm:h-5 w-4 sm:w-5 text-white mr-1.5 sm:mr-2" />
                 <h3 className="text-xs sm:text-sm font-medium text-white" data-unique-id="1a370514-de4d-4eb1-8b37-21452410d697" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="d5c00b9e-a4d7-4776-93f8-d0a922d1c31e" data-file-name="app/dashboard/components/AdminDashboard.tsx">Kehadiran</span></h3>
@@ -272,7 +272,7 @@ export default function AdminDashboard({
               </div>
             </div>
             
-            <div className="bg-green-500 rounded-xl p-3 sm:p-5 text-white" data-unique-id="7e4b1d68-63de-4137-9a4d-5ec84887ccc6" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+            <div className="bg-[#F72585] rounded-xl p-3 sm:p-5 text-white" data-unique-id="7e4b1d68-63de-4137-9a4d-5ec84887ccc6" data-file-name="app/dashboard/components/AdminDashboard.tsx">
               <div className="flex items-center mb-1" data-unique-id="520d2586-ca25-413d-8df5-8695b47e790f" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                 <Users className="h-4 sm:h-5 w-4 sm:w-5 text-white mr-1.5 sm:mr-2" />
                 <h3 className="text-xs sm:text-sm font-medium text-white" data-unique-id="b987e881-4a77-4a75-b915-f8461ba549f4" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="aba8ded7-09b9-43eb-8f1a-7512ad064e2b" data-file-name="app/dashboard/components/AdminDashboard.tsx">Guru Aktif</span></h3>
