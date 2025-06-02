@@ -221,7 +221,7 @@ export default function AdminDashboard({
           <DynamicDashboard userRole={userRole} schoolId={schoolId} />
         </div> : <>
           {/* School Information */}
-          <div className="bg-blue-600 text-white p-4 sm:p-5 mb-4 sm:mb-6 rounded-xl" data-unique-id="817239a2-bdc3-46a7-9308-4fc79db79827" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+          <div className="bg-blue-600 text-white p-4 sm:p-5 mb-4 sm:mb-5 rounded-xl" data-unique-id="817239a2-bdc3-46a7-9308-4fc79db79827" data-file-name="app/dashboard/components/AdminDashboard.tsx">
             <div className="flex items-center mb-1" data-unique-id="d1bec14a-8ebf-4789-b0cd-4f5ef25ea5b7" data-file-name="app/dashboard/components/AdminDashboard.tsx">
               <School className="h-4 w-4 text-white mr-1.5" />
               <h3 className="text-sm font-medium text-white" data-unique-id="24586829-50eb-483a-83df-3b8b2ac46a28" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="ee8119e4-d9cf-497f-8648-cd9ca12aad7d" data-file-name="app/dashboard/components/AdminDashboard.tsx">DATA SEKOLAH</span></h3>
@@ -397,6 +397,8 @@ export default function AdminDashboard({
             </div>
           </div>
         </>}
+    <hr className="border-t border-none mb-5" />
+    <hr className="border-t border-none mb-5" />
     <hr className="border-t border-none mb-5" />
     <hr className="border-t border-none mb-5" />
     </div>;
