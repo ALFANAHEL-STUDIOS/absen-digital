@@ -60,7 +60,7 @@ export default function AlfanahelSuperAdmin() {
 
       <div className="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1 py-8" data-unique-id="a7f76e05-f77e-4928-90da-cbe6a3dd0667" data-file-name="app/dashboard/alfanahel/page.tsx" data-dynamic-text="true">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-unique-id="6c5b64f1-6fe5-4c00-9ee0-200a02c2998a" data-file-name="app/dashboard/alfanahel/page.tsx">
+        {/*<div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-unique-id="6c5b64f1-6fe5-4c00-9ee0-200a02c2998a" data-file-name="app/dashboard/alfanahel/page.tsx">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="087f5c72-7af7-4e7d-a740-e9c4192d0044" data-file-name="app/dashboard/alfanahel/page.tsx">
             <div className="flex items-center justify-between" data-unique-id="8cb32d07-903e-4244-bd9e-92392aaccff6" data-file-name="app/dashboard/alfanahel/page.tsx">
               <div data-unique-id="efe7346a-b494-41ed-9c2a-8133fe5ae53a" data-file-name="app/dashboard/alfanahel/page.tsx">
@@ -100,7 +100,7 @@ export default function AlfanahelSuperAdmin() {
               <Bell className="h-10 w-10 text-purple-200" />
             </div>
           </div>
-        </div>
+        </div>*/}
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" data-unique-id="e5ae74cc-e39a-4a4b-8098-defcdc9aa70e" data-file-name="app/dashboard/alfanahel/page.tsx" data-dynamic-text="true">
