@@ -46,8 +46,8 @@ export default function AlfanahelSuperAdmin() {
                 <Shield className="h-8 w-8 text-white" />
               </div>
               <div data-unique-id="18e82650-8e8e-4b33-bad7-bcc0f3d6b613" data-file-name="app/dashboard/alfanahel/page.tsx">
-                <h1 className="text-3xl font-bold text-gray-900" data-unique-id="bdbe8089-0289-43ba-81c0-aaf157f4f973" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="13b4209f-34d0-42aa-bb2d-1ed08fc6b890" data-file-name="app/dashboard/alfanahel/page.tsx">Alfanahel Super Admin</span></h1>
-                <p className="text-gray-600 mt-1" data-unique-id="6d10ecc6-a182-4df7-adf6-0fe84a52c635" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="fb4accce-bd49-414b-94f2-04d915c1a4d3" data-file-name="app/dashboard/alfanahel/page.tsx">Panel kontrol untuk manajemen sistem</span></p>
+                <h1 className="text-3xl font-bold text-gray-900" data-unique-id="bdbe8089-0289-43ba-81c0-aaf157f4f973" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="13b4209f-34d0-42aa-bb2d-1ed08fc6b890" data-file-name="app/dashboard/alfanahel/page.tsx">Super Admin</span></h1>
+                <p className="text-gray-600 mt-1" data-unique-id="6d10ecc6-a182-4df7-adf6-0fe84a52c635" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="fb4accce-bd49-414b-94f2-04d915c1a4d3" data-file-name="app/dashboard/alfanahel/page.tsx">Panel kontrol manajemen akun</span></p>
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-green-50 to-blue-50 px-4 py-2 rounded-lg border border-green-200" data-unique-id="2ed4b65d-246e-49d6-b9b4-414dc39f0df7" data-file-name="app/dashboard/alfanahel/page.tsx">
@@ -58,7 +58,7 @@ export default function AlfanahelSuperAdmin() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-unique-id="a7f76e05-f77e-4928-90da-cbe6a3dd0667" data-file-name="app/dashboard/alfanahel/page.tsx" data-dynamic-text="true">
+      <div className="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1 py-8" data-unique-id="a7f76e05-f77e-4928-90da-cbe6a3dd0667" data-file-name="app/dashboard/alfanahel/page.tsx" data-dynamic-text="true">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-unique-id="6c5b64f1-6fe5-4c00-9ee0-200a02c2998a" data-file-name="app/dashboard/alfanahel/page.tsx">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="087f5c72-7af7-4e7d-a740-e9c4192d0044" data-file-name="app/dashboard/alfanahel/page.tsx">
@@ -84,7 +84,7 @@ export default function AlfanahelSuperAdmin() {
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="13023e23-ab66-4067-b4f3-21406289865e" data-file-name="app/dashboard/alfanahel/page.tsx">
             <div className="flex items-center justify-between" data-unique-id="dc8ed8de-901e-4080-8ee0-59a71f4e20c7" data-file-name="app/dashboard/alfanahel/page.tsx">
               <div data-unique-id="7e92866c-b35d-48ea-852c-fb612098d522" data-file-name="app/dashboard/alfanahel/page.tsx">
-                <p className="text-orange-100 text-sm font-medium" data-unique-id="1c7a3f03-01a4-4c15-82af-61bb35ca5788" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="1a0ce6a2-3750-4da1-b46b-8d907cfaf61c" data-file-name="app/dashboard/alfanahel/page.tsx">Akan Berakhir</span></p>
+                <p className="text-orange-100 text-sm font-medium" data-unique-id="1c7a3f03-01a4-4c15-82af-61bb35ca5788" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="1a0ce6a2-3750-4da1-b46b-8d907cfaf61c" data-file-name="app/dashboard/alfanahel/page.tsx">Akan Nonaktif</span></p>
                 <p className="text-3xl font-bold" data-unique-id="48910224-5262-4444-a37d-6de560774cf2" data-file-name="app/dashboard/alfanahel/page.tsx"><span className="editable-text" data-unique-id="aeda99a3-ed9b-4b22-8f9f-18c0b56f991b" data-file-name="app/dashboard/alfanahel/page.tsx">0</span></p>
               </div>
               <AlertTriangle className="h-10 w-10 text-orange-200" />
