@@ -393,6 +393,6 @@ export default function SuperAdminTable() {
             Total: </span>{accounts.length}<span className="editable-text" data-unique-id="dcb44138-ee53-4dfa-8daa-6448b73253c5" data-file-name="components/SuperAdminTable.tsx"> akun | Aktif: </span>{accounts.filter(a => a.isActive).length}<span className="editable-text" data-unique-id="0e262b66-ddb7-4758-ae1c-9a4651edf286" data-file-name="components/SuperAdminTable.tsx"> | Nonaktif: </span>{accounts.filter(a => !a.isActive).length}
           </div>
         </div>
-      </div>*/}
-    </div>;
+      </div>
+    </div>*/};
 }
