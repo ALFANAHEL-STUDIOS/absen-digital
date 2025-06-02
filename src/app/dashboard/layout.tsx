@@ -294,149 +294,162 @@ const DashboardLayout = ({
       </header>
       
       {/* Sidebar - Toggle visibility based on sidebarCollapsed state */}
-      <aside className={`fixed left-0 top-0 z-30 h-full bg-[#1E329F] text-white shadow-lg w-[220px] sm:w-64 pt-16 transform transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : '-translate-x-full'} ${sidebarCollapsed ? 'md:-translate-x-full' : 'md:translate-x-0'} md:pt-16 transition-all overflow-y-auto`} data-unique-id="492563e8-5508-4b54-b1a5-c9b812ed7c09" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
+      <aside className={`fixed left-0 top-0 z-30 h-full bg-[#1E329F] text-white shadow-lg w-[220px] sm:w-64 pt-16 transform transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : '-translate-x-full'} ${sidebarCollapsed ? 'md:-translate-x-full' : 'md:translate-x-0'} md:pt-16 transition-all overflow-y-auto`} data-unique-id="a87bc908-0fdd-419c-9c34-4489019d19b9" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
         {/* User profile section */}
-        <div className="px-4 py-3 flex flex-col items-center text-center border-b border-blue-800 border-opacity-80 border-b-2" data-unique-id="81cee0a4-36f5-49fb-a998-0cc59dd02fff" data-file-name="app/dashboard/layout.tsx">
-          <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl font-bold" data-unique-id="252796e1-c448-4bca-b856-eeb860cab04b" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
+        <div className="px-4 py-3 flex flex-col items-center text-center border-b border-blue-800 border-opacity-80 border-b-2" data-unique-id="5f6365c5-bac5-4a4f-8305-c95be13d5856" data-file-name="app/dashboard/layout.tsx">
+          <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl font-bold" data-unique-id="3dc61790-c035-400a-957b-4e891b68c7f3" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
             {userData?.name?.charAt(0).toUpperCase() || user?.displayName?.charAt(0).toUpperCase() || 'U'}
           </div>
-          <p className="font-bold text-sm text-gray-200 mt-1.5" data-unique-id="4442a317-ed22-4bef-a81d-9a1e5882ac5d" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">{userData?.name || user?.displayName || 'User'}</p>
-          <div className="mt-1" data-unique-id="730e1da3-781a-4143-b21e-52a5c0629947" data-file-name="app/dashboard/layout.tsx">
-            <span className="px-2 py-0.5 text-[7px] text-green-700 bg-green-100 border border-green-300 rounded flex items-center" data-unique-id="ea55845e-f199-49f5-8ad6-498561777296" data-file-name="app/dashboard/layout.tsx">
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-check-big mr-0.5" aria-hidden="true" data-unique-id="ac7fe4ab-f1e1-4b5c-b0ec-7097f81e4c3c" data-file-name="app/dashboard/layout.tsx">
+          <p className="font-bold text-sm text-gray-200 mt-1.5" data-unique-id="99b8b5f2-6857-4706-9a7d-d798920413c0" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">{userData?.name || user?.displayName || 'User'}</p>
+          <div className="mt-1" data-unique-id="d37f114f-134e-471c-9ac6-d97317f52168" data-file-name="app/dashboard/layout.tsx">
+            <span className="px-2 py-0.5 text-[7px] text-green-700 bg-green-100 border border-green-300 rounded flex items-center" data-unique-id="18b256fb-f351-4f2d-9ee3-06752a06259c" data-file-name="app/dashboard/layout.tsx">
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-check-big mr-0.5" aria-hidden="true" data-unique-id="336f0e11-663a-462f-9abb-fa75da941d54" data-file-name="app/dashboard/layout.tsx">
                 <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                 <path d="m9 11 3 3L22 4"></path>
-              </svg><span className="editable-text" data-unique-id="66882828-b249-49c0-a197-375ef34810c7" data-file-name="app/dashboard/layout.tsx">
+              </svg><span className="editable-text" data-unique-id="2f31063d-60a2-433c-950d-33f362a22aab" data-file-name="app/dashboard/layout.tsx">
               Akun Terverifikasi
             </span></span>
           </div>
-          <p className="text-xs text-gray-200 mt-1.5" data-unique-id="e4d082de-44cd-4096-8921-e81e2ec232cc" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">{schoolName}</p>
+          <p className="text-xs text-gray-200 mt-1.5" data-unique-id="c9cfa890-f32e-4066-bf08-6a10dd6b0945" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">{schoolName}</p>
         </div>
         
-        <nav className="p-3 space-y-0.5" data-unique-id="daaf8c4f-a423-4694-a5c8-cecc13008856" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
+        <nav className="p-3 space-y-0.5" data-unique-id="ff065f1e-0df6-4488-861e-e8140380e4b5" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
           {/* Dashboard - All users */}
-          <Link href="/dashboard" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="275edde0-1c0d-42e3-984d-7a552c0df7b7" data-file-name="app/dashboard/layout.tsx">
+          <Link href="/dashboard" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="1e9c529c-82a5-4049-94c1-4bd414b6e97b" data-file-name="app/dashboard/layout.tsx">
             <Home size={20} />
-            <span data-unique-id="2490854e-ed10-4efa-aaec-c7ba16718088" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="f2dc2f2d-53d2-4315-bf21-55a302073cfd" data-file-name="app/dashboard/layout.tsx">Dashboard</span></span>
+            <span data-unique-id="4e323106-056f-4f76-a3fd-103ee10a9ac6" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="3e93f570-a6bc-4992-b747-75827596abb0" data-file-name="app/dashboard/layout.tsx">Dashboard</span></span>
           </Link>
           
           {/* ADMIN NAVIGATION */}
           {userRole === 'admin' && <>
-              <Link href="/dashboard/classes" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/classes') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="8eb82d41-ef94-4219-991b-c32664aa5d32" data-file-name="app/dashboard/layout.tsx">
+              <Link href="/dashboard/classes" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/classes') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="f1cd74be-e1b3-4d31-a5b4-55241db4be79" data-file-name="app/dashboard/layout.tsx">
                 <BookOpen size={20} />
-                <span data-unique-id="05b14417-202a-46bb-a1fb-dd597c13932f" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="d27b84a1-2ae8-49b0-b631-a2e4008179c0" data-file-name="app/dashboard/layout.tsx">Manajemen Kelas</span></span>
+                <span data-unique-id="a3181182-64ba-4255-9028-b2f27ca97943" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="12e2d035-e559-4e0e-8117-4cb9d62aad64" data-file-name="app/dashboard/layout.tsx">Manajemen Kelas</span></span>
               </Link>
               
-              <Link href="/dashboard/students" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/students') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="31606ad4-6398-49df-be45-f78729876cf8" data-file-name="app/dashboard/layout.tsx">
+              <Link href="/dashboard/students" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/students') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="7ff0b429-a804-40f8-ad3f-f06be4e8041e" data-file-name="app/dashboard/layout.tsx">
                 <Users size={20} />
-                <span data-unique-id="ac223c06-2423-4c16-bb26-fb8f91cbc5ff" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="e4811a1a-5958-41d8-b1cb-913575bdac4b" data-file-name="app/dashboard/layout.tsx">Manajemen Siswa</span></span>
+                <span data-unique-id="d710d678-bff0-49b2-a886-d201b416b0c4" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="304ab095-117c-4c73-95c6-6954c3ea921d" data-file-name="app/dashboard/layout.tsx">Manajemen Siswa</span></span>
               </Link>
               
-              <Link href="/dashboard/scan" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/scan') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="1d40ad02-4d95-478c-8954-9b79935045e3" data-file-name="app/dashboard/layout.tsx">
+              <Link href="/dashboard/scan" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/scan') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="86be8fbd-5e10-427c-81d3-3d3ba21ff2f2" data-file-name="app/dashboard/layout.tsx">
                 <Scan size={20} />
-                <span data-unique-id="d7699f87-3897-4dfe-97e6-f4eea6077753" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="83346659-580b-4c0a-8a8a-f226a74a06fb" data-file-name="app/dashboard/layout.tsx">Scan QR Code</span></span>
+                <span data-unique-id="0870256a-c6e1-44db-bf9f-3feb51d03122" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="ee1c28a6-d6fb-4cdd-999a-e14d19f549bf" data-file-name="app/dashboard/layout.tsx">Scan QR Code</span></span>
               </Link>
               
-              <Link href="/dashboard/attendance-history" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/attendance-history') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="d4383fee-0fad-4cef-9979-04706b2da27a" data-file-name="app/dashboard/layout.tsx">
-                <Calendar size={20} data-unique-id="99d59816-f0fe-41e3-b612-c77f57f29501" data-file-name="app/dashboard/layout.tsx" />
-                <span data-unique-id="82ffe150-cc88-4c59-a838-b1b9292dca9f" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="b67ec8c4-f291-4a20-9153-70972a02721e" data-file-name="app/dashboard/layout.tsx">Riwayat Kehadiran</span></span>
+              <Link href="/dashboard/attendance-history" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/attendance-history') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="b6f69899-e9d5-4ef8-a467-3947fca85dee" data-file-name="app/dashboard/layout.tsx">
+                <Calendar size={20} data-unique-id="cb1d95e3-6845-4d23-af45-b80136eaf45a" data-file-name="app/dashboard/layout.tsx" />
+                <span data-unique-id="372b003d-1ee9-4bab-b861-b0c9d8982b69" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="0d5f6e69-6f80-4ec1-a70c-8bba5e15682c" data-file-name="app/dashboard/layout.tsx">Riwayat Kehadiran</span></span>
               </Link>
 
 
-              <Link href="/dashboard/students/qr" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/students/qr') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="36b72bdd-b752-456e-bb3c-69cf37d5e34d" data-file-name="app/dashboard/layout.tsx">
+              <Link href="/dashboard/students/qr" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/students/qr') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="bcaa3d03-4cf4-4576-aee6-e26d00480339" data-file-name="app/dashboard/layout.tsx">
                 <QrCode size={20} />
-                <span data-unique-id="fc98f4f5-48ec-4fb6-bbf8-4ce6a322de3c" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="ed99708e-6f7f-45cb-818a-bf6277f668a7" data-file-name="app/dashboard/layout.tsx">Kartu QR Code</span></span>
+                <span data-unique-id="08b0ffa4-55de-4cb4-a733-b13a1beb2456" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="65dd1b99-6679-4626-8f7d-4139d4e9dc38" data-file-name="app/dashboard/layout.tsx">Kartu QR Code</span></span>
               </Link>
               
-              <Link href="/dashboard/absensi-guru" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/absensi-guru') || isActive('/dashboard/absensi-guru/data') || isActive('/dashboard/absensi-guru/settings') || isActive('/dashboard/absensi-guru/reports') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="224192ee-29c8-4237-a257-b461291d52aa" data-file-name="app/dashboard/layout.tsx">
+              <Link href="/dashboard/absensi-guru" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/absensi-guru') || isActive('/dashboard/absensi-guru/data') || isActive('/dashboard/absensi-guru/settings') || isActive('/dashboard/absensi-guru/reports') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="ed1b2447-335e-47c6-b846-62cf0cca825b" data-file-name="app/dashboard/layout.tsx">
                 <Users size={20} />
-                <span data-unique-id="30fca979-5262-4142-bc17-5ba9a5d2abc5" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="3ba4f039-9048-4fc6-8870-21191de27dc3" data-file-name="app/dashboard/layout.tsx">Absensi Guru</span></span>
+                <span data-unique-id="2217a601-0e4c-493a-a04b-961e370d564e" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="f6600bd5-2441-449a-9dc9-645554ad4093" data-file-name="app/dashboard/layout.tsx">Absensi Guru</span></span>
               </Link>
             </>}
           
           {/* TEACHER NAVIGATION */}
           {userRole === 'teacher' && <>            
-              <Link href="/dashboard/students" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/students') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="a43eddff-2532-4178-80c5-ee26d9a66d4f" data-file-name="app/dashboard/layout.tsx">
-                <Users size={20} />
-                <span data-unique-id="96ce368c-d85b-4dcf-9bcc-0d1ff9f0f4ca" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="7ddb58db-dc1f-49a8-a60c-91b1fdbbc4d0" data-file-name="app/dashboard/layout.tsx">Daftar Siswa</span></span>
-              </Link>
               
-              <Link href="/dashboard/classes" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/classes') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="ce964375-267b-4ee1-9776-77a3492aba66" data-file-name="app/dashboard/layout.tsx">
+              <Link href="/dashboard/classes" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/classes') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="56c85ad1-407f-42b8-82d4-9f338c174a33" data-file-name="app/dashboard/layout.tsx">
                 <BookOpen size={20} />
-                <span data-unique-id="834b5271-e75c-4fd5-8bfc-cab21059e75c" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="90a732ad-dfc8-4856-9dce-632efee17b7d" data-file-name="app/dashboard/layout.tsx">Daftar Kelas</span></span>
+                <span data-unique-id="b2ecb1ec-153a-4598-87c1-650ce34ed279" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="0548d7ad-28d2-4e3f-9005-5b078cbfa228" data-file-name="app/dashboard/layout.tsx">Manajemen Kelas</span></span>
+              </Link>
+
+            <Link href="/dashboard/students" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/students') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="259fbafe-ad6a-479d-92c8-62692283d982" data-file-name="app/dashboard/layout.tsx">
+                <Users size={20} />
+                <span data-unique-id="d3f36798-6f83-42c1-82a9-ca6ec4fdcd27" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="d0af66be-8c34-44a2-b215-b1e0fa7de230" data-file-name="app/dashboard/layout.tsx">Manajemen Siswa</span></span>
+              </Link>
+                            
+              <Link href="/dashboard/scan" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/scan') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="8452dace-0f39-4699-a723-9e377dca752e" data-file-name="app/dashboard/layout.tsx">
+                <Scan size={20} />
+                <span data-unique-id="13ba8a42-97d7-4430-bea4-808c9e10db74" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="f3a6caab-3d61-489c-aba1-d7f06413534a" data-file-name="app/dashboard/layout.tsx">Absensi Siswa</span></span>
+              </Link>
+
+
+            <Link href="/dashboard/students/qr" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/students') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="259fbafe-ad6a-479d-92c8-62692283d982" data-file-name="app/dashboard/layout.tsx">
+                <QrCode size={20} />
+                <span data-unique-id="d3f36798-6f83-42c1-82a9-ca6ec4fdcd27" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="d0af66be-8c34-44a2-b215-b1e0fa7de230" data-file-name="app/dashboard/layout.tsx">Kartu QR Siswa</span></span>
+              </Link>
+
+            <Link href="/dashboard/absensi-guru/scan" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/scan') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="8452dace-0f39-4699-a723-9e377dca752e" data-file-name="app/dashboard/layout.tsx">
+                <Users size={20} />
+                <span data-unique-id="13ba8a42-97d7-4430-bea4-808c9e10db74" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="f3a6caab-3d61-489c-aba1-d7f06413534a" data-file-name="app/dashboard/layout.tsx">Absensi Guru</span></span>
               </Link>
               
-              <Link href="/dashboard/scan" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/scan') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="289c7dc6-5e97-4ffd-b44c-1592f1bf8f24" data-file-name="app/dashboard/layout.tsx">
-                <Scan size={20} />
-                <span data-unique-id="efcc23b0-74f9-499c-aabd-c8a0a7cfe4e1" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="496df05b-78cd-48c3-9635-c27bfc44d9a6" data-file-name="app/dashboard/layout.tsx">Scan Absensi</span></span>
-              </Link>
             </>}
           
           {/* COMMON NAVIGATION FOR ALL USERS */}          
-          <Link href="/dashboard/reports" className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive('/dashboard/reports') || isActive('/dashboard/reports/by-student') || isActive('/dashboard/reports/by-class') || isActive('/dashboard/reports/by-group') || isActive('/dashboard/reports/monthly-attendance') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="dbcc23ad-bc5a-4ae7-9d75-02b74c287674" data-file-name="app/dashboard/layout.tsx">
+          <Link href="/dashboard/reports" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive('/dashboard/reports') || isActive('/dashboard/reports/by-student') || isActive('/dashboard/reports/by-class') || isActive('/dashboard/reports/by-group') || isActive('/dashboard/reports/monthly-attendance') ? 'bg-blue-800 text-white font-medium' : 'text-white hover:bg-blue-800'}`} onClick={() => setMenuOpen(false)} data-unique-id="c0ba8adb-253e-4d09-af45-54ade5a76530" data-file-name="app/dashboard/layout.tsx">
             <FileText size={20} />
-            <span data-unique-id="5fafd895-eea5-4b58-81e5-cff505f23a33" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="92c52dfd-bdd1-4b78-a25b-caa0f72dad05" data-file-name="app/dashboard/layout.tsx">Laporan Absensi</span></span>
+            <span data-unique-id="dfecc4be-c592-44ff-9e90-21970886661a" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="a9e686ec-1fcf-4f81-9ff0-d828cf0e1a1f" data-file-name="app/dashboard/layout.tsx">Laporan Absensi</span></span>
           </Link>
           
           
-          <button onClick={openLogoutDialog} className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all text-white hover:bg-blue-800 w-full text-left mt-4`} data-unique-id="3094ef64-c3f7-4607-a473-4906f813ceeb" data-file-name="app/dashboard/layout.tsx">
+          <button onClick={openLogoutDialog} className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-white hover:bg-blue-800 w-full text-left mt-4`} data-unique-id="125aaf92-088f-404f-9c47-8088efa60323" data-file-name="app/dashboard/layout.tsx">
             <LogOut size={20} />
-            <span data-unique-id="462ab866-d6b0-415f-938b-f5cc4aac978f" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="46f885b3-90e1-42a6-a90c-031f34847b23" data-file-name="app/dashboard/layout.tsx">Keluar</span></span>
+            <span data-unique-id="05504583-a7f6-434c-9305-864f7d893511" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="91f92e53-2e76-414f-bff7-db81d43140f0" data-file-name="app/dashboard/layout.tsx">Keluar</span></span>
           </button>
         </nav>
       </aside>
       
       {/* Backdrop to close the sidebar on mobile */}
-      {menuOpen && <div className="fixed inset-0 bg-black/20 z-20 md:hidden" onClick={() => setMenuOpen(false)} data-unique-id="c26c97eb-616a-40d5-b02e-0add30c6025a" data-file-name="app/dashboard/layout.tsx"></div>}
+      {menuOpen && <div className="fixed inset-0 bg-black/20 z-20 md:hidden" onClick={() => setMenuOpen(false)} data-unique-id="8f5d8154-54c3-43a4-9bee-128e9ad966e8" data-file-name="app/dashboard/layout.tsx"></div>}
 
       {/* Main Content */}
-      <main className={`pt-16 min-h-screen transition-all ${sidebarCollapsed ? 'md:pl-0' : 'md:pl-64'}`} onClick={() => menuOpen && setMenuOpen(false)} data-unique-id="cd5e18b6-1734-49ad-bb01-42aaa51acf3c" data-file-name="app/dashboard/layout.tsx">
-        <div className="p-3 sm:p-4 md:p-6" data-unique-id="6f82411e-a820-4442-b26a-d916d7f737bd" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
+      <main className={`pt-16 min-h-screen transition-all ${sidebarCollapsed ? 'md:pl-0' : 'md:pl-64'}`} onClick={() => menuOpen && setMenuOpen(false)} data-unique-id="19f6ee37-745d-49e4-b0d9-bc191a969c79" data-file-name="app/dashboard/layout.tsx">
+        <div className="p-3 sm:p-4 md:p-6" data-unique-id="c58c0cfe-8106-453f-bc4c-ee193e8651e8" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
           {children}
         </div>
       </main>
       
       {/* Mobile Bottom Navigation - Role-specific */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 shadow-lg" data-unique-id="b53ff523-898a-4f31-a944-a5d03a44382d" data-file-name="app/dashboard/layout.tsx">
-        <div className="flex justify-around items-center py-1" data-unique-id="ddd42400-6525-4a47-8358-bffa0241d9d7" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 shadow-lg" data-unique-id="4c7ddbff-40e5-4672-b53d-f904ae3ccb51" data-file-name="app/dashboard/layout.tsx">
+        <div className="flex justify-around items-center py-1" data-unique-id="3cd68a92-6f73-41f9-8e14-9b7f1d271eb6" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
           {/* Home - All users */}
-          <Link href="/dashboard" className="flex flex-col items-center p-2" data-unique-id="18ca1a3f-5bff-4c31-a146-7fdfeb59b8a7" data-file-name="app/dashboard/layout.tsx">
+          <Link href="/dashboard" className="flex flex-col items-center p-2" data-unique-id="de5e9ff2-3ee9-4469-b2a9-f242c1ac1424" data-file-name="app/dashboard/layout.tsx">
             <Home size={24} className={isActive('/dashboard') ? 'text-primary' : 'text-gray-500'} />
-            <span className={`text-xs mt-1 ${isActive('/dashboard') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="0464d1d6-78df-44ce-bfad-2a166e0a5028" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="254e734d-de19-4298-b82d-9e4e2d466722" data-file-name="app/dashboard/layout.tsx">Home</span></span>
+            <span className={`text-xs mt-1 ${isActive('/dashboard') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="2185ca06-8ecc-461b-aa33-49c53398864f" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="9d456cc6-e9d9-44a1-a65a-17239d4e01da" data-file-name="app/dashboard/layout.tsx">Home</span></span>
           </Link>
           
           {/* Admin and Teacher */}
-          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/students" className="flex flex-col items-center p-2" data-unique-id="132213c7-24ae-4ec5-ba26-421e0bc70b6b" data-file-name="app/dashboard/layout.tsx">
+          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/students" className="flex flex-col items-center p-2" data-unique-id="0e75f6b4-960c-480c-876b-ad56bf9fc2a7" data-file-name="app/dashboard/layout.tsx">
               <Users size={24} className={isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'} />
-              <span className={`text-xs mt-1 ${isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="2d72d11c-e12e-4852-9df2-353f5c37fe20" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="307d2af7-fca9-4564-96fb-b9fc11621dbf" data-file-name="app/dashboard/layout.tsx">Siswa</span></span>
+              <span className={`text-xs mt-1 ${isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="502e2695-36fd-43f4-9b37-7b608df8bad0" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="7699a583-1ece-40ca-8330-631d886c89ba" data-file-name="app/dashboard/layout.tsx">Siswa</span></span>
             </Link>}
           
           {/* Admin and Teacher */}
-          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/scan" className="flex flex-col items-center p-2" data-unique-id="66dfef18-5503-4b7a-9675-4db98307e29d" data-file-name="app/dashboard/layout.tsx">
-              <div className="bg-primary rounded-full p-3 -mt-5" data-unique-id="e45a07bc-bea8-472a-8cff-30d4c2a434de" data-file-name="app/dashboard/layout.tsx">
+          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/scan" className="flex flex-col items-center p-2" data-unique-id="1e66bb1d-df66-4887-a47c-c5c8cb9e8d0d" data-file-name="app/dashboard/layout.tsx">
+              <div className="bg-primary rounded-full p-3 -mt-5" data-unique-id="ac956c0c-98eb-4ac9-b614-1660859628fb" data-file-name="app/dashboard/layout.tsx">
                 <Scan className="h-10 w-10 text-white" />
               </div>
-              <span className="text-xs mt-1 text-gray-500" data-unique-id="bff64f72-43ab-4464-ab08-7342affd3627" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="e7e66bd2-5388-455c-919a-f9fbe25cb4e3" data-file-name="app/dashboard/layout.tsx">Scan QR</span></span>
+              <span className="text-xs mt-1 text-gray-500" data-unique-id="90fdee9f-f921-44aa-99e1-70beac144ef3" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="78e4202a-128f-4819-87a0-bde2965e63a8" data-file-name="app/dashboard/layout.tsx">Scan QR</span></span>
             </Link>}
           
           {/* Student */}
-          {userRole === 'student' && <Link href="/dashboard/profile-user" className="flex flex-col items-center p-2" data-unique-id="54b13494-b322-4422-9228-c573774bfa45" data-file-name="app/dashboard/layout.tsx">
-              <div className="bg-primary rounded-full p-3 -mt-5" data-unique-id="1d1ffe60-cf8a-4c56-9d5d-b0fdc7728c80" data-file-name="app/dashboard/layout.tsx">
+          {userRole === 'student' && <Link href="/dashboard/profile-user" className="flex flex-col items-center p-2" data-unique-id="e9de3d38-512a-4ef2-9d1a-a0ff097e7b3c" data-file-name="app/dashboard/layout.tsx">
+              <div className="bg-primary rounded-full p-3 -mt-5" data-unique-id="3f736360-8515-43d7-a847-2adcf94bf37f" data-file-name="app/dashboard/layout.tsx">
                 <User size={24} className="text-white" />
               </div>
-              <span className="text-xs mt-1 text-gray-500" data-unique-id="99d601cd-901b-46cc-8ae2-9956f509314b" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="18c3f4b5-e3d3-41b2-877c-0b22a51101c0" data-file-name="app/dashboard/layout.tsx">Profil</span></span>
+              <span className="text-xs mt-1 text-gray-500" data-unique-id="3c33dfbd-2e27-403c-8f1c-d3e6be190a81" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="af10e0ea-4ecd-44cf-a993-7994e1af9f41" data-file-name="app/dashboard/layout.tsx">Profil</span></span>
             </Link>}
           
           {/* Admin and Teacher */}
-          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/classes" className="flex flex-col items-center p-2" data-unique-id="ee6d2913-8055-4bea-8f0e-580f6141747e" data-file-name="app/dashboard/layout.tsx">
+          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/classes" className="flex flex-col items-center p-2" data-unique-id="dc79ce9d-7bbe-499b-8c6b-a93238828a45" data-file-name="app/dashboard/layout.tsx">
               <BookOpen size={24} className={isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'} />
-              <span className={`text-xs mt-1 ${isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="78df9267-b178-418a-9527-e33db9f18e99" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="7bd0033b-3986-4e15-979c-2c74a0628bac" data-file-name="app/dashboard/layout.tsx">Kelas</span></span>
+              <span className={`text-xs mt-1 ${isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="24cfbdea-0b67-4c03-a69e-c07f7c78351a" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="ca7a557e-6768-457c-b00b-15305c141d7b" data-file-name="app/dashboard/layout.tsx">Kelas</span></span>
             </Link>}
           
           {/* All users */}
-          <Link href="/dashboard/reports" className="flex flex-col items-center p-2" data-unique-id="a05f67ce-417c-40e4-923e-02628ddfc31d" data-file-name="app/dashboard/layout.tsx">
+          <Link href="/dashboard/reports" className="flex flex-col items-center p-2" data-unique-id="b6b029ae-f22b-4b38-9890-0aa566a202dc" data-file-name="app/dashboard/layout.tsx">
             <FileText size={24} className={isActive('/dashboard/reports') ? 'text-primary' : 'text-gray-500'} />
-            <span className={`text-xs mt-1 ${isActive('/dashboard/reports') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="12798801-59b0-4cf2-bab8-bd9e15c55f54" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="b0b07560-ddf0-413d-92f0-70a90e93bc96" data-file-name="app/dashboard/layout.tsx">Laporan</span></span>
+            <span className={`text-xs mt-1 ${isActive('/dashboard/reports') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="c12706c9-7fdd-4f2b-bf10-8fb8fc661d0b" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="1e746562-994a-4e4d-9863-6b5d70c9e08a" data-file-name="app/dashboard/layout.tsx">Laporan</span></span>
           </Link>
         </div>
       </div>
