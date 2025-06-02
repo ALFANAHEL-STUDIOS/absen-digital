@@ -232,7 +232,7 @@ export default function SuperAdminTable() {
         <div className="animate-pulse" data-unique-id="f4f91f56-7e28-4def-aa43-19c49ceba610" data-file-name="components/SuperAdminTable.tsx">
           <div className="h-6 bg-gray-200 rounded mb-4" data-unique-id="821f4bee-9045-453e-9fa6-5d533f16ca56" data-file-name="components/SuperAdminTable.tsx"></div>
           <div className="space-y-3" data-unique-id="30a15c21-7466-4cb1-8c27-3cea19b3bd45" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
-            {[...Array(2)].map((_, i) => <div key={i} className="h-12 bg-gray-200 rounded" data-unique-id="ec3662af-0af6-4376-9af7-a1df63453da5" data-file-name="components/SuperAdminTable.tsx"></div>)}
+            {[...Array(5)].map((_, i) => <div key={i} className="h-12 bg-gray-200 rounded" data-unique-id="ec3662af-0af6-4376-9af7-a1df63453da5" data-file-name="components/SuperAdminTable.tsx"></div>)}
           </div>
         </div>
       </div>;
