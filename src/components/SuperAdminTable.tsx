@@ -280,9 +280,7 @@ export default function SuperAdminTable() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap" data-unique-id="ed5f6ffc-d340-4dd9-98ae-25e69b975ed1" data-file-name="components/SuperAdminTable.tsx">
                     <div className="flex items-center" data-unique-id="b16c33e8-8fb4-4b77-bbec-e00e017d4a72" data-file-name="components/SuperAdminTable.tsx">
-                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-white font-medium" data-unique-id="518df61f-fb43-41ca-8d17-9ddbd0b8da3a" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true">
-                        
-                      </div>
+                      
                       <div className="ml-4" data-unique-id="45efc6c2-085a-4042-994f-2db1376617d4" data-file-name="components/SuperAdminTable.tsx">
                         <div className="text-sm font-medium text-gray-900" data-unique-id="eaa99bea-35aa-48f5-bff8-fdaa48e2f825" data-file-name="components/SuperAdminTable.tsx" data-dynamic-text="true"></div>
                       </div>
