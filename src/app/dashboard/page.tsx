@@ -263,9 +263,9 @@ export default function Dashboard() {
         </div>}
 
       {/* Dashboard Content */}
-      <div className="max-w-7xl mx-auto px-1 sm:px-16 lg:px-18 py-0" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+      <div className="p-13 sm:p-14 md:p-16" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
         {/* Quick Action Buttons */}
-        <div className="flex justify-end space-x-3 mb-1" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+        <div className="flex justify-end space-x-3 mb-2" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
           {/* {hasActiveAnnouncements && <motion.button initial={{
           scale: 0.9,
           opacity: 0
