@@ -46,7 +46,7 @@ export const AuthProvider = ({
         // Check if account is active
         if (data.isActive === false) {
           await signOut(auth);
-          toast.error("Akun Anda telah dinonaktifkan oleh administrator. Silakan hubungi support untuk bantuan.");
+          toast.error("Akun Anda telah dinonaktifkan oleh administrator. Silakan hubungi Admin melalui WhatsApp (081272405881) untuk bantuan.");
           return null;
         }
 
@@ -56,7 +56,7 @@ export const AuthProvider = ({
           const now = new Date();
           if (now > expiryDate) {
             await signOut(auth);
-            toast.error("Masa berlaku akun Anda telah habis. Silakan hubungi administrator untuk perpanjangan.");
+            toast.error("Masa berlaku akun Anda telah habis. Silakan hubungi Admin melalui WhatsApp (081272405881) untuk perpanjangan layanan.");
             return null;
           }
         }
