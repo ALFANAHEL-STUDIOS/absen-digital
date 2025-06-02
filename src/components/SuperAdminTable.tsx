@@ -335,6 +335,11 @@ export default function SuperAdminTable() {
         </table>
       </div>
 
+    
+   
+    </div>;
+
+
 {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-unique-id="6c5b64f1-6fe5-4c00-9ee0-200a02c2998a" data-file-name="app/dashboard/alfanahel/page.tsx">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg" data-unique-id="087f5c72-7af7-4e7d-a740-e9c4192d0044" data-file-name="app/dashboard/alfanahel/page.tsx">
@@ -377,7 +382,5 @@ export default function SuperAdminTable() {
             </div>
           </div>
         </div>
-    
-   
-    </div>;
+  
 }
