@@ -111,7 +111,7 @@ export default function Students() {
         {userRole === 'admin' && <div className="flex flex-col sm:flex-row gap-2" data-unique-id="f249ff0e-552b-4cd4-9176-499031a34574" data-file-name="app/dashboard/students/page.tsx">
             <Link href="/dashboard/students/add" className="flex items-center justify-center gap-2 bg-primary text-white px-5 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors shadow-sm text-sm w-full sm:w-auto" data-unique-id="e3bd42d3-f0a3-4947-a889-9eb5b7f4bf2a" data-file-name="app/dashboard/students/page.tsx">
               <Plus size={16} /><span className="editable-text" data-unique-id="a5f1ac99-bd84-4db4-9633-be4a7bf04add" data-file-name="app/dashboard/students/page.tsx">
-              Tambah Data Baru
+              Tambah Data Siswa
             </span></Link>
           </div>}
       </div>
