@@ -259,9 +259,10 @@ export default function AddStudent() {
           </div>
         </form>
       </div>
-    </div>
-    <hr className="border-t border-none mb-5" />
+      <hr className="border-t border-none mb-5" />
   <hr className="border-t border-none mb-5" />
+    </div>
+    
   );
   
 }
