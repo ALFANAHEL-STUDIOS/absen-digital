@@ -191,26 +191,26 @@ export default function StudentDetail({ params }: { params: { id: string } }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-blue-50 p-4 rounded-lg">
               <p className="text-xs text-blue-600 font-medium mb-1">Hadir</p>
-              <p className="text-xl font-bold text-blue-600">95%</p>
-              <p className="text-xs text-gray-500 mt-1">19/20 hari</p>
+              <p className="text-xl font-bold text-blue-600">0%</p>
+              <p className="text-xs text-gray-500 mt-1">Proses pengembangan...</p>
             </div>
             
             <div className="bg-amber-50 p-4 rounded-lg">
               <p className="text-xs text-amber-600 font-medium mb-1">Izin</p>
               <p className="text-xl font-bold text-amber-600">0%</p>
-              <p className="text-xs text-gray-500 mt-1">0/20 hari</p>
+              <p className="text-xs text-gray-500 mt-1">Proses pengembangan...</p>
             </div>
             
             <div className="bg-green-50 p-4 rounded-lg">
               <p className="text-xs text-green-600 font-medium mb-1">Sakit</p>
-              <p className="text-xl font-bold text-green-600">5%</p>
-              <p className="text-xs text-gray-500 mt-1">1/20 hari</p>
+              <p className="text-xl font-bold text-green-600">0%</p>
+              <p className="text-xs text-gray-500 mt-1">Proses pengembangan...</p>
             </div>
             
             <div className="bg-red-50 p-4 rounded-lg">
               <p className="text-xs text-red-600 font-medium mb-1">Alpha</p>
               <p className="text-xl font-bold text-red-600">0%</p>
-              <p className="text-xs text-gray-500 mt-1">0/20 hari</p>
+              <p className="text-xs text-gray-500 mt-1">Proses pengembangan...</p>
             </div>
           </div>
         </div>
