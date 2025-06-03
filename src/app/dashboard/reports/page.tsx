@@ -147,9 +147,9 @@ export default function Reports() {
 
   return (
     <div className="pb-20 md:pb-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-2">
         <h1 className="text-2xl font-bold text-gray-800">
-          Laporan Absensi Bulan : {formattedMonth}
+          Bulan : {formattedMonth}
         </h1>
         
         <div className="flex items-center space-x-2">
@@ -167,7 +167,7 @@ export default function Reports() {
           </button>
         </div>
       </div>
-      <p className="text-gray-500 mb-6">Ringkasan Kehadiran Siswa dan Rekap Laporan</p>
+      <p className="text-gray-500 mb-6">Ringkasan Absensi Siswa dan Laporan</p>
       
       {/* Attendance Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
