@@ -111,9 +111,9 @@ export default function AddStudent() {
  };
  return (
    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-24 md:pb-6">
-     <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+     <div className="w-full max-w-4xl mx-auto px-1 sm:px-6 md:px-8">
        {/* Header */}
-       <div className="flex items-center mb-8 pt-6">
+       <div className="flex items-center mb-4 pt-2">
          <Link
            href="/dashboard/students"
            className="p-2 mr-3 hover:bg-white hover:shadow-md rounded-full transition-all duration-200"
@@ -121,10 +121,10 @@ export default function AddStudent() {
            <ArrowLeft size={20} className="text-gray-600" />
          </Link>
          <div className="flex items-center">
-           <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl mr-4">
+           {/*<div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl mr-4">
              <User className="h-6 w-6 text-white" />
-           </div>
-           <h1 className="text-3xl font-bold text-gray-800">Tambah Siswa Baru</h1>
+           </div>*/}
+           <h1 className="text-2xl font-bold text-gray-800">Tambah Data Siswa</h1>
          </div>
        </div>
        {/* Form */}
@@ -134,11 +134,11 @@ export default function AddStudent() {
          transition={{ duration: 0.6 }}
          className="bg-white rounded-2xl shadow-xl overflow-hidden"
        >
-         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6">
-           <h2 className="text-2xl font-semibold text-white">Informasi Siswa</h2>
-           <p className="text-blue-100 mt-2">Lengkapi data siswa dengan benar</p>
+         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4">
+           <center><h2 className="text-xl font-semibold text-white">Tambah Siswa Baru</h2></center>
+           {/*<p className="text-blue-100 mt-2">Lengkapi data dengan benar</p>*/}
          </div>
-         <form onSubmit={handleSubmit} className="p-8">
+         <form onSubmit={handleSubmit} className="p-5">
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
              {/* Nama Lengkap */}
              <div className="md:col-span-2">
@@ -262,7 +262,9 @@ export default function AddStudent() {
              {/* Nomor Telepon Orang Tua */}
              <div>
                <label htmlFor="parentPhone" className="block text-sm font-semibold text-gray-700 mb-2">
-                 Nomor Telepon Orang Tua
+                 ID Telegram Orang Tua - <Link
+           href="/dashboard/students/qr/instructions"
+                 className="text-sm text-blue-600 font-bold hover:underline"> (Panduan)</Link>
                </label>
                <input
                  type="tel"
@@ -271,7 +273,7 @@ export default function AddStudent() {
                  value={formData.parentPhone}
                  onChange={handleChange}
                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                 placeholder="Masukkan nomor telepon"
+                 placeholder="Masukkan ID Telegram"
                />
              </div>
              {/* Alamat */}
@@ -291,7 +293,7 @@ export default function AddStudent() {
              </div>
            </div>
            {/* Submit Button */}
-           <div className="flex justify-end mt-8 pt-6 border-t border-gray-200">
+           <div className="flex justify-end mt-4 pt-6 border-t border-gray-200">
              <motion.button
                type="submit"
                disabled={loading || loadingClasses}
