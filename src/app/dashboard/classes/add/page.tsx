@@ -98,7 +98,7 @@ export default function AddClassPage() {
              </div>
              <div>
                <label htmlFor="level" className="block text-sm font-medium text-gray-700 mb-2">
-                 Tingkat/Kelas *
+                 Tingkat / Kelas *
                </label>
                <div className="relative">
                  <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
