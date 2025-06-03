@@ -180,7 +180,7 @@ export default function ClassesPage() {
        </div>
      </div>
      {/* Search */}
-     <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
+     <div className="bg-white rounded-xl shadow-sm p-4 mb-5">
        <div className="relative">
          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
          <input
@@ -193,7 +193,7 @@ export default function ClassesPage() {
        </div>
      </div>
      {/* Statistics Cards */}
-     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
        <div className="bg-[#F72585] rounded-xl p-6 text-white">
          <div className="flex items-center justify-between">
            <div>
