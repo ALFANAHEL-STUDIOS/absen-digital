@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { X, Upload, Download, Users, AlertCircle, CheckCircle, Loader2 } from "lucide-react";
+import { X, Upload, Download, FileSpreadsheet, AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import * as XLSX from "xlsx";
 interface ImportStudentsModalProps {
@@ -147,9 +147,7 @@ export default function ImportStudentsModal({
      <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
        {/* Header */}
        <div className="bg-gradient-to-r from-green-600 to-indigo-600 flex items-center justify-between p-5 border-b">
-        <div className="bg-white/20 p-2 rounded-lg">
-                 <Users className="h-6 w-6 text-white" />
-               </div>
+        
          <h2 className="text-xl text-white font-semibold">Import Data Siswa</h2>
          <button onClick={onClose} className="text-white hover:text-gray-700">
            <X size={24} />
