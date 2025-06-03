@@ -417,13 +417,16 @@ const DashboardLayout = ({
             <Home size={24} className={isActive('/dashboard') ? 'text-primary' : 'text-gray-500'} />
             <span className={`text-xs mt-1 ${isActive('/dashboard') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="2185ca06-8ecc-461b-aa33-49c53398864f" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="9d456cc6-e9d9-44a1-a65a-17239d4e01da" data-file-name="app/dashboard/layout.tsx">Home</span></span>
           </Link>
+
           
-          {/* Admin and Teacher */}
-          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/students" className="flex flex-col items-center p-2" data-unique-id="0e75f6b4-960c-480c-876b-ad56bf9fc2a7" data-file-name="app/dashboard/layout.tsx">
-              <Users size={24} className={isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'} />
-              <span className={`text-xs mt-1 ${isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="502e2695-36fd-43f4-9b37-7b608df8bad0" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="7699a583-1ece-40ca-8330-631d886c89ba" data-file-name="app/dashboard/layout.tsx">Siswa</span></span>
+ {/* Admin and Teacher */}
+          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/classes" className="flex flex-col items-center p-2" data-unique-id="dc79ce9d-7bbe-499b-8c6b-a93238828a45" data-file-name="app/dashboard/layout.tsx">
+              <BookOpen size={24} className={isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'} />
+              <span className={`text-xs mt-1 ${isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="24cfbdea-0b67-4c03-a69e-c07f7c78351a" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="ca7a557e-6768-457c-b00b-15305c141d7b" data-file-name="app/dashboard/layout.tsx">Kelas</span></span>
             </Link>}
+
           
+         
           {/* Admin and Teacher */}
           {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/scan" className="flex flex-col items-center p-2" data-unique-id="1e66bb1d-df66-4887-a47c-c5c8cb9e8d0d" data-file-name="app/dashboard/layout.tsx">
               <div className="bg-primary rounded-full p-3 -mt-5" data-unique-id="ac956c0c-98eb-4ac9-b614-1660859628fb" data-file-name="app/dashboard/layout.tsx">
@@ -440,12 +443,16 @@ const DashboardLayout = ({
               <span className="text-xs mt-1 text-gray-500" data-unique-id="3c33dfbd-2e27-403c-8f1c-d3e6be190a81" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="af10e0ea-4ecd-44cf-a993-7994e1af9f41" data-file-name="app/dashboard/layout.tsx">Profil</span></span>
             </Link>}
           
+
+ 
           {/* Admin and Teacher */}
-          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/classes" className="flex flex-col items-center p-2" data-unique-id="dc79ce9d-7bbe-499b-8c6b-a93238828a45" data-file-name="app/dashboard/layout.tsx">
-              <BookOpen size={24} className={isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'} />
-              <span className={`text-xs mt-1 ${isActive('/dashboard/classes') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="24cfbdea-0b67-4c03-a69e-c07f7c78351a" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="ca7a557e-6768-457c-b00b-15305c141d7b" data-file-name="app/dashboard/layout.tsx">Kelas</span></span>
+          {(userRole === 'admin' || userRole === 'teacher') && <Link href="/dashboard/students" className="flex flex-col items-center p-2" data-unique-id="0e75f6b4-960c-480c-876b-ad56bf9fc2a7" data-file-name="app/dashboard/layout.tsx">
+              <Users size={24} className={isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'} />
+              <span className={`text-xs mt-1 ${isActive('/dashboard/students') ? 'text-primary' : 'text-gray-500'}`} data-unique-id="502e2695-36fd-43f4-9b37-7b608df8bad0" data-file-name="app/dashboard/layout.tsx"><span className="editable-text" data-unique-id="7699a583-1ece-40ca-8330-631d886c89ba" data-file-name="app/dashboard/layout.tsx">Siswa</span></span>
             </Link>}
           
+
+                    
           {/* All users */}
           <Link href="/dashboard/reports" className="flex flex-col items-center p-2" data-unique-id="b6b029ae-f22b-4b38-9890-0aa566a202dc" data-file-name="app/dashboard/layout.tsx">
             <FileText size={24} className={isActive('/dashboard/reports') ? 'text-primary' : 'text-gray-500'} />
