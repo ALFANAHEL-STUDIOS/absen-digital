@@ -167,9 +167,10 @@ export default function AddClassPage() {
          </form>
        </motion.div>
      </div>
+    <hr className="border-t border-none mb-5" />
    </div>
   
  );
  
 }
-<hr className="border-t border-none mb-5" />
+
