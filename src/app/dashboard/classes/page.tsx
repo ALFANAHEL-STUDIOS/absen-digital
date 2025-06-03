@@ -199,13 +199,13 @@ export default function ClassesPage() {
        </div>
 
        {userRole === 'admin' && (
-         <button
+         <center><button
            onClick={() => setShowAddModal(true)}
            className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition-colors shadow-sm"
          >
-           <Plus size={18} />
-           Tambah Kelas
-         </button>
+           {/*<Plus size={18} />*/}
+           Tambah Kelas Baru
+         </button></center>
        )}
      </div>
      {/* Search */}
@@ -388,10 +388,10 @@ export default function ClassesPage() {
                <button
                  type="submit"
                  disabled={saving}
-                 className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 disabled:opacity-50 flex items-center gap-2"
+                 className="px-4 py-2 bg-primary text-white px-5 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 disabled:opacity-50 flex items-center gap-2"
                >
                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                 Simpan
+                 Simpan Data
                </button>
              </div>
            </form>
@@ -481,10 +481,10 @@ export default function ClassesPage() {
                <button
                  type="submit"
                  disabled={saving}
-                 className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 disabled:opacity-50 flex items-center gap-2"
+                 className="px-4 py-2 bg-primary text-white px-5 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 disabled:opacity-50 flex items-center gap-2"
                >
                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                 Perbarui
+                 Perbarui Data
                </button>
              </div>
            </form>
