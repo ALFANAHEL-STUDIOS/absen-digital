@@ -329,7 +329,7 @@ export default function ClassImportModal({ isOpen, onClose, onImport }: ClassImp
              onClick={handleClose}
              className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
            >
-             Batalkan
+             Batal
            </button>
 
            {showPreview && (
