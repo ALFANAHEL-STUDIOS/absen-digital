@@ -199,7 +199,7 @@ export default function Students() {
                <div className="p-4">
                  <div>
                    <h3 className="font-semibold text-sm">{student.name}</h3>
-                   <p className="text-gray-500 text-xs">NISN: {student.nisn}</p>
+                   <p className="text-gray-500 text-xs">  NISN {student.nisn}</p>
                    <div className="flex items-center mt-1">
                      <span className="inline-block px-1.5 py-0.5 text-xs bg-green-100 text-green-700 rounded">
                        Kelas {student.class}
@@ -267,6 +267,7 @@ export default function Students() {
        schoolId={schoolId || ''}
        classes={classes}
      />
+    <hr className="border-t border-none mb-5" />
      {/* Confirmation Dialog */}
      <ConfirmDialog
        isOpen={deleteDialogOpen}
