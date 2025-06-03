@@ -312,7 +312,7 @@ export default function ClassImportModal({ isOpen, onClose, onImport }: ClassImp
                    <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                    <div>
                      <p className="text-sm font-medium text-yellow-800">
-                       Periksa data sebelum mengimpor...
+                       Periksa Data Sebelum Mengimpor.
                      </p>
                      <p className="text-sm text-yellow-700 mt-1">
                        Pastikan semua data sudah benar. Data yang diimpor akan langsung ditambahkan ke database.
