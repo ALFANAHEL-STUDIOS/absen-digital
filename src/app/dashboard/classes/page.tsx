@@ -146,7 +146,7 @@ export default function ClassesPage() {
  return (
    <div className="pb-20 md:pb-6">
      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-       <div className="flex items-center">
+       <div className="flex mb-1 items-center">
          <BookOpen className="h-7 w-7 text-blue-600 mr-3" />
          <div>
            <h1 className="text-2xl font-bold text-gray-800">Manajemen Kelas</h1>
@@ -154,7 +154,7 @@ export default function ClassesPage() {
          </div>
        </div>
 
-       <div className="flex mb-1 flex-col sm:flex-row gap-2">
+       <div className="flex flex-col sm:flex-row gap-2">
          
          {userRole === 'admin' && (
            <Link
