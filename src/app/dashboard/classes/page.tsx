@@ -204,7 +204,7 @@ export default function ClassesPage() {
            className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition-colors shadow-sm"
          >
            {/*<Plus size={18} />*/}
-           Tambah Kelas Baru
+           Tambah Data Kelas Baru
          </button></center>
        )}
      </div>
