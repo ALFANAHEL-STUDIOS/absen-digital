@@ -154,7 +154,7 @@ export default function ClassesPage() {
          </div>
        </div>
 
-       <div className="flex flex-col sm:flex-row gap-2">
+       <div className="flex mb-1 flex-col sm:flex-row gap-2">
          
          {userRole === 'admin' && (
            <Link
