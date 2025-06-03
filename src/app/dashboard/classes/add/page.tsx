@@ -63,10 +63,10 @@ export default function AddClassPage() {
          <ArrowLeft size={20} />
        </Link>
        <div className="flex items-center">
-         <BookOpen className="h-7 w-7 text-blue-600 mr-3" />
+         
          <div>
            <h1 className="text-2xl font-bold text-gray-800">Tambah Kelas Baru</h1>
-           <p className="text-gray-600 text-sm">Buat kelas baru untuk sekolah</p>
+           
          </div>
        </div>
      </div>
@@ -91,7 +91,7 @@ export default function AddClassPage() {
                    value={formData.name}
                    onChange={handleInputChange}
                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                   placeholder="Contoh: VII A"
+                   placeholder="Contoh : VII-A"
                    required
                  />
                </div>
@@ -109,7 +109,7 @@ export default function AddClassPage() {
                    value={formData.level}
                    onChange={handleInputChange}
                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                   placeholder="Contoh: 7"
+                   placeholder="Contoh : 7"
                    required
                  />
                </div>
@@ -128,7 +128,7 @@ export default function AddClassPage() {
                  value={formData.teacherName}
                  onChange={handleInputChange}
                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                 placeholder="Contoh: Budi Santoso, S.Pd"
+                 placeholder="Contoh : Budi Santoso, S.Pd"
                  required
                />
              </div>
@@ -146,7 +146,7 @@ export default function AddClassPage() {
                  value={formData.teacherNip}
                  onChange={handleInputChange}
                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                 placeholder="Contoh: 196801011990031001"
+                 placeholder="Contoh : 196801011990031001"
                />
              </div>
            </div>
@@ -161,7 +161,7 @@ export default function AddClassPage() {
                ) : (
                  <Save className="h-5 w-5" />
                )}
-               {loading ? 'Menyimpan...' : 'Simpan Kelas'}
+               {loading ? 'Menyimpan...' : 'Simpan Data Kelas'}
              </button>
            </div>
          </form>
