@@ -164,7 +164,7 @@ export default function ImportStudentsModal({
                </p>
                <button
                  onClick={downloadTemplate}
-                 className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                 className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors"
                >
                  <Download size={16} />
                  Download Template Excel
@@ -185,7 +185,7 @@ export default function ImportStudentsModal({
                  />
                  <label
                    htmlFor="file-upload"
-                   className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
+                   className="cursor-pointer bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-orange-500 active:bg-orange-600 transition-colors inline-flex items-center gap-2"
                  >
                    <Upload size={16} />
                    Pilih File Excel
