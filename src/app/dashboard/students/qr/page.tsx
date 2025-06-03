@@ -271,7 +271,7 @@ export default function StudentsQRList() {
                 <div className="text-center mb-5 mt-0">
                   <h3 className="font-bold text-base text-gray-800">{student.name}</h3>
                   <div className="text-xs mt-1">
-                    <p className="text-gray-600">NISN : {student.nisn}</p>
+                    <p className="text-gray-600">NISN {student.nisn}</p>
                     <p className="text-gray-600">Kelas {student.class}</p>
                   </div>
                 </div>
