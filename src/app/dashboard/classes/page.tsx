@@ -145,7 +145,7 @@ export default function ClassesPage() {
  );
  return (
    <div className="pb-20 md:pb-6">
-     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-4">
        <div className="flex mb-1 items-center">
          <BookOpen className="h-7 w-7 text-blue-600 mr-3" />
          <div>
@@ -193,7 +193,7 @@ export default function ClassesPage() {
        </div>
      </div>
      {/* Statistics Cards */}
-     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
        <div className="bg-[#F72585] rounded-xl p-6 text-white">
          <div className="flex items-center justify-between">
            <div>
