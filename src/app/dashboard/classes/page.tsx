@@ -334,7 +334,7 @@ export default function ClassesPage() {
                    value={formData.name}
                    onChange={handleChange}
                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                   placeholder="Contoh: VII A"
+                   placeholder="Contoh : VII-A"
                    required
                  />
                </div>
