@@ -74,7 +74,7 @@ export default function AddClassPage() {
        <motion.div
          initial={{ opacity: 0, y: 20 }}
          animate={{ opacity: 1, y: 0 }}
-         className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+         className="bg-white rounded-xl shadow-sm border border-gray-200 p-8"
        >
          <form onSubmit={handleSubmit} className="space-y-6">
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -150,7 +150,7 @@ export default function AddClassPage() {
                />
              </div>
            </div>
-           <div className="flex justify-end pt-4">
+           <div className="flex justify-end pt-2">
              <button
                type="submit"
                disabled={loading}
