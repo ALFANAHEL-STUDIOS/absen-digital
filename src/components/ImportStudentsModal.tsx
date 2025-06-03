@@ -158,9 +158,10 @@ export default function ImportStudentsModal({
            <div>
              {/* Download Template Section */}
              <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-               <h3 className="font-semibold text-blue-800 mb-2">Langkah 1: Download Template</h3>
+               <h3 className="font-semibold text-blue-800 mb-2">Langkah 1 : Download Template</h3>
                <p className="text-blue-700 text-sm mb-3">
                  Download template Excel terlebih dahulu, isi dengan data siswa, lalu upload kembali.
+                
                </p>
                <button
                  onClick={downloadTemplate}
@@ -172,7 +173,7 @@ export default function ImportStudentsModal({
              </div>
              {/* Upload Section */}
              <div className="mb-6">
-               <h3 className="font-semibold mb-3">Langkah 2: Upload File Excel</h3>
+               <h3 className="font-semibold mb-3">Langkah 2 : Upload File Excel</h3>
                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
                  <FileSpreadsheet className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                  <p className="text-gray-600 mb-4">Drag & drop file Excel atau klik untuk memilih</p>
@@ -205,20 +206,21 @@ export default function ImportStudentsModal({
                <div className="flex items-start gap-2">
                  <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5" />
                  <div>
-                   <h4 className="font-semibold text-yellow-800">Format Data Excel:</h4>
+                   <h4 className="font-semibold text-yellow-800">Format Data Excel</h4>
                    <ul className="text-yellow-700 text-sm mt-2 space-y-1">
-                     <li>• Kolom A: Nama Lengkap (wajib)</li>
-                     <li>• Kolom B: NISN (wajib)</li>
-                     <li>• Kolom C: Kelas (wajib, harus sesuai dengan kelas yang ada)</li>
-                     <li>• Kolom D: Jenis Kelamin (Laki-laki/Perempuan)</li>
-                     <li>• Kolom E: Tanggal Lahir</li>
-                     <li>• Kolom F: Nama Orang Tua/Wali</li>
-                     <li>• Kolom G: ID Telegram Orang Tua</li>
-                     <li>• Kolom H: Alamat Siswa</li>
+                     <li>• Kolom A : Nama Lengkap (wajib)</li>
+                     <li>• Kolom B : NISN (wajib)</li>
+                     <li>• Kolom C : Kelas (sesuai kelas)</li>
+                     <li>• Kolom D : Jenis Kelamin</li>
+                     <li>• Kolom E : Tanggal Lahir</li>
+                     <li>• Kolom F : Nama Orang Tua/Wali</li>
+                     <li>• Kolom G : ID Telegram Orang Tua </li>
+                     <li>• Kolom H : Alamat Siswa</li>
                    </ul>
                  </div>
                </div>
              </div>
+            
            </div>
          ) : (
            <div>
