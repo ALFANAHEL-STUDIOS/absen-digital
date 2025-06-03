@@ -219,7 +219,7 @@ export default function ClassesPage() {
        <div className="bg-[#F77F00] rounded-xl p-6 text-white">
          <div className="flex items-center justify-between">
            <div>
-             <p className="text-white text-sm font-medium">Rata-rata per Kelas</p>
+             <p className="text-white text-sm font-medium">Rata-Rata per Kelas</p>
              <p className="text-3xl font-bold">
                {classes.length > 0
                  ? Math.round(classes.reduce((sum, classItem) => sum + (classItem.studentCount || 0), 0) / classes.length)
