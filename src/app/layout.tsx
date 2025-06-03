@@ -11,17 +11,17 @@ export const viewport = {
 };
 export const metadata: Metadata = {
   title: {
-    default: "ABSENSI DIGITAL - Sekolah Dengan QR Code",
-    template: "%s - ABSENSI DIGITAL - Sekolah Dengan QR Code"
+    default: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa",
+    template: "%s - ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa"
   },
   description: "Sistem Absensi Digital Modern dengan QR Code yang menghubungkan Sekolah dan orang tua secara real-time dengan notifikasi Telegram. Pantau kehadiran siswa dengan mudah menggunakan teknologi QR Code dan dapatkan notifikasi langsung ke Telegram.",
-  applicationName: "ABSENSI DIGITAL - Sekolah Dengan QR Code",
+  applicationName: "ABSENSI DIGITAL SEKOLAH - Guru dan Siswa",
   keywords: ["absensi", "qr code", "sekolah", "siswa", "telegram", "notifikasi", "pendidikan", "kehadiran", "absensi digital"],
   authors: [{
-    name: "ABSENSI DIGITAL - Sekolah Dengan QR Code Team"
+    name: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa Team"
   }],
-  creator: "ABSENSI DIGITAL - Sekolah Dengan QR Code Team",
-  publisher: "ABSENSI DIGITAL - Sekolah Dengan QR Code Team",
+  creator: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa Team",
+  publisher: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa Team",
   icons: {
     icon: [{
       url: "https://cdn.kibrispdr.org/data/824/qr-code-icon-png-41.png",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "ABSENSI DIGITAL - Sekolah Dengan QR Code"
+    title: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa"
   },
   formatDetection: {
     telephone: false
@@ -55,19 +55,19 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: "https://cdn.medcom.id/dynamic/content/2022/06/09/1436288/BlGKjpqYCI.jpg?w=1024",
-    title: "ABSENSI DIGITAL - Sekolah Dengan QR Code",
+    title: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa",
     description: "Sistem Absensi Digital Modern dengan QR Code yang menghubungkan Sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
-    siteName: "ABSENSI DIGITAL - Siswa Dengan QR Code",
+    siteName: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa",
     images: [{
       url: "https://cdn.medcom.id/dynamic/content/2022/06/09/1436288/BlGKjpqYCI.jpg?w=1024",
       width: 1200,
       height: 630,
-      alt: "ABSENSI DIGITAL - Sekolah Dengan QR Code"
+      alt: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa"
     }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "ABSENSI DIGITAL - Sekolah Dengan QR Code",
+    title: "ABSENSI DIGITAL SEKOLAH - Untuk Guru dan Siswa",
     description: "Sistem Absensi Digital Modern dengan QR Code yang menghubungkan Sekolah dan orang tua secara real-time dengan notifikasi Telegram.",
     images: ["https://cdn.medcom.id/dynamic/content/2022/06/09/1436288/BlGKjpqYCI.jpg?w=1024"]
   }
