@@ -260,12 +260,6 @@ export default function ClassesPage() {
 
                {userRole === 'admin' && (
                  <div className="flex space-x-1">
-                   <Link
-                     href={`/dashboard/classes/edit/${classItem.id}`}
-                     className="p-2 text-blue-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                   >
-                     <Edit size={16} />
-                   </Link>
                    <button
                      onClick={() => handleDeleteClass(classItem.id, classItem.name)}
                      className="p-2 text-red-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
