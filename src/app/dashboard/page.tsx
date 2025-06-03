@@ -1,550 +1,413 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { 
-  QrCode, 
-  Check, 
-  Clock, 
-  Bell, 
-  Shield, 
-  School,
-  ChevronUp,
-  Download,
-  BarChart3,
-  Users,
-  Mail,
-  Phone,
-  Facebook,
-  Twitter,
-  Instagram,
-  ArrowRight,
-  LogIn
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Home, Users, X, Bell, Clock } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { doc, getDoc, collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function HomePage() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+// Import role-specific dashboard components
+import AdminDashboard from "./components/AdminDashboard";
+import TeacherDashboard from "./components/TeacherDashboard";
+import StudentDashboard from "./components/StudentDashboard";
+import ExpirationModal from "@/components/ExpirationModal";
+import AnnouncementPopup from "@/components/AnnouncementPopup";
+import ExpirationTracker from "@/components/ExpirationTracker";
+interface Announcement {
+  id: string;
+  title: string;
+  message: string;
+  isActive: boolean;
+  createdAt: Date;
+}
+import DynamicDashboard from "@/components/DynamicDashboard";
+export default function Dashboard() {
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [showCustomDashboard, setShowCustomDashboard] = useState(false);
+  const {
+    user,
+    schoolId,
+    userRole,
+    userData
+  } = useAuth();
+  const router = useRouter();
+  const [schoolName, setSchoolName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [totalStudents, setTotalStudents] = useState(0);
+  const [totalClasses, setTotalClasses] = useState(0);
+  const [totalTeachers, setTotalTeachers] = useState(0);
+  const [attendanceRate, setAttendanceRate] = useState(0);
+  const [recentAttendance, setRecentAttendance] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showExpirationModal, setShowExpirationModal] = useState(false);
+  const [expirationData, setExpirationData] = useState<{
+    daysLeft: number;
+    expired: boolean;
+  } | null>(null);
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
 
-  // Check if we're scrolled down enough to show back-to-top button
+  // Pop-up states
+  const [showAnnouncementPopup, setShowAnnouncementPopup] = useState(false);
+  const [showExpirationPopup, setShowExpirationPopup] = useState(false);
+  const [hasActiveAnnouncements, setHasActiveAnnouncements] = useState(false);
+  const [expirationStatus, setExpirationStatus] = useState({
+    daysLeft: 30,
+    isNearExpiry: false,
+    isExpired: false
+  });
+
+  // Check if this is the user's first login
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+    if (user) {
+      // Check if this is the first login by looking for a flag in localStorage
+      const isFirstLogin = localStorage.getItem(`hasLoggedIn_${user.uid}`) !== 'true';
+      if (isFirstLogin) {
+        setShowWelcomePopup(true);
+        // Mark that the user has logged in
+        localStorage.setItem(`hasLoggedIn_${user.uid}`, 'true');
+      }
+    }
+  }, [user]);
+  useEffect(() => {
+    const fetchSchoolData = async () => {
+      if (schoolId) {
+        try {
+          setLoading(true);
+          // Fetch school info
+          const schoolDoc = await getDoc(doc(db, "schools", schoolId));
+          if (schoolDoc.exists()) {
+            setSchoolName(schoolDoc.data().name || "Sekolah Anda");
+          }
+
+          // Fetch total students count
+          const studentsRef = collection(db, `schools/${schoolId}/students`);
+          const studentsSnapshot = await getDocs(studentsRef);
+          setTotalStudents(studentsSnapshot.size);
+
+          // Fetch total classes count
+          const classesRef = collection(db, `schools/${schoolId}/classes`);
+          const classesSnapshot = await getDocs(classesRef);
+          setTotalClasses(classesSnapshot.size);
+
+          // Fetch total teachers count
+          const teachersRef = collection(db, "users");
+          const teachersQuery = query(teachersRef, where("schoolId", "==", schoolId), where("role", "==", "teacher"));
+          const teachersSnapshot = await getDocs(teachersQuery);
+          setTotalTeachers(teachersSnapshot.size);
+
+          // Calculate attendance rate
+          const today = new Date().toISOString().split('T')[0];
+          const startOfMonth = today.substring(0, 8) + '01'; // First day of current month
+
+          const attendanceRef = collection(db, `schools/${schoolId}/attendance`);
+          const attendanceQuery = query(attendanceRef, where("date", ">=", startOfMonth), where("date", "<=", today));
+          const attendanceSnapshot = await getDocs(attendanceQuery);
+          let present = 0;
+          let total = 0;
+          attendanceSnapshot.forEach(doc => {
+            total++;
+            const status = doc.data().status;
+            if (status === 'hadir' || status === 'present') {
+              present++;
+            }
+          });
+          setAttendanceRate(total > 0 ? Math.round(present / total * 100) : 0);
+
+          // Fetch recent attendance records
+          const recentAttendanceQuery = query(attendanceRef, orderBy("timestamp", "desc"), limit(5));
+          const recentAttendanceSnapshot = await getDocs(recentAttendanceQuery);
+          const recentAttendanceData = [];
+          recentAttendanceSnapshot.forEach(doc => {
+            const data = doc.data();
+            recentAttendanceData.push({
+              id: doc.id,
+              ...data,
+              // Ensure notes field is available for display
+              notes: data.notes || data.note || data.catatan || null
+            });
+          });
+          setRecentAttendance(recentAttendanceData);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching school data:", error);
+          setLoading(false);
+        }
       }
     };
+    fetchSchoolData();
+    setUserName(user?.displayName || "Pengguna");
 
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+    // Check if the user is an admin without school setup
+    if (typeof window !== 'undefined' && userRole === 'admin') {
+      const needsSetup = localStorage.getItem('needsSchoolSetup');
+      if (needsSetup === 'true' && !schoolId) {
+        router.push('/dashboard/setup-school');
+      }
+    }
+  }, [user, schoolId, userRole, router]);
+  useEffect(() => {
+    if (!loading && user && userRole) {
+      checkAccountExpiry();
+      fetchAnnouncements();
+      checkAndShowPopups();
+    }
+  }, [user, userRole, schoolId, loading]);
 
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+  // Auto-show popups on dashboard load
+  useEffect(() => {
+    if (!loading && schoolId) {
+      const timer = setTimeout(() => {
+        checkAndShowPopups();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [loading, schoolId]);
+  const checkAccountExpiry = async () => {
+    if (!user || userRole !== 'admin') return;
+    try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.expiryType === "forever") return; // Unlimited access
+
+        if (userData.expiryDate) {
+          const expiryDate = userData.expiryDate.toDate();
+          const now = new Date();
+          const timeDiff = expiryDate.getTime() - now.getTime();
+          const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+          if (daysLeft <= 0) {
+            setExpirationData({
+              daysLeft: 0,
+              expired: true
+            });
+            setShowExpirationModal(true);
+          } else if (daysLeft <= 7) {
+            setExpirationData({
+              daysLeft,
+              expired: false
+            });
+            setShowExpirationModal(true);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error checking account expiry:", error);
+    }
+  };
+  const fetchAnnouncements = async () => {
+    try {
+      const announcementsQuery = query(collection(db, "announcements"), where("isActive", "==", true), orderBy("createdAt", "desc"), limit(3));
+      const snapshot = await getDocs(announcementsQuery);
+      const announcementsList: Announcement[] = [];
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        announcementsList.push({
+          id: doc.id,
+          title: data.title || "",
+          message: data.message || "",
+          isActive: data.isActive !== false,
+          createdAt: data.createdAt ? data.createdAt.toDate() : new Date()
+        });
+      });
+      setAnnouncements(announcementsList);
+      setHasActiveAnnouncements(!snapshot.empty);
+    } catch (error) {
+      console.error("Error fetching announcements:", error);
+    }
+  };
+  const checkExpiration = () => {
+    const expiryDate = new Date('2025-12-31');
+    const now = new Date();
+    const timeDiff = expiryDate.getTime() - now.getTime();
+    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    setExpirationStatus({
+      daysLeft,
+      isNearExpiry: daysLeft <= 30 && daysLeft > 0,
+      isExpired: daysLeft <= 0
     });
   };
+  const checkAndShowPopups = () => {
+    checkExpiration();
+    if (expirationStatus.isExpired || expirationStatus.isNearExpiry && expirationStatus.daysLeft <= 7) {
+      setShowExpirationPopup(true);
+    } else if (hasActiveAnnouncements) {
+      setShowAnnouncementPopup(true);
+    }
+  };
+  const handleAnnouncementClose = () => {
+    setShowAnnouncementPopup(false);
+    if (expirationStatus.isNearExpiry || expirationStatus.isExpired) {
+      setTimeout(() => setShowExpirationPopup(true), 500);
+    }
+  };
+  return <div className="min-h-screen bg-gray-50" data-unique-id="81d88c60-ab91-4765-9a53-78553fc563b4" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+      {/* Announcements Banner */}
+      {announcements.length > 0 && showAnnouncement && <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl" data-unique-id="8603c446-c922-40ad-91bd-1d771bb0cd43" data-file-name="app/dashboard/page.tsx">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3" data-unique-id="34a805f4-6e58-4d6b-bb57-80443e205893" data-file-name="app/dashboard/page.tsx">
+            <div className="flex items-center justify-between" data-unique-id="fbbb811f-297e-4c6e-8663-f0d8451de3de" data-file-name="app/dashboard/page.tsx">
+              <div className="flex items-center space-x-3" data-unique-id="08179a77-76a0-4555-9a77-7ca7857b9629" data-file-name="app/dashboard/page.tsx">
+                <Bell className="h-5 w-5" />
+                <div data-unique-id="7090a29d-b46d-42e6-a2f6-b2a021271ccd" data-file-name="app/dashboard/page.tsx">
+                  <h4 className="font-semibold" data-unique-id="ab5a9e1a-bc39-41da-94ff-113bf66652c4" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">{announcements[0].title}</h4>
+                  <p className="text-sm text-blue-100" data-unique-id="505e8614-c9a0-492d-952f-cf9567cbc6c0" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">{announcements[0].message}</p>
+                </div>
+              </div>
+              <button onClick={() => setShowAnnouncement(false)} className="text-white/80 hover:text-white transition-colors" data-unique-id="847bc0cb-4c70-4c2c-b538-ad5b396fcd8c" data-file-name="app/dashboard/page.tsx">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </div>}
 
-  return (
-    <main className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="bg-primary text-white py-2 sm:py-4 fixed top-0 left-0 right-0 z-50 shadow-md">
-        <div className="container-custom px-3 sm:px-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <QrCode className="h-7 w-7" />
-            <span className="font-bold text-xl">ABSENSI DIGITAL</span>
-          </div>
-          <div className="hidden md:flex space-x-3">
-            <Link href="/login" className="px-4 py-1.5 rounded-md border border-white/50 text-white text-sm font-medium hover:bg-orange-500 transition-colors flex items-center gap-2 backdrop-blur-sm">
-              <LogIn className="h-4 w-4" />
-              LOGIN
-            </Link>
-            <Link href="/register" className="px-4 py-1.5 rounded-md border border-white/50 text-white text-sm font-medium hover:bg-orange-500 transition-colors backdrop-blur-sm">
-              DAFTAR
-            </Link>
-          </div>
-          <div className="md:hidden">
-            <button 
-              className="p-2 rounded-md border border-white text-white hover:bg-white/20"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            
-            {mobileMenuOpen && (
-              <motion.div 
-                className="absolute top-full right-0 mt-2 mr-3 sm:mr-4 w-[calc(100vw-24px)] max-w-[192px] py-2 bg-white rounded-md shadow-lg z-50"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Link 
-                  href="/login" 
-                  className="block px-4 py-2 text-white hover:bg-primary hover:text-white transition-colors border border-blue-500 m-2 rounded-md text-sm bg-blue-500"
-                >
-                  LOGIN
-                </Link>
-                <Link 
-                  href="/register" 
-                  className="block px-4 py-2 text-white hover:bg-primary hover:text-white transition-colors border border-orange-500 m-2 rounded-md text-sm bg-orange-500"
-                >
-                  DAFTAR
-                </Link>
+      {/* Dashboard Content */}
+      <div className="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1 py-0" data-unique-id="1a4a48fd-01ed-4b84-b0b2-0a27f175184c" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+        {/* Quick Action Buttons */}
+        <div className="flex justify-end space-x-3 mb-2" data-unique-id="039baa40-d8fb-4a17-9deb-c8827dfce48d" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+          {/* {hasActiveAnnouncements && <motion.button initial={{
+          scale: 0.9,
+          opacity: 0
+        }} animate={{
+          scale: 1,
+          opacity: 1
+        }} whileHover={{
+          scale: 1.05
+        }} whileTap={{
+          scale: 0.95
+        }} onClick={() => setShowAnnouncementPopup(true)} className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors" data-unique-id="62cb0be1-3d05-4cf1-89a0-72e6fe1f96f2" data-file-name="app/dashboard/page.tsx">
+              <motion.div animate={{
+            rotate: [0, 10, -10, 0]
+          }} transition={{
+            repeat: Infinity,
+            duration: 2
+          }} data-unique-id="4c87a380-74f4-4170-b8ec-3123e1bc4c71" data-file-name="app/dashboard/page.tsx">
+                <Bell className="h-4 w-4" />
               </motion.div>
-            )}
+              <span className="text-sm font-medium" data-unique-id="aa23c0c5-a586-4fad-95c0-429c9bec6d8d" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="c770e236-a7fd-4607-ac53-8cfe133b8c33" data-file-name="app/dashboard/page.tsx">Lihat Pengumuman</span></span>
+            </motion.button>}
+            
+          {(expirationStatus.isNearExpiry || expirationStatus.isExpired) && <motion.button initial={{
+          scale: 0.9,
+          opacity: 0
+        }} animate={{
+          scale: 1,
+          opacity: 1
+        }} whileHover={{
+          scale: 1.05
+        }} whileTap={{
+          scale: 0.95
+        }} onClick={() => setShowExpirationPopup(true)} className={`flex items-center space-x-2 px-4 py-2 rounded-lg shadow-lg transition-colors ${expirationStatus.isExpired ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-orange-600 hover:bg-orange-700 text-white'}`} data-unique-id="cf07715c-5f61-4db2-b8cc-351832cac722" data-file-name="app/dashboard/page.tsx">
+              <motion.div animate={{
+            scale: [1, 1.2, 1]
+          }} transition={{
+            repeat: Infinity,
+            duration: 1.5
+          }} data-unique-id="2643f533-e713-4b5f-8553-e0762ca1bcb1" data-file-name="app/dashboard/page.tsx">
+                <Clock className="h-4 w-4" />
+              </motion.div>
+              <span className="text-sm font-medium" data-unique-id="27c7ccc8-c788-4bd1-b5c8-35e674a4c1e6" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+                {expirationStatus.isExpired ? 'Sudah Kedaluwarsa' : `${expirationStatus.daysLeft} Hari Lagi`}
+              </span>
+            </motion.button>}*/}
+        </div>
+
+        {/* Dashboard Header */}
+        <div className="mb-3" data-unique-id="762335b4-4fb7-4c36-a4b0-fa741ac90f35" data-file-name="app/dashboard/page.tsx">
+          <h1 className="text-2xl font-bold text-gray-800" data-unique-id="e44f3f1c-4564-4c82-a3dd-f3841f91ca57" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true"><span className="editable-text" data-unique-id="42f96034-a9ca-423d-90ec-3f642a79108d" data-file-name="app/dashboard/page.tsx">
+            Hai, </span>{userName}
+            {userRole && <span className="ml-2 text-xs font-normal px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full" data-unique-id="4456f6f1-da61-4816-99eb-52aedb8c2dcd" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">
+                {userRole === 'admin' ? 'Administrator' : userRole === 'teacher' ? 'Guru' : 'Siswa'}
+              </span>}
+          </h1>
+          <div className="flex items-center mt-1 text-gray-500" data-unique-id="7f35e0a7-5766-4b57-bd4c-c36f1bb5407a" data-file-name="app/dashboard/page.tsx">
+            <Home size={14} className="mr-1.5" />
+            <span className="font-medium text-xs" data-unique-id="30872479-1379-44c6-81f2-689839523f35" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="64bfdd39-3d85-4ca7-b1f9-8b79573fe201" data-file-name="app/dashboard/page.tsx">SISTEM ABSENSI DIGITAL GURU DAN SISWA</span></span>
           </div>
         </div>
-      </header>
 
-      {/* Main Content with padding for fixed header */}
-      <div className="mt-12 bg-gradient-to-br from-[#f6ea41]/30 to-[#f048c6]/30 pt-6">
-        {/* Hero Section */}
-        <section className="py-6 sm:py-8 md:py-12 bg-transparent backdrop-blur-sm">
-          <div className="container-custom px-3 sm:px-4">
-            <div className="flex items-center justify-center mb-4">
-              <Check className="h-6 w-6 text-primary mr-2" />
-              <p className="font-semibold text-primary">Solusi Terbaik untuk Absensi Sekolah</p>
-            </div>
-            
-            <h1 className="text-center font-bold text-3xl md:text-5xl mb-4 leading-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-600 to-secondary">
-                ABSENSI SISWA MODERN DENGAN<br/>QR CODE
-              </span>
-            </h1>
-            
-            <p className="text-center max-w-3xl mx-auto mb-5 text-slate-600 text-base md:text-lg lg:text-xl">
-              Sistem Absensi Digital yang menghubungkan informasi kehadiran siswa di sekolah dan orang tua secara real-time.
-              Pantau kehadiran siswa dengan mudah, dapatkan notifikasi otomatis terkirim langsung ke
-              Aplikasi Telegram, dan akses laporan lengkap kapan saja.
-            </p>
-            
-            {/* Smartphone illustration - Enhanced mobile responsiveness */}
-            <div className="flex justify-center mb-5">
-              <div className="relative w-[280px] xs:w-[300px] sm:w-[320px] md:w-[340px] lg:w-[360px] h-auto aspect-[9/16] max-h-[560px]">
-                <div className="relative bg-gray-900 rounded-[36px] p-2 shadow-xl h-full transform transition-all duration-300 hover:scale-[1.02]">
-                  {/* Phone frame with top notch */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-gray-900 rounded-b-xl"></div>
-                  
-                  {/* Home button/indicator at bottom */}
-                  <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gray-500 rounded-full"></div>
-                  
-                  <div className="bg-white rounded-[32px] overflow-hidden h-full">
-                    {/* Telegram chat interface - Better styled for mobile */}
-                    <div className="bg-[#0088cc] text-white py-3 px-4 mt-6 flex items-center justify-between">
-                      <div className="text-base font-medium">Notifikasi Kehadiran</div>
-                      <div className="h-2 w-2 rounded-full bg-white/70"></div>
-                    </div>
-                    <div className="p-2 xs:p-3 bg-[#e6ebf2] h-full overflow-y-auto">
-                      <div className="bg-white rounded-lg p-2.5 xs:p-3 shadow-sm mb-3 border border-gray-100">
-                        <div className="font-medium text-[#0088cc] flex items-center text-sm xs:text-base">
-                          <span className="mr-2">🤖</span>
-                          Bot Absensi Sekolah
-                        </div>
-                        <div className="text-xs xs:text-sm mt-1.5">
-                          <p className="font-bold text-gray-800">👨‍🎓 INFO KEHADIRAN SISWA</p>
-                          <div className="mt-1.5 space-y-0.5 text-gray-700">
-                            <p><span className="text-gray-500">Nama:</span> Ahmad Farhan</p>
-                            <p><span className="text-gray-500">Jenis Kelamin:</span> Laki-laki</p>
-                            <p><span className="text-gray-500">NISN:</span> 0012345678</p>
-                            <p><span className="text-gray-500">Kelas:</span> IX-A</p>
-                            <p><span className="text-gray-500">Status:</span> <span className="text-green-500 font-medium">✅ Hadir</span></p>
-                            <p><span className="text-gray-500">Waktu:</span> 07:15 WIB</p>
-                            <p><span className="text-gray-500">Tanggal:</span> 06 Mei 2025</p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-white rounded-lg p-2.5 xs:p-3 shadow-sm border border-gray-100">
-                        <div className="font-medium text-[#0088cc] flex items-center text-sm xs:text-base">
-                          <span className="mr-2">🤖</span>
-                          Bot Absensi Sekolah
-                        </div>
-                        <div className="text-xs xs:text-sm mt-1.5">
-                          <p className="font-bold text-gray-800">👩‍🎓 INFO KEHADIRAN SISWA</p>
-                          <div className="mt-1.5 space-y-0.5 text-gray-700">
-                            <p><span className="text-gray-500">Nama:</span> Siti Aisyah</p>
-                            <p><span className="text-gray-500">Jenis Kelamin:</span> Perempuan</p>
-                            <p><span className="text-gray-500">NISN:</span> 0023456789</p>
-                            <p><span className="text-gray-500">Kelas:</span> VIII-B</p>
-                            <p><span className="text-gray-500">Status:</span> <span className="text-green-500 font-medium">✅ Hadir</span></p>
-                            <p><span className="text-gray-500">Waktu:</span> 07:08 WIB</p>
-                            <p><span className="text-gray-500">Tanggal:</span> 06 Mei 2025</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Advantages */}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-6 sm:mb-8">
-              <motion.div 
-                className="card flex flex-col items-center text-center p-4 bg-blue-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <Clock className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="font-semibold text-lg mb-2">Hemat Waktu</h3>
-                <p className="text-gray-600">Proses absensi dalam hitungan detik</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card flex flex-col items-center text-center p-4 bg-purple-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Bell className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="font-semibold text-lg mb-2">Notifikasi Instan</h3>
-                <p className="text-gray-600">Kirim pemberitahuan ke orang tua</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card flex flex-col items-center text-center p-4 bg-green-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <Shield className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="font-semibold text-lg mb-2">Keamanan Tinggi</h3>
-                <p className="text-gray-600">Data siswa terlindungi dengan baik</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card flex flex-col items-center text-center p-4 bg-yellow-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <School className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="font-semibold text-lg mb-2">Untuk Semua Jenjang</h3>
-                <p className="text-gray-600">TK, SD, SMP, SMA, dan Perguruan Tinggi</p>
-              </motion.div>
-            </div>
-            
-            <div className="flex justify-center">
-              <Link href="/login" className="btn-primary text-lg group flex items-center gap-2 hover:bg-orange-500">
-                MULAI SEKARANG
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Guarantees Section */}
-        <section className="py-8 bg-white">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
-              <motion.div 
-                className="card bg-[#4ECDC4] flex items-center justify-center p-5 text-white shadow-lg"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="bg-white/20 p-4 rounded-full mb-4 shadow-inner">
-                    <Check className="h-14 w-14 text-white" />
-                  </div>
-                  <h3 className="font-bold text-xl mb-1">Gratis 1 Bulan</h3>
-                  <p className="text-white/85">Akses penuh ke semua fitur</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-[#FF6B6B] flex items-center justify-center p-5 text-white shadow-lg"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="bg-white/20 p-4 rounded-full mb-4 shadow-inner">
-                    <Phone className="h-14 w-14 text-white" />
-                  </div>
-                  <h3 className="font-bold text-xl mb-1">Dukungan Teknis</h3>
-                  <p className="text-white/85">Bantuan teknis untuk semua pengguna</p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {/* Render different dashboard based on user role */}
+        {userRole === 'admin' && <>
+            {showCustomDashboard ? <DynamicDashboard userRole={userRole} schoolId={schoolId} /> : <AdminDashboard schoolName={schoolName} principalName={userData?.principalName || ""} principalNip={userData?.principalNip || ""} stats={{
+          totalStudents,
+          totalClasses,
+          attendanceRate,
+          totalTeachers
+        }} recentAttendance={recentAttendance} loading={loading} />}
+          </>}
         
-        {/* Features Section */}
-        <section className="py-10 bg-slate-100">
-          <div className="container-custom">
-            <h2 className="section-title text-center mb-12">Fitur Unggulan Aplikasi</h2>
-            
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
-              <motion.div 
-                className="card bg-pink-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <QrCode className="h-12 w-12 text-primary mb-4" />
-                <h3 className="font-semibold text-xl mb-3">Absensi QR Code</h3>
-                <p className="text-gray-600">Scan cepat kartu QR Code siswa untuk absensi</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-teal-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Bell className="h-12 w-12 text-primary mb-4" />
-                <h3 className="font-semibold text-xl mb-3">Notifikasi Real-time</h3>
-                <p className="text-gray-600">Kirim info kehadiran langsung ke Telegram orang tua</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-blue-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <Users className="h-12 w-12 text-primary mb-4" />
-                <h3 className="font-semibold text-xl mb-3">Kelola Data Siswa</h3>
-                <p className="text-gray-600">Simpan & kelola informasi siswa dengan lengkap</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-orange-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <BarChart3 className="h-12 w-12 text-primary mb-4" />
-                <h3 className="font-semibold text-xl mb-3">Visualisasi Data</h3>
-                <p className="text-gray-600">Lihat grafik kehadiran per bulan dengan jelas</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-violet-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                <Download className="h-12 w-12 text-primary mb-4" />
-                <h3 className="font-semibold text-xl mb-3">Ekspor Laporan</h3>
-                <p className="text-gray-600">Download laporan dalam format PDF dan Excel</p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-emerald-400/90"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <Shield className="h-12 w-12 text-primary mb-4" />
-                <h3 className="font-semibold text-xl mb-3">Aman dan Terpercaya</h3>
-                <p className="text-gray-600">Keamanan data siswa terjamin sepenuhnya</p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {userRole === 'teacher' && <>
+            {showCustomDashboard ? <DynamicDashboard userRole={userRole} schoolId={schoolId} /> : <TeacherDashboard schoolName={schoolName} userName={userName} stats={{
+          totalStudents,
+          totalClasses,
+          attendanceRate,
+          totalTeachers
+        }} recentAttendance={recentAttendance} loading={loading} />}
+          </>}
         
-        {/* Testimonials Section */}
-        <section className="py-10 bg-white">
-          <div className="container-custom">
-            <h2 className="section-title text-center mb-10">Testimoni Pengguna Aplikasi</h2>
-            
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 sm:gap-5">
-              <motion.div 
-                className="card bg-cyan-400/90"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-bold text-primary text-lg mb-3">Rusmini, S.Pd</h3>
-                <p className="text-gray-600 text-base mb-2">Kepala SD Negeri 2 Sendang Ayu :</p>
-                <p className="text-gray-700">
-                  "Absensi QR-CODE mempermudah pemantauan kehadiran siswa di sekolah. 
-                  Dan mengirim info ke Orang Tua."
-                </p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-amber-400/90"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-bold text-primary text-lg mb-3">Siti Malihah</h3>
-                <p className="text-gray-600 text-base mb-2">Orang Tua Siswa :</p>
-                <p className="text-gray-700">
-                  "Saya selalu tahu kapan anak saya tiba di sekolah berkat notifikasi Telegram. 
-                  Aplikasi yang sangat membantu!"
-                </p>
-              </motion.div>
-              
-              <motion.div 
-                className="card bg-lime-400/90"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-bold text-primary text-lg mb-3">Muhajirin</h3>
-                <p className="text-gray-600 text-base mb-2">Administrator Sekolah :</p>
-                <p className="text-gray-700">
-                  "Pembuatan laporan kehadiran jadi lebih efisien. Hemat waktu dan 
-                  lebih akurat dibanding sistem manual."
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {userRole === 'student' && <StudentDashboard userData={userData} schoolId={schoolId} />}
         
-        {/* App Showcase Section */}
-        <section className="py-10 bg-[#051243] text-white">
-          <div className="container-custom">
-            <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-center lg:gap-10">
-              <div className="lg:w-1/2">
-                <h2 className="section-title mb-6">Aplikasi Pilihan Sekolah Modern</h2>
-                <p className="text-white mb-6">
-                  ABSENSI QR-CODE adalah solusi modern untuk sistem absensi sekolah yang 
-                  menggabungkan teknologi QR Code dengan notifikasi real-time untuk 
-                  memberikan pengalaman terbaik bagi sekolah dan orang tua.
-                </p>
+        {/* Fallback if no role is detected */}
+        {!userRole && <div className="bg-white rounded-xl shadow-sm p-8 text-center" data-unique-id="ed2b1343-cfb6-4b79-8a5e-9093cafb6981" data-file-name="app/dashboard/page.tsx">
+            <div className="flex flex-col items-center" data-unique-id="d70d6a24-c5af-490f-aa10-0a50b1c94927" data-file-name="app/dashboard/page.tsx">
+              <div className="bg-blue-100 p-4 rounded-full mb-4" data-unique-id="c98ce74c-20b7-4fe0-908b-ea3eea553440" data-file-name="app/dashboard/page.tsx">
+                <Home className="h-8 w-8 text-blue-600" />
               </div>
-              
-              <div className="lg:w-1/2">
-                <div className="relative">
-                  {/* Laptop Frame */}
-                  <div className="bg-gray-300 rounded-t-lg h-[20px] w-full max-w-[500px] mx-auto"></div>
-                  <div className="bg-gray-300 h-[300px] w-full max-w-[500px] pt-0 pb-4 px-2 rounded-b-lg flex items-center justify-center mx-auto">
-                    <div className="bg-white h-full w-full rounded">
-                      {/* Dashboard Preview */}
-                      <div className="w-full h-[40px] bg-primary flex items-center px-4">
-                        <div className="text-white font-medium">Dashboard Absensi</div>
-                      </div>
-                      <div className="p-4">
-                        <div className="mb-4">
-                          <div className="text-sm font-medium text-gray-500 mb-1">Kehadiran Mingguan</div>
-                          <div className="h-[120px] bg-blue-50 rounded-lg relative overflow-hidden">
-                            {/* Simulated Bar Chart */}
-                            <div className="absolute bottom-0 left-[10%] w-[10%] h-[70%] bg-primary rounded-t-sm"></div>
-                            <div className="absolute bottom-0 left-[25%] w-[10%] h-[85%] bg-primary rounded-t-sm"></div>
-                            <div className="absolute bottom-0 left-[40%] w-[10%] h-[65%] bg-primary rounded-t-sm"></div>
-                            <div className="absolute bottom-0 left-[55%] w-[10%] h-[90%] bg-primary rounded-t-sm"></div>
-                            <div className="absolute bottom-0 left-[70%] w-[10%] h-[80%] bg-primary rounded-t-sm"></div>
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-3 gap-3">
-                          <div className="bg-blue-50 p-3 rounded-lg">
-                            <div className="text-xs text-gray-500">Hadir</div>
-                            <div className="font-bold text-primary text-lg">94%</div>
-                          </div>
-                          <div className="bg-orange-50 p-3 rounded-lg">
-                            <div className="text-xs text-gray-500">Izin</div>
-                            <div className="font-bold text-secondary text-lg">4%</div>
-                          </div>
-                          <div className="bg-red-50 p-3 rounded-lg">
-                            <div className="text-xs text-gray-500">Absen</div>
-                            <div className="font-bold text-red-500 text-lg">2%</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2" data-unique-id="5f33d13e-b0ba-4769-9dae-d88901a3bfa8" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="dd3d451d-6caf-4655-873f-7779dc745dd9" data-file-name="app/dashboard/page.tsx">Selamat Datang di Dashboard</span></h2>
+              <p className="text-gray-600 mb-4" data-unique-id="60afceb3-c1f9-467b-a48e-7abcce9d3cc7" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="1505d7e6-f133-467c-bb32-34b5ea58fb8d" data-file-name="app/dashboard/page.tsx">
+                Silakan hubungi administrator untuk mengatur peran akses Anda.
+              </span></p>
             </div>
-          </div>
-        </section>
-        
-        {/* Call To Action Section */}
-        <section className="py-10 bg-slate-50">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Siap Meningkatkan Sistem Absensi?</h2>
-            <p className="max-w-2xl mx-auto mb-8 text-gray-700">
-              Daftar sekarang juga dan rasakan kemudahan sistem Absensi Digital dengan QR-CODE.
-            </p>
-            <Link 
-              href="/register" 
-              className="btn-primary text-base px-6 py-2 flex items-center justify-center gap-1.5 group mx-auto hover:bg-secondary transition-colors w-auto"
-            >
-              <span className="inline-block">Daftar Sekarang</span>
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </section>
-        
-        {/* Footer */}
-        <footer className="bg-primary text-white py-12">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-              <div>
-                <h3 className="font-bold text-base mb-3">ABSENSI SISWA</h3>
-                <p className="max-w-md mb-4 text-gray-200 text-sm">
-                  Solusi Absensi Digital untuk Pendidikan yang Bermutu.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="hover:text-secondary transition-colors">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="hover:text-secondary transition-colors">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="hover:text-secondary transition-colors">
-                    <Twitter className="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="font-bold text-base mb-3">Kontak Kami</h3>
-                <div className="flex items-center mb-2">
-                  <Mail className="h-4 w-4 mr-2" />
-                  <span className="text-sm">lehan.virtual@gmail.com</span>
-                </div>
-                <div className="flex items-center">
-                  <Phone className="h-4 w-4 mr-2" />
-                  <span className="text-sm">+62 812 7240 5881</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t border-gray-700 mt-6 pt-4 text-center text-gray-300">
-              <p className="text-xs">&copy; {new Date().getFullYear()} ALFANAHEL STUDIO'S.</p>
-            </div>
-          </div>
-        </footer>
+          </div>}
       </div>
-      
-      {/* Back to Top Button */}
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-20 right-8 bg-red-500 text-white p-2.5 rounded-full shadow-lg hover:bg-orange-600 transition-all z-50"
-        >
-          <ChevronUp className="h-5 w-5" />
-        </button>
-      )}
-    </main>
-  );
+
+      {/* Welcome Popup for First-time Login */}
+      <AnimatePresence>
+        {showWelcomePopup && <motion.div initial={{
+        opacity: 0
+      }} animate={{
+        opacity: 1
+      }} exit={{
+        opacity: 0
+      }} className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 p-4" data-unique-id="77e8cbd3-f997-448e-8885-bd3b9ae5acc6" data-file-name="app/dashboard/page.tsx">
+            <motion.div initial={{
+          scale: 0.9,
+          opacity: 0
+        }} animate={{
+          scale: 1,
+          opacity: 1
+        }} exit={{
+          scale: 0.9,
+          opacity: 0
+        }} className="bg-white rounded-xl shadow-xl max-w-md w-full p-4 sm:p-6" data-unique-id="5d955f2b-13c4-4843-b168-f9c53b774dc2" data-file-name="app/dashboard/page.tsx">
+              <div className="flex justify-end" data-unique-id="52d7e5d3-a8db-4cb9-9373-af42c2c03966" data-file-name="app/dashboard/page.tsx">
+                <button onClick={() => setShowWelcomePopup(false)} className="text-gray-500 hover:text-gray-700" data-unique-id="6ab100e2-d1b7-419d-a3f9-6bc6bdda4d3b" data-file-name="app/dashboard/page.tsx">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="text-center mb-6" data-unique-id="c7178ff8-72c5-4aaf-816f-64760916c722" data-file-name="app/dashboard/page.tsx">
+                <h2 className="text-xl font-bold mb-1" data-unique-id="f0fc5805-00e7-4e84-a183-b2bc17b57c9b" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="aa09a354-e7a3-4682-80d8-3855c46668ba" data-file-name="app/dashboard/page.tsx">SELAMAT DATANG</span></h2>
+                <h3 className="text-lg font-bold text-primary mb-4" data-unique-id="9d484951-582e-4c42-a2aa-3630ba29ffb7" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">{userData?.name || userName}</h3>
+                <p className="text-gray-700 text-sm sm:text-base" data-unique-id="75a424d8-d13a-4ab8-8617-639a152d643b" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="dce659af-01ac-4e5f-a15b-d08b69ef6687" data-file-name="app/dashboard/page.tsx">
+                  Jika anda pertama kali login ke Aplikasi ABSENSI DIGITAL, jangan lupa untuk dapat menggunakan aplikasi ini, silahkan lengkapi </span><span className="font-bold" data-unique-id="a653f151-b5c0-497b-8b52-512420ee7dc1" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="42cb4d7e-5f70-4ba3-a497-f853503ff3b3" data-file-name="app/dashboard/page.tsx">Profil Sekolah</span></span><span className="editable-text" data-unique-id="1ba3961d-5e9c-468f-9197-f7404dcd5ca2" data-file-name="app/dashboard/page.tsx"> anda dengan cara mengakses Menu yang berada di pojok kanan atas.
+                </span></p>
+              </div>
+              <div className="flex justify-center" data-unique-id="8c49e0f0-20d7-4cd9-8946-9298e0248467" data-file-name="app/dashboard/page.tsx">
+                <button onClick={() => setShowWelcomePopup(false)} className="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary hover:bg-opacity-90 transition-colors" data-unique-id="1482bc50-9209-4bc3-b0ad-ab2489f217b3" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="6e0e217f-0013-42a6-aa2f-fc02ba178110" data-file-name="app/dashboard/page.tsx">
+                  Saya Mengerti
+                </span></button>
+              </div>
+            </motion.div>
+          </motion.div>}
+      </AnimatePresence>
+
+      {/* Expiration Modal */}
+      <ExpirationModal isOpen={showExpirationModal} onClose={() => setShowExpirationModal(false)} daysLeft={expirationData?.daysLeft || 0} />
+
+      {/* Pop-ups */}
+      <AnnouncementPopup isOpen={showAnnouncementPopup} onClose={handleAnnouncementClose} schoolId={schoolId} />
+
+      <ExpirationTracker isOpen={showExpirationPopup} onClose={() => setShowExpirationPopup(false)} schoolId={schoolId} />
+    </div>;
 }
