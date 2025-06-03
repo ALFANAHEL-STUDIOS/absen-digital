@@ -359,12 +359,12 @@ export default function AdminDashboard({
             </span></h2>
             
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-4" data-unique-id="02279f98-f99e-4915-9ba6-dffe8228d89b" data-file-name="app/dashboard/components/AdminDashboard.tsx">
-              <Link href="/dashboard/students/add" className="bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-sm p-5 hover:shadow-md transition-all text-white" data-unique-id="2a73da23-a601-4cc2-af8e-03be1718b1a8" data-file-name="app/dashboard/components/AdminDashboard.tsx">
+              <Link href="/dashboard/students/qr/instructions" className="bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-sm p-5 hover:shadow-md transition-all text-white" data-unique-id="2a73da23-a601-4cc2-af8e-03be1718b1a8" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                 <div className="flex flex-col items-center justify-center" data-unique-id="58009d9a-8a11-467b-869f-cc7328cd7b29" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                   <div className="bg-blue-400 bg-opacity-30 p-3 rounded-full mb-3" data-unique-id="acbe57ea-624d-4233-b413-955f90f876cc" data-file-name="app/dashboard/components/AdminDashboard.tsx">
                     <PlusCircle className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-center" data-unique-id="01a994de-96dd-435e-a3d2-41ade6099394" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="716d0c05-81ac-4878-bc77-ca3b6c4926c1" data-file-name="app/dashboard/components/AdminDashboard.tsx">Tambah Siswa</span></h3>
+                  <h3 className="font-medium text-white text-center" data-unique-id="01a994de-96dd-435e-a3d2-41ade6099394" data-file-name="app/dashboard/components/AdminDashboard.tsx"><span className="editable-text" data-unique-id="716d0c05-81ac-4878-bc77-ca3b6c4926c1" data-file-name="app/dashboard/components/AdminDashboard.tsx">ID Telegram</span></h3>
                 </div>
               </Link>
               
