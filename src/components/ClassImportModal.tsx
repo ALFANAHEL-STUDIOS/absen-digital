@@ -240,9 +240,9 @@ export default function ClassImportModal({ isOpen, onClose, onImport }: ClassImp
                        </label>
                      </div>
 
-                     <p className="text-xs text-gray-500">
+                    {/*<p className="text-xs text-gray-500">
                        Hanya menerima file .xlsx maksimal 100 kelas
-                     </p>
+                     </p>*/}
                    </div>
                  </div>
                  {selectedFile && (
