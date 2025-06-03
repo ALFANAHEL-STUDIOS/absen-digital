@@ -156,7 +156,7 @@ export default function HomePage() {
                             <p><span className="text-gray-500">Kelas:</span> IX-A</p>
                             <p><span className="text-gray-500">Status:</span> <span className="text-green-500 font-medium">✅ Hadir</span></p>
                             <p><span className="text-gray-500">Waktu:</span> 07:15 WIB</p>
-                            <p><span className="text-gray-500">Tanggal:</span> 6 Mei 2025</p>
+                            <p><span className="text-gray-500">Tanggal:</span> 06 Mei 2025</p>
                           </div>
                         </div>
                       </div>
@@ -175,7 +175,7 @@ export default function HomePage() {
                             <p><span className="text-gray-500">Kelas:</span> VIII-B</p>
                             <p><span className="text-gray-500">Status:</span> <span className="text-green-500 font-medium">✅ Hadir</span></p>
                             <p><span className="text-gray-500">Waktu:</span> 07:08 WIB</p>
-                            <p><span className="text-gray-500">Tanggal:</span> 6 Mei 2025</p>
+                            <p><span className="text-gray-500">Tanggal:</span> 06 Mei 2025</p>
                           </div>
                         </div>
                       </div>
@@ -232,7 +232,7 @@ export default function HomePage() {
               >
                 <School className="h-12 w-12 mb-4 text-primary" />
                 <h3 className="font-semibold text-lg mb-2">Untuk Semua Jenjang</h3>
-                <p className="text-gray-600">SD, SMP, SMA, dan Perguruan Tinggi</p>
+                <p className="text-gray-600">TK, SD, SMP, SMA, dan Perguruan Tinggi</p>
               </motion.div>
             </div>
             
@@ -260,7 +260,7 @@ export default function HomePage() {
                   <div className="bg-white/20 p-4 rounded-full mb-4 shadow-inner">
                     <Check className="h-14 w-14 text-white" />
                   </div>
-                  <h3 className="font-bold text-xl mb-1">Gratis 6 Bulan</h3>
+                  <h3 className="font-bold text-xl mb-1">Gratis 1 Bulan</h3>
                   <p className="text-white/85">Akses penuh ke semua fitur</p>
                 </div>
               </motion.div>
@@ -378,8 +378,8 @@ export default function HomePage() {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-bold text-primary text-lg mb-3">Dwi Yanto, S.Pd</h3>
-                <p className="text-gray-600 text-base mb-2">Kepala SMPN 1 Padang Ratu :</p>
+                <h3 className="font-bold text-primary text-lg mb-3">Rusmini, S.Pd</h3>
+                <p className="text-gray-600 text-base mb-2">Kepala SD Negeri 2 Sendang Ayu :</p>
                 <p className="text-gray-700">
                   "Absensi QR-CODE mempermudah pemantauan kehadiran siswa di sekolah. 
                   Dan mengirim info ke Orang Tua."
@@ -408,7 +408,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-bold text-primary text-lg mb-3">Abdul Malik</h3>
+                <h3 className="font-bold text-primary text-lg mb-3">Muhajirin</h3>
                 <p className="text-gray-600 text-base mb-2">Administrator Sekolah :</p>
                 <p className="text-gray-700">
                   "Pembuatan laporan kehadiran jadi lebih efisien. Hemat waktu dan 
