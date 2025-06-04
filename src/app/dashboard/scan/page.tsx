@@ -384,7 +384,7 @@ export default function ScanQR() {
                     onClick={resetScan}
                     className="px-5 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50"
                   >
-                    Batal
+                    Batalkan
                   </button>
                   <button
                     type="button"
