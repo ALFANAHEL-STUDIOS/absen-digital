@@ -252,7 +252,7 @@ export default function UserProfile() {
                 ) : (
                   <Save size={20} />
                 )}
-                {saveSuccess ? "Tersimpan" : "Simpan"}
+                {saveSuccess ? "Tersimpan" : "Simpan Profile"}
               </motion.button>
             </div>
           </div>
