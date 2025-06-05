@@ -554,18 +554,18 @@ export default function UserManagement() {
                          <p className="text-blue-700 text-sm mb-3">
                            Download file template Excel, isi dengan data Pendidik, lalu upload kembali.
                          </p>
-                         <div className="text-xs mb-4  text-blue-600 space-y-1">
+                        {/*<div className="text-xs mb-4  text-blue-600 space-y-1">
                            <p>• Kolom 1 : NAMA (Nama lengkap Pengguna)</p>
                            <p>• Kolom 2 : E-MAIL (Email yang valid)</p>
                            <p>• Kolom 3 : HAK AKSES (admin/teacher/student)</p>
-                         </div>
+                         </div>*/}
                        </div>
                        <center><button
                          onClick={downloadTemplate}
                          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                        >
                          <Download size={16} />
-                         Download Template Excel
+                         Download Template
                        </button></center>
                      </div>
                    </div>
