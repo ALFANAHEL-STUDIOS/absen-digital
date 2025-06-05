@@ -744,21 +744,21 @@ export default function MonthlyAttendanceReport() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto px-1 sm:px-4 md:px-6">
       <div className="flex items-center mb-6">
         <Link href="/dashboard/reports" className="p-2 mr-2 hover:bg-gray-100 rounded-full">
           <ArrowLeft size={20} />
         </Link>
-        <h1 className="text-2xl font-bold text-gray-800">Rekap Kehadiran Per Bulan</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Rekap Absensi Per Bulan</h1>
       </div>
       
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="bg-white rounded-xl shadow-sm p-3 mb-6">
         <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 md:mb-6">
-          <div className="flex items-center mb-4 md:mb-0">
+          <div className="flex items-center mb-0 md:mb-0">
             <div className="bg-blue-100 p-2 rounded-lg mr-3">
               <Calendar className="h-6 w-6 text-blue-600" />
             </div>
-            <h2 className="text-xl font-semibold">Laporan Bulan : {formattedMonth}</h2>
+            <h2 className="text-xl font-semibold">Bulan : {formattedMonth}</h2>
           </div>
           
           <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-end">
