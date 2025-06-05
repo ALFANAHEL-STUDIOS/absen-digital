@@ -58,8 +58,8 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
        if (!lastCheck || now - parseInt(lastCheck) > 24 * 60 * 60 * 1000) {
          const newAnnouncements: AnnouncementData[] = [{
            id: '1',
-           title: 'Pembaruan Sistem Absensi',
-           message: 'Sistem absensi telah diperbarui dengan fitur baru. Silakan login ulang untuk mendapatkan pengalaman terbaik.',
+           title: 'Absensi Guru Berbasis Lokasi',
+           message: 'Untuk menggunakan Absensi berbasis lokasi, jangan lupa untuk menyalakan GPS pada Smartphone. Khusus jenis Absensi Izin dan Alpha bisa dilakukan dari rumah.',
            type: 'info',
            priority: 'medium',
            createdAt: new Date(),
@@ -249,7 +249,7 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
              className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
            >
              {/* Header */}
-             <div className={`bg-gradient-to-r ${getAnnouncementColors(announcements[currentAnnouncementIndex].type)} px-6 py-4 border-b`}>
+             <div className={`bg-gradient-to-r from-green-600 to-indigo-600 px-6 py-4 border-b`}>
                <div className="flex items-center justify-between">
                  <div className="flex items-center space-x-3">
                    <motion.div
@@ -257,26 +257,26 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
                      transition={{ repeat: Infinity, duration: 2 }}
                      className="bg-white/20 p-2 rounded-lg"
                    >
-                     <Bell className="h-6 w-6 text-gray-700" />
+                     <Bell className="h-6 w-6 text-white" />
                    </motion.div>
                    <div>
-                     <h2 className="text-lg font-bold text-gray-800">Pengumuman</h2>
-                     <p className="text-sm text-gray-600">
-                       {currentAnnouncementIndex + 1} dari {announcements.length}
+                     <h2 className="text-xl font-bold text-white">PENGUMUMAN</h2>
+                     <p className="text-sm text-white">
+                       
                      </p>
                    </div>
                  </div>
                  <button
                    onClick={dismissAnnouncement}
-                   className="text-gray-500 hover:text-gray-700 hover:bg-white/20 p-2 rounded-lg transition-colors"
+                   className="text-white hover:text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
                  >
                    <X className="h-5 w-5" />
                  </button>
                </div>
              </div>
              {/* Content */}
-             <div className="p-6">
-               <div className="flex items-start space-x-3 mb-4">
+             <div className="p-4">
+               <div className="flex items-start space-x-3 mb-0">
                  {getAnnouncementIcon(announcements[currentAnnouncementIndex].type)}
                  <div className="flex-1">
                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -306,13 +306,13 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
                  onClick={dismissAnnouncement}
                  className="text-gray-500 hover:text-gray-700 font-medium"
                >
-                 Tutup Semua
+                 
                </button>
                <button
                  onClick={nextAnnouncement}
                  className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
                >
-                 {currentAnnouncementIndex < announcements.length - 1 ? 'Selanjutnya' : 'Selesai'}
+                 {currentAnnouncementIndex < announcements.length - 1 ? 'Selanjutnya' : 'Saya Mengerti'}
                </button>
              </div>
            </motion.div>
@@ -562,8 +562,8 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
      {/* Floating Action Buttons */}
      <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-40">
        {/* Announcement Button */}
-       {announcements.length > 0 && (
-         <motion.button
+      {/* {announcements.length > 0 && (
+          <motion.button
            initial={{ scale: 0 }}
            animate={{ scale: 1 }}
            whileHover={{ scale: 1.1 }}
@@ -578,7 +578,7 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
              </span>
            )}
          </motion.button>
-       )}
+       )}*/}
        {/* Admin Expiration Button */}
        {expirationData && userRole === 'admin' && (
          <motion.button
