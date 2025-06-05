@@ -499,9 +499,9 @@ export default function HomePage() {
           <div className="container-custom">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
               <div>
-                <h3 className="font-bold text-base mb-3">ABSENSI SISWA</h3>
+                <h3 className="font-bold text-base mb-3">ABSENSI DIGITAL</h3>
                 <p className="max-w-md mb-4 text-gray-200 text-sm">
-                  Solusi Absensi Digital untuk Pendidikan yang Bermutu.
+                  Solusi Absensi Modern untuk Pendidikan yang Bermutu.
                 </p>
                 <div className="flex space-x-3">
                   <a href="#" className="hover:text-secondary transition-colors">
