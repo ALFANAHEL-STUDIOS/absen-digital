@@ -631,7 +631,7 @@ export default function UserManagement() {
                  <div className="space-y-4">
                    <div className="flex items-center justify-between">
                      <h3 className="text-lg font-semibold text-gray-800">
-                       Preview Data Import ({importData.length} Pengguna)
+                       Preview : {importData.length} Total Data
                      </h3>
                      <button
                        onClick={() => {
@@ -642,7 +642,7 @@ export default function UserManagement() {
                        }}
                        className="text-gray-500 hover:text-gray-700 text-sm"
                      >
-                       ← Kembali ke Upload
+                       ← Kembali
                      </button>
                    </div>
                    {/* Errors */}
@@ -708,14 +708,14 @@ export default function UserManagement() {
                        <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                        <div>
                          <p className="text-sm font-medium text-yellow-800">
-                           Informasi Penting !!!
+                           INFORMASI PENTING !!!
                          </p>
                          <p className="text-sm text-yellow-700 mt-1">
-                           • Password default untuk semua pengguna : <strong>12345678</strong>
+                           • Password default : <strong>12345678</strong>
                          </p>
                          
                          <p className="text-sm text-yellow-700">
-                           • Data yang diimport akan langsung ditambahkan ke database.
+                           • Data akan diimport ke database
                          </p>
                        </div>
                      </div>
@@ -749,7 +749,7 @@ export default function UserManagement() {
                    ) : (
                      <Upload className="h-4 w-4" />
                    )}
-                   {importLoading ? 'Mengimpor...' : `Import ${importData.length} Pengguna`}
+                   {importLoading ? 'Mengimpor...' : `Import ${importData.length} Data`}
                  </button>
                )}
              </div>
