@@ -231,7 +231,7 @@ export default function UserManagement() {
           className="flex items-center justify-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition-colors shadow-sm"
         >
           <UserPlus size={18} />
-          Tambah Data Pengguna
+          Tambah Data Pendidik
         </button>
       </div>
 
