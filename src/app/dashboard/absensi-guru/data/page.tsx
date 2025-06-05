@@ -561,7 +561,7 @@ export default function TeacherDataPage() {
                 
                 {/* Email */}
                 <div data-unique-id="47b58606-53e6-4af0-a401-9617f06e5e6a" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
-                  <label htmlFor="edit-email" className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="7d50bdfe-670e-4127-8f33-e41d7e966fc8" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="24acf31d-5f2c-4050-a6e6-b1532a7f62f9" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+                  <label htmlFor="edit-email" disabled className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="7d50bdfe-670e-4127-8f33-e41d7e966fc8" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="24acf31d-5f2c-4050-a6e6-b1532a7f62f9" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                     Email
                   </span></label>
                   <input type="email" id="edit-email" name="email" value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary" required data-unique-id="ccd17d80-5bd4-4742-b289-2aaa67530a42" data-file-name="app/dashboard/absensi-guru/data/page.tsx" />
@@ -593,7 +593,7 @@ export default function TeacherDataPage() {
                 
                 {/* Role */}
                 <div data-unique-id="205782d8-757e-4920-a090-ad34a600761b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
-                  <label htmlFor="edit-role" className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="d233cd65-8e95-4170-9d46-a2813e34bf86" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="e87cd296-1020-4772-80b9-5130dfd2f5e8" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+                  <label htmlFor="edit-role" disabled className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="d233cd65-8e95-4170-9d46-a2813e34bf86" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="e87cd296-1020-4772-80b9-5130dfd2f5e8" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                     Jabatan
                   </span></label>
                   <select id="edit-role" name="role" value={formData.role} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary" required data-unique-id="16ae6749-0f53-4561-bc53-af8c232541f3" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
