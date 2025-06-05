@@ -613,7 +613,7 @@ export default function TeacherDataPage() {
               </div>
             </form>
           </motion.div>
-        <hr className="border-t border-none mb-5" />
+       
         </div>}
       
       {/* Delete Confirmation Modal */}
@@ -652,5 +652,6 @@ export default function TeacherDataPage() {
             </div>
           </motion.div>
         </div>}
+     <hr className="border-t border-none mb-5" />
     </div>;
 }
