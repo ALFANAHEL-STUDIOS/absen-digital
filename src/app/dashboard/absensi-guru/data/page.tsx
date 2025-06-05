@@ -305,7 +305,7 @@ export default function TeacherDataPage() {
     }
   };
   return <div className="pb-20 md:pb-6" data-unique-id="aea7ed76-67fa-4577-8ee4-eb332f956d20" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6" data-unique-id="77465f9a-a5f3-4527-8be7-430d02387ee2" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-1" data-unique-id="77465f9a-a5f3-4527-8be7-430d02387ee2" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
         <div className="flex items-center mb-4 md:mb-0" data-unique-id="c2b2ec83-8982-425f-a9c9-d9968ac7665b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
           <Link href="/dashboard/absensi-guru" className="p-2 mr-2 hover:bg-gray-100 rounded-full" data-unique-id="f3e53a66-5b09-44fd-9630-a0431a6b94d8" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
             <ArrowLeft size={20} />
@@ -320,7 +320,7 @@ export default function TeacherDataPage() {
       </div>
       
       {/* Search and Filter */}
-      <div className="bg-white rounded-xl shadow-sm p-4 mb-6" data-unique-id="dce44a1d-dbf2-4517-b3e9-9ff61eea956f" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+      <div className="bg-white rounded-xl shadow-sm p-4 mb-4" data-unique-id="dce44a1d-dbf2-4517-b3e9-9ff61eea956f" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4" data-unique-id="4b62e445-b0a3-4ef2-a72d-f55eef73d16a" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
           {/* Search */}
           <div className="md:col-span-2" data-unique-id="a3aba4f4-6b93-46ff-a985-d60eac5a6a9e" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
@@ -613,6 +613,7 @@ export default function TeacherDataPage() {
               </div>
             </form>
           </motion.div>
+        <hr className="border-t border-none mb-5" />
         </div>}
       
       {/* Delete Confirmation Modal */}
