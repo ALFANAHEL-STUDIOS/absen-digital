@@ -281,7 +281,7 @@ export default function ScanQR() {
                   Absensi untuk <span className="font-semibold">{student?.name}</span> telah berhasil dicatat.
                 </p>
                 <p className="text-sm text-gray-500 mb-6">
-                  Status: <span className={`font-medium ${
+                  Status : <span className={`font-medium ${
                     attendanceStatus === 'hadir' ? 'text-emerald-600' : 
                     attendanceStatus === 'sakit' ? 'text-orange-600' : 
                     attendanceStatus === 'izin' ? 'text-blue-600' : 
@@ -308,7 +308,7 @@ export default function ScanQR() {
                   </div>
                   <div className="ml-4">
                     <h2 className="font-semibold text-lg">QR Code Terdeteksi</h2>
-                    <p className="text-sm text-gray-500">NISN: {detectedCode}</p>
+                    <p className="text-sm text-gray-500">NISN : {detectedCode}</p>
                   </div>
                 </div>
                 
@@ -384,7 +384,7 @@ export default function ScanQR() {
                     onClick={resetScan}
                     className="px-5 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50"
                   >
-                    Batal
+                    Batalkan
                   </button>
                   <button
                     type="button"
@@ -492,9 +492,9 @@ export default function ScanQR() {
               
               {!scanning ? (
                 <>
-                  <h2 className="text-lg font-semibold text-gray-800 mb-2">Siap untuk Scan</h2>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-2">Siap Untuk Scan</h2>
                   <p className="text-gray-500 mb-6 text-sm">
-                    Tekan Tombol Untuk Mengaktifkan Kamera
+                    Tekan Tombol Di Bawah Ini Untuk Mengaktifkan Kamera
                   </p>
                   <motion.button
                     onClick={() => setScanning(true)}
