@@ -167,7 +167,7 @@ export default function TeacherDashboard({
        {/* Dashboard Popups Component */}
        <DashboardPopups schoolId={schoolId} userRole={userRole} />
        {/* Error State */}
-       <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
+       {/*<div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
          <div className="flex items-center">
            <AlertCircle className="h-8 w-8 text-red-500 mr-4" />
            <div>
@@ -181,7 +181,7 @@ export default function TeacherDashboard({
              </button>
            </div>
          </div>
-       </div>
+       </div>*/}
        {/* Basic Navigation */}
        <div className="bg-white rounded-xl shadow-sm p-6">
          <h2 className="text-lg font-semibold mb-4">Akses Cepat</h2>
