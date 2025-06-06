@@ -772,7 +772,7 @@ export default function MonthlyAttendanceReport() {
               onClick={handleNextMonth}
               className="p-2 rounded-md border border-gray-300 hover:bg-gray-50"
             >
-              Bulan Berikutnya
+              Bulan Selanjutnya
             </button>
           </div>
         </div>
