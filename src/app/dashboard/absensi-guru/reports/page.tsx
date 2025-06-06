@@ -103,7 +103,6 @@ export default function TeacherAttendanceReports() {
        where("role", "in", ["teacher", "staff"])
      );
      const teachersSnapshot = await getDocs(teachersQuery);
-
      const teachersList: any[] = [];
      teachersSnapshot.forEach(doc => {
        teachersList.push({
@@ -222,57 +221,89 @@ export default function TeacherAttendanceReports() {
      const pageWidth = pdfDoc.internal.pageSize.getWidth();
      const pageHeight = pdfDoc.internal.pageSize.getHeight();
      const margin = 15;
-     // Add header with school information
-     pdfDoc.setFontSize(16);
-     pdfDoc.setFont("helvetica", "bold");
-     pdfDoc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
-
-     pdfDoc.setFontSize(12);
-     pdfDoc.setFont("helvetica", "normal");
-     pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
-     pdfDoc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
-     // Add horizontal line
-     pdfDoc.setLineWidth(0.5);
-     pdfDoc.line(margin, margin + 20, pageWidth - margin, margin + 20);
-     // Add title
-     pdfDoc.setFontSize(12);
-     pdfDoc.setFont("helvetica", "normal");
-     pdfDoc.text("REKAPITULASI LAPORAN ABSENSI GURU", pageWidth / 2, margin + 30, { align: "center" });
-     pdfDoc.text(`BULAN ${formattedMonth.toUpperCase()}`, pageWidth / 2, margin + 36, { align: "center" });
-     // Main attendance table
-     let yPos = margin + 43;
-     // Table headers
-     const headers = ["NO.", "NAMA GURU", "", "JABATAN", "HADIR", "TERLAMBAT", "IZIN", "ALPHA", "TOTAL"];
-     const colWidths = [12, 54, 0, 20, 17, 25, 15, 17, 20];
-     // Draw table header - Light blue background
-     pdfDoc.setFillColor(173, 216, 230);
-     pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
-     pdfDoc.setDrawColor(0);
-     pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "S"); // Border
-     let xPos = margin;
-     pdfDoc.setFontSize(9);
-     pdfDoc.setTextColor(0);
-     // Draw vertical lines and headers
-     headers.forEach((header, i) => {
-       if (i > 0) {
-         pdfDoc.line(xPos, yPos, xPos, yPos + 8);
+     const footerHeight = 60; // Reserve space for signature
+     const usableHeight = pageHeight - margin - footerHeight;
+     // Helper function to add page header
+     const addPageHeader = (isFirstPage = false) => {
+       pdfDoc.setFontSize(16);
+       pdfDoc.setFont("helvetica", "bold");
+       pdfDoc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin, { align: "center" });
+       pdfDoc.setFontSize(12);
+       pdfDoc.setFont("helvetica", "normal");
+       pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 7, { align: "center" });
+       pdfDoc.text(`NPSN: ${schoolInfo.npsn}`, pageWidth / 2, margin + 14, { align: "center" });
+       // Add horizontal line
+       pdfDoc.setLineWidth(0.5);
+       pdfDoc.line(margin, margin + 20, pageWidth - margin, margin + 20);
+       if (isFirstPage) {
+         // Add title only on first page
+         pdfDoc.setFontSize(12);
+         pdfDoc.setFont("helvetica", "normal");
+         pdfDoc.text("REKAPITULASI LAPORAN ABSENSI GURU", pageWidth / 2, margin + 30, { align: "center" });
+         pdfDoc.text(`BULAN ${formattedMonth.toUpperCase()}`, pageWidth / 2, margin + 36, { align: "center" });
+         return margin + 43;
+       } else {
+         // Smaller header for continuation pages
+         pdfDoc.setFontSize(10);
+         pdfDoc.setFont("helvetica", "italic");
+         pdfDoc.text("(Lanjutan)", pageWidth / 2, margin + 25, { align: "center" });
+         return margin + 32;
        }
-       pdfDoc.text(header, xPos + colWidths[i] / 2, yPos + 5.5, { align: "center" });
-       xPos += colWidths[i];
-     });
-     yPos += 8;
-     // Draw table rows
-     pdfDoc.setFontSize(10);
+     };
+     // Helper function to add table header
+     const addTableHeader = (yPos: number) => {
+       const headers = ["NO.", "NAMA GURU", "", "JABATAN", "HADIR", "TERLAMBAT", "IZIN", "ALPHA", "TOTAL"];
+       const colWidths = [12, 54, 0, 20, 17, 25, 15, 17, 20];
+       // Draw table header - Light blue background
+       pdfDoc.setFillColor(173, 216, 230);
+       pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
+       pdfDoc.setDrawColor(0);
+       pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "S");
+       let xPos = margin;
+       pdfDoc.setFontSize(9);
+       pdfDoc.setTextColor(0);
+       // Draw vertical lines and headers
+       headers.forEach((header, i) => {
+         if (i > 0) {
+           pdfDoc.line(xPos, yPos, xPos, yPos + 8);
+         }
+         pdfDoc.text(header, xPos + colWidths[i] / 2, yPos + 5.5, { align: "center" });
+         xPos += colWidths[i];
+       });
+       return yPos + 8;
+     };
+     // Helper function to check if new page is needed
+     const checkNewPage = (currentY: number, requiredSpace: number = 15) => {
+       if (currentY + requiredSpace > usableHeight) {
+         pdfDoc.addPage();
+         return addPageHeader(false);
+       }
+       return currentY;
+     };
+     // Start first page
+     let yPos = addPageHeader(true);
+     yPos = addTableHeader(yPos);
+     // Table data constants
+     const colWidths = [12, 54, 0, 20, 17, 25, 15, 17, 20];
+     const rowHeight = 7;
+     // Track totals
      let totalHadir = 0, totalTerlambat = 0, totalIzin = 0, totalAlpha = 0, totalAll = 0;
-     // Process each teacher's data
+     // Process each teacher's data with improved pagination
      filteredTeachers.forEach((teacher, index) => {
+       // Check if we need a new page for this row
+       yPos = checkNewPage(yPos, rowHeight);
+
+       // If we're on a new page, add table header
+       if (yPos <= margin + 40) {
+         yPos = addTableHeader(yPos);
+       }
        // Row background (alternating)
        if (index % 2 === 0) {
          pdfDoc.setFillColor(240, 240, 240);
-         pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 7, "F");
+         pdfDoc.rect(margin, yPos, pageWidth - margin * 2, rowHeight, "F");
        }
        // Draw row border
-       pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 7, "S");
+       pdfDoc.rect(margin, yPos, pageWidth - margin * 2, rowHeight, "S");
        // Calculate totals
        totalHadir += teacher.hadir || 0;
        totalTerlambat += teacher.terlambat || 0;
@@ -281,107 +312,61 @@ export default function TeacherAttendanceReports() {
        const teacherTotal = (teacher.hadir || 0) + (teacher.terlambat || 0) + (teacher.izin || 0) + (teacher.alpha || 0);
        totalAll += teacherTotal;
        // Draw cell content
-       xPos = margin;
-
+       let xPos = margin;
+       pdfDoc.setFontSize(10);
        // Number
        pdfDoc.text((index + 1).toString(), xPos + colWidths[0] / 2, yPos + 5, { align: "center" });
        xPos += colWidths[0];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
-
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        // Name - truncate if too long
        const displayName = teacher.name.length > 25 ? teacher.name.substring(0, 22) + "..." : teacher.name;
        pdfDoc.text(displayName || "", xPos + 2, yPos + 5);
        xPos += colWidths[1];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        xPos += colWidths[2];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        const roleText = teacher.role === 'teacher' ? 'Guru' : 'Tendik';
        pdfDoc.text(roleText, xPos + colWidths[3] / 2, yPos + 5, { align: "center" });
        xPos += colWidths[3];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        pdfDoc.text((teacher.hadir || 0).toString(), xPos + colWidths[4] / 2, yPos + 5, { align: "center" });
        xPos += colWidths[4];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        pdfDoc.text((teacher.terlambat || 0).toString(), xPos + colWidths[5] / 2, yPos + 5, { align: "center" });
        xPos += colWidths[5];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        pdfDoc.text((teacher.izin || 0).toString(), xPos + colWidths[6] / 2, yPos + 5, { align: "center" });
        xPos += colWidths[6];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        pdfDoc.text((teacher.alpha || 0).toString(), xPos + colWidths[7] / 2, yPos + 5, { align: "center" });
        xPos += colWidths[7];
-       // Draw vertical line
-       pdfDoc.line(xPos, yPos, xPos, yPos + 7);
+       pdfDoc.line(xPos, yPos, xPos, yPos + rowHeight);
        pdfDoc.text(teacherTotal.toString(), xPos + colWidths[8] / 2, yPos + 5, { align: "center" });
-       yPos += 7;
-       // Add a new page if needed
-       if (yPos > pageHeight - margin - 100 && index < filteredTeachers.length - 1) {
-         pdfDoc.addPage();
-         // Add header to new page
-         pdfDoc.setFontSize(12);
-         pdfDoc.setFont("helvetica", "bold");
-         pdfDoc.text(schoolInfo.name.toUpperCase(), pageWidth / 2, margin + 6, { align: "center" });
-         pdfDoc.setFontSize(12);
-         pdfDoc.setFont("helvetica", "normal");
-         pdfDoc.text(schoolInfo.address, pageWidth / 2, margin + 12, { align: "center" });
-         pdfDoc.text(`NPSN : ${schoolInfo.npsn}`, pageWidth / 2, margin + 18, { align: "center" });
-
-         // Add horizontal line
-         pdfDoc.setLineWidth(0.5);
-         pdfDoc.line(margin, margin + 22, pageWidth - margin, margin + 22);
-         yPos = margin + 30;
-         // Add table header
-         pdfDoc.setFillColor(173, 216, 230);
-         pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
-         pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "S");
-         xPos = margin;
-         pdfDoc.setFontSize(10);
-         // Draw headers again
-         headers.forEach((header, i) => {
-           if (i > 0) {
-             pdfDoc.line(xPos, yPos, xPos, yPos + 8);
-           }
-           pdfDoc.text(header, xPos + colWidths[i] / 2, yPos + 5.5, { align: "center" });
-           xPos += colWidths[i];
-         });
-         yPos += 8;
-         pdfDoc.setFontSize(10);
-       }
+       yPos += rowHeight;
      });
      // Add total row
+     yPos = checkNewPage(yPos, 8);
      pdfDoc.setFillColor(200, 200, 200);
      pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "F");
      pdfDoc.rect(margin, yPos, pageWidth - margin * 2, 8, "S");
-     xPos = margin;
+     let xPos = margin;
      pdfDoc.setFontSize(10);
      pdfDoc.setFont("helvetica", "normal");
      // Total text
      pdfDoc.text("TOTAL", xPos + colWidths[0] / 2 + colWidths[1] / 2, yPos + 5, { align: "center" });
      xPos += colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3];
-     // Draw vertical line
      pdfDoc.line(xPos, yPos, xPos, yPos + 8);
      pdfDoc.text(totalHadir.toString(), xPos + colWidths[4] / 2, yPos + 5, { align: "center" });
      xPos += colWidths[4];
-     // Draw vertical line
      pdfDoc.line(xPos, yPos, xPos, yPos + 8);
      pdfDoc.text(totalTerlambat.toString(), xPos + colWidths[5] / 2, yPos + 5, { align: "center" });
      xPos += colWidths[5];
-     // Draw vertical line
      pdfDoc.line(xPos, yPos, xPos, yPos + 8);
      pdfDoc.text(totalIzin.toString(), xPos + colWidths[6] / 2, yPos + 5, { align: "center" });
      xPos += colWidths[6];
-     // Draw vertical line
      pdfDoc.line(xPos, yPos, xPos, yPos + 8);
      pdfDoc.text(totalAlpha.toString(), xPos + colWidths[7] / 2, yPos + 5, { align: "center" });
      xPos += colWidths[7];
-     // Draw vertical line
      pdfDoc.line(xPos, yPos, xPos, yPos + 8);
      pdfDoc.text(totalAll.toString(), xPos + colWidths[8] / 2, yPos + 5, { align: "center" });
      yPos += 18;
@@ -401,6 +386,9 @@ export default function TeacherAttendanceReports() {
      const topTeachersByCategory = getTopTeachersByCategory();
      // Add sections for teachers with most attendance in each category
      const addTeacherCategorySection = (title: string, teachers: any[], startY: number) => {
+       // Check if we need new page for the section
+       const sectionHeight = 8 + (teachers.length * 8) + 16; // header + rows + spacing
+       startY = checkNewPage(startY, sectionHeight);
        pdfDoc.setFontSize(10);
        pdfDoc.setFont("helvetica", "normal");
        pdfDoc.text(title + " Terbanyak :", margin, startY);
@@ -424,6 +412,8 @@ export default function TeacherAttendanceReports() {
        // Draw rows
        pdfDoc.setFont("helvetica", "normal");
        teachers.forEach((teacher, index) => {
+         // Check if we need new page for this row
+         yPosition = checkNewPage(yPosition, 8);
          // Draw row border
          pdfDoc.rect(margin, yPosition, colWidths.reduce((a, b) => a + b, 0), 8, "S");
          xPosition = margin;
@@ -464,28 +454,15 @@ export default function TeacherAttendanceReports() {
          pdfDoc.text(count.toString(), xPosition + colWidths[4] / 2, yPosition + 5, { align: "center" });
          yPosition += 8;
        });
-       return yPosition;
+       return yPosition + 8;
      };
-     // Check if we need a new page for the teacher sections
-     if (yPos + 120 > pageHeight) {
-       pdfDoc.addPage();
-       yPos = margin + 20;
-     }
-     // Teachers with most "Hadir"
-     yPos = addTeacherCategorySection("Guru/Tendik dengan Hadir", topTeachersByCategory.hadir, yPos) + 8;
-     // Teachers with most "Terlambat"
-     yPos = addTeacherCategorySection("Guru/Tendik dengan Terlambat", topTeachersByCategory.terlambat, yPos) + 8;
-     // Check if we need a new page for the remaining sections
-     if (yPos + 80 > pageHeight) {
-       pdfDoc.addPage();
-       yPos = margin + 20;
-     }
-     // Teachers with most "Izin"
-     yPos = addTeacherCategorySection("Guru/Tendik dengan Izin", topTeachersByCategory.izin, yPos) + 8;
-     // Teachers with most "Alpha"
-     yPos = addTeacherCategorySection("Guru/Tendik dengan Alpha", topTeachersByCategory.alpha, yPos) + 12;
+     // Add teacher category sections with pagination
+     yPos = addTeacherCategorySection("Guru/Tendik dengan Hadir", topTeachersByCategory.hadir, yPos);
+     yPos = addTeacherCategorySection("Guru/Tendik dengan Terlambat", topTeachersByCategory.terlambat, yPos);
+     yPos = addTeacherCategorySection("Guru/Tendik dengan Izin", topTeachersByCategory.izin, yPos);
+     yPos = addTeacherCategorySection("Guru/Tendik dengan Alpha", topTeachersByCategory.alpha, yPos);
      // Add signature section
-     yPos += 5;
+     yPos = checkNewPage(yPos, 50);
      // Signature layout
      const signatureWidth = (pageWidth - margin * 2) / 2;
      pdfDoc.setFontSize(10);
@@ -541,7 +518,6 @@ export default function TeacherAttendanceReports() {
        const teacherIzin = teacher.izin || 0;
        const teacherAlpha = teacher.alpha || 0;
        const teacherTotal = teacherHadir + teacherTerlambat + teacherIzin + teacherAlpha;
-
        const roleText = teacher.role === 'teacher' ? 'Guru' : 'Tendik';
        // Add to totals
        totalHadir += teacherHadir;
@@ -907,6 +883,7 @@ export default function TeacherAttendanceReports() {
          <span className="font-medium">
            <span className="editable-text">Download Laporan Excel</span>
          </span>
+       </span>
        </button>
      </div>
     <hr className="border-t border-none mb-5" />
