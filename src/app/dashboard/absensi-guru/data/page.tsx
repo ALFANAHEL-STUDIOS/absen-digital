@@ -305,7 +305,7 @@ export default function TeacherDataPage() {
     }
   };
   return <div className="pb-20 md:pb-6" data-unique-id="aea7ed76-67fa-4577-8ee4-eb332f956d20" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-1" data-unique-id="77465f9a-a5f3-4527-8be7-430d02387ee2" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-0" data-unique-id="77465f9a-a5f3-4527-8be7-430d02387ee2" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
         <div className="flex items-center mb-4 md:mb-0" data-unique-id="c2b2ec83-8982-425f-a9c9-d9968ac7665b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
           <Link href="/dashboard/absensi-guru" className="p-2 mr-2 hover:bg-gray-100 rounded-full" data-unique-id="f3e53a66-5b09-44fd-9630-a0431a6b94d8" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
             <ArrowLeft size={20} />
@@ -607,7 +607,7 @@ export default function TeacherDataPage() {
                 <button type="button" onClick={() => setShowEditModal(false)} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 mr-3 hover:bg-gray-50" data-unique-id="39f9436a-8b18-40e5-a55d-c006e7f9e98b" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="6e25c895-ca22-4a7d-ac2a-7370fbcd4a2b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                   Batal
                 </span></button>
-                <button type="submit" className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary hover:bg-opacity-90" data-unique-id="cfbe7491-b7d4-448c-8d9a-732b8eecdf43" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="56552830-0fe9-45cb-b653-55c8822d36d0" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+                <button type="submit" className="px-4 py-2 bg-primary text-white rounded-md hover:bg-orange-500 active:bg-orange-600 transition-colors" data-unique-id="cfbe7491-b7d4-448c-8d9a-732b8eecdf43" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="56552830-0fe9-45cb-b653-55c8822d36d0" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                   Perbarui Data
                 </span></button>
               </div>
