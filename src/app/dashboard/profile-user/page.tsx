@@ -140,8 +140,8 @@ export default function UserProfile() {
       <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 border border-gray-100">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:gap-6">
-            <div className="md:col-span-2 flex flex-col items-center justify-center mb-4">
-              <div className="w-24 h-24 bg-white rounded-lg flex items-center justify-center text-gray-500 mb-3 border border-gray-300">
+            <div className="md:col-span-2 flex flex-col items-center justify-center mb-0">
+              <div className="w-24 h-16 bg-white rounded-lg flex items-center justify-center text-gray-500 mb-0">
                 <QrCode size={48} />
               </div>
             </div>
@@ -252,7 +252,7 @@ export default function UserProfile() {
                 ) : (
                   <Save size={20} />
                 )}
-                {saveSuccess ? "Tersimpan" : "Simpan Profile"}
+                {saveSuccess ? "Tersimpan" : "Simpan Data Profile"}
               </motion.button>
             </div>
           </div>
