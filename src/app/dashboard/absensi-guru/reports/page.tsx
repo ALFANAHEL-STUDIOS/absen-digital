@@ -886,7 +886,7 @@ export default function TeacherAttendanceReports() {
        </span>
        </button>
      </div>
-    <hr className="border-t border-none mb-5" />
+    
    </div>
  );
 }
