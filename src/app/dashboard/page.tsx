@@ -390,12 +390,12 @@ export default function Dashboard() {
                 <h2 className="text-xl font-bold mb-1" data-unique-id="f0fc5805-00e7-4e84-a183-b2bc17b57c9b" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="aa09a354-e7a3-4682-80d8-3855c46668ba" data-file-name="app/dashboard/page.tsx">SELAMAT DATANG</span></h2>
                 <h3 className="text-lg font-bold text-primary mb-4" data-unique-id="9d484951-582e-4c42-a2aa-3630ba29ffb7" data-file-name="app/dashboard/page.tsx" data-dynamic-text="true">{userData?.name || userName}</h3>
                 <p className="text-gray-700 text-sm sm:text-base" data-unique-id="75a424d8-d13a-4ab8-8617-639a152d643b" data-file-name="app/dashboard/page.tsx"><span className="editable-text" data-unique-id="dce659af-01ac-4e5f-a15b-d08b69ef6687" data-file-name="app/dashboard/page.tsx">
-                  Jika anda pertama kali login ke Aplikasi ABSENSI DIGITAL, jangan lupa untuk dapat menggunakan aplikasi ini, jika anda Admin Sekolah silahkan lengkapi </span>
+                  Apabila anda baru pertama kali login ke Aplikasi ABSENSI DIGITAL, jangan lupa untuk dapat menggunakan aplikasi ini, jika anda Admin Sekolah silahkan lengkapi </span>
 				  <span className="font-bold" data-unique-id="a653f151-b5c0-497b-8b52-512420ee7dc1" data-file-name="app/dashboard/page.tsx">
 				  <span className="editable-text" data-unique-id="42cb4d7e-5f70-4ba3-a497-f853503ff3b3" data-file-name="app/dashboard/page.tsx">Profil Sekolah</span></span>
 				  
 				  <span className="editable-text" data-unique-id="dce659af-01ac-4e5f-a15b-d08b69ef6687" data-file-name="app/dashboard/page.tsx">
-				  , jika anda Guru silahkan lengkapi </span>
+				  , dan jika anda Guru silahkan lengkapi </span>
 				  <span className="font-bold" data-unique-id="a653f151-b5c0-497b-8b52-512420ee7dc1" data-file-name="app/dashboard/page.tsx">
 				  <span className="editable-text" data-unique-id="42cb4d7e-5f70-4ba3-a497-f853503ff3b3" data-file-name="app/dashboard/page.tsx">Profil Pengguna</span></span>
 				  
