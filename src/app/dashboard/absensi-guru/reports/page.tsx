@@ -292,7 +292,6 @@ export default function TeacherAttendanceReports() {
      filteredTeachers.forEach((teacher, index) => {
        // Check if we need a new page for this row
        yPos = checkNewPage(yPos, rowHeight);
-
        // If we're on a new page, add table header
        if (yPos <= margin + 40) {
          yPos = addTableHeader(yPos);
@@ -883,10 +882,8 @@ export default function TeacherAttendanceReports() {
          <span className="font-medium">
            <span className="editable-text">Download Laporan Excel</span>
          </span>
-       </span>
        </button>
      </div>
-    
    </div>
  );
 }
