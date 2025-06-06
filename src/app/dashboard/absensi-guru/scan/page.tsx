@@ -754,7 +754,7 @@ return (
         </h2>
         <p className="text-gray-600 mb-6">
           GTK dengan nama {recognizedTeacher?.name}
-          <span className="editable-text"> berhasil melakukan Absensi </span>"{
+          <span className="editable-text"> telah berhasil melakukan Absensi </span>"{
           attendanceType === 'in' ? 'MASUK' :
           attendanceType === 'out' ? 'PULANG' :
           attendanceType === 'izin' ? 'IZIN' :
