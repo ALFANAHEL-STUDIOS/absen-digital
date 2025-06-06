@@ -453,7 +453,7 @@ export default function TeacherAttendanceReports() {
          pdfDoc.text(count.toString(), xPosition + colWidths[4] / 2, yPosition + 5, { align: "center" });
          yPosition += 8;
        });
-       return yPosition + 14;
+       return yPosition + 12;
      };
      // Add teacher category sections with pagination
      yPos = addTeacherCategorySection("Guru/Tendik dengan Hadir", topTeachersByCategory.hadir, yPos);
