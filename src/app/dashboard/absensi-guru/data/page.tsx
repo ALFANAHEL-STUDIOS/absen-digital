@@ -603,7 +603,7 @@ export default function TeacherDataPage() {
                 </div>
               </div>
               
-              <div className="px-6 py-4 bg-gray-50 flex justify-end" data-unique-id="a6d32900-3f05-43bb-a3ac-adcd267a95f0" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+              <div className="px-6 py-4 rounded bg-gray-50 flex justify-end" data-unique-id="a6d32900-3f05-43bb-a3ac-adcd267a95f0" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                 <button type="button" onClick={() => setShowEditModal(false)} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 mr-3 hover:bg-gray-50" data-unique-id="39f9436a-8b18-40e5-a55d-c006e7f9e98b" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="6e25c895-ca22-4a7d-ac2a-7370fbcd4a2b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                   Batal
                 </span></button>
