@@ -751,7 +751,7 @@ export default function StudentReport() {
                    <select
                      value={selectedMonth}
                      onChange={(e) => handleMonthChange(e.target.value)}
-                     className="px-8 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
+                     className="px-8 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-lg"
                    >
                      {MONTH_OPTIONS.map((month) => (
                        <option key={month.value} value={month.value}>
@@ -763,7 +763,7 @@ export default function StudentReport() {
                    <select
                      value={selectedYear}
                      onChange={(e) => handleYearChange(e.target.value)}
-                     className="px-6 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
+                     className="px-6 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-lg"
                    >
                      {YEAR_OPTIONS.map((year) => (
                        <option key={year.value} value={year.value}>
@@ -784,22 +784,22 @@ export default function StudentReport() {
                {!loading && monthlySummary && (
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
-                     <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Hadir</h3>
+                     <h3 className="text-sm font-medium text-gray-600 mb-1">Hadir</h3>
                      <p className="text-2xl font-bold text-blue-600">{monthlySummary.hadir} hari</p>
                    </div>
 
                    <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 border border-orange-200">
-                     <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Sakit</h3>
+                     <h3 className="text-sm font-medium text-gray-600 mb-1">Sakit</h3>
                      <p className="text-2xl font-bold text-orange-600">{monthlySummary.sakit} hari</p>
                    </div>
 
                    <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
-                     <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Izin</h3>
+                     <h3 className="text-sm font-medium text-gray-600 mb-1">Izin</h3>
                      <p className="text-2xl font-bold text-green-600">{monthlySummary.izin} hari</p>
                    </div>
 
                    <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 border border-red-200">
-                     <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Alpha</h3>
+                     <h3 className="text-sm font-medium text-gray-600 mb-1">Alpha</h3>
                      <p className="text-2xl font-bold text-red-600">{monthlySummary.alpha} hari</p>
                    </div>
                  </div>
