@@ -771,17 +771,17 @@ return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button
             onClick={resetProcess}
-            className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
             <span className="editable-text">Absen Lagi</span>
           </button>
-          <Link
+          {/* <Link
             href="https://t.me/AbsenModernBot"
             target="_blank"
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center"
           >
             <span className="editable-text">Lihat Hasil Absensi</span>
-          </Link>
+          </Link>*/}
           <Link
             href="/dashboard"
             className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors flex items-center justify-center"
