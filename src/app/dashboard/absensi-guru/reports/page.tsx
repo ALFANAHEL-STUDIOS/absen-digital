@@ -451,7 +451,7 @@ export default function TeacherAttendanceReports() {
              break;
          }
          pdfDoc.text(count.toString(), xPosition + colWidths[4] / 2, yPosition + 5, { align: "center" });
-         yPosition += 8;
+         yPosition += 4;
        });
        return yPosition + 8;
      };
@@ -463,7 +463,7 @@ export default function TeacherAttendanceReports() {
      // Add signature section
      yPos = checkNewPage(yPos, 50);
      // Signature layout
-     const signatureWidth = (pageWidth - margin * 2) / 2;  yPosition += 8;
+     const signatureWidth = (pageWidth - margin * 2) / 2;
      pdfDoc.setFontSize(10);
      pdfDoc.setFont("helvetica", "normal");
      pdfDoc.text("Mengetahui", signatureWidth * 0.25 + margin, yPos, { align: "center" });
