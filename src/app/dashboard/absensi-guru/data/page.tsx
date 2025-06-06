@@ -531,7 +531,7 @@ export default function TeacherDataPage() {
             </div>
             
             <form onSubmit={handleUpdateTeacher} data-unique-id="1501725a-ec2a-4e9b-8d2f-2e17b7bd0290" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
-              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-2" data-unique-id="057599ac-734b-4793-9ed9-5e8817ccfa00" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
+              <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2" data-unique-id="057599ac-734b-4793-9ed9-5e8817ccfa00" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
                 {/* Name */}
                 <div data-unique-id="658d19ac-566e-4b81-92a5-93402b62b8d4" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                   <label htmlFor="edit-name" className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="5954b7da-29df-47a6-a735-793e2cf5835a" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="fc06e025-f24a-483a-8065-d0e71620a6f1" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
@@ -584,12 +584,12 @@ export default function TeacherDataPage() {
                 </div>
                 
                 {/* Telegram ID */}
-                <div data-unique-id="f06a24a7-f779-426e-bf5b-4d522143d6a6" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+                {/*<div data-unique-id="f06a24a7-f779-426e-bf5b-4d522143d6a6" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                   <label htmlFor="edit-telegramId" className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="bd50fbfc-d6f9-4a52-af14-d79f857fe818" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="c1676c37-62b3-4699-ab5c-9c8a3135ac8c" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                     ID Telegram
                   </span></label>
                   <input type="text" id="edit-telegramId" name="telegramId" value={formData.telegramId} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary" data-unique-id="213ebc52-cb8f-42b0-ba3b-3799c857f889" data-file-name="app/dashboard/absensi-guru/data/page.tsx" />
-                </div>
+                </div>*/}
                 
                 {/* Role */}
                 <div data-unique-id="205782d8-757e-4920-a090-ad34a600761b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
