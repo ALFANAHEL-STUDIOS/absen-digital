@@ -523,7 +523,7 @@ export default function TeacherDataPage() {
         opacity: 0,
         scale: 0.9
       }} data-unique-id="b6a24c57-30c6-4f26-83be-5dd4c5781990" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
-            <div className="flex items-center justify-between p-6 border-b" data-unique-id="a05ddbb3-249a-44af-a7f3-5baba846c58b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
+            <div className="flex items-center justify-between p-3 border-b" data-unique-id="a05ddbb3-249a-44af-a7f3-5baba846c58b" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
               <h3 className="text-lg font-semibold" data-unique-id="ce54bf4e-9ab4-4f5a-b1ee-6baa061c7828" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true"><span className="editable-text" data-unique-id="bc44c7ef-be36-4792-a114-fc0b2008d789" data-file-name="app/dashboard/absensi-guru/data/page.tsx">Edit Data </span>{currentTeacher?.name}</h3>
               <button onClick={() => setShowEditModal(false)} data-unique-id="341483a7-92f8-4297-b7d3-bd1ff1b81d34" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                 <X size={24} className="text-gray-500 hover:text-gray-700" />
@@ -531,7 +531,7 @@ export default function TeacherDataPage() {
             </div>
             
             <form onSubmit={handleUpdateTeacher} data-unique-id="1501725a-ec2a-4e9b-8d2f-2e17b7bd0290" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
-              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4" data-unique-id="057599ac-734b-4793-9ed9-5e8817ccfa00" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
+              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-2" data-unique-id="057599ac-734b-4793-9ed9-5e8817ccfa00" data-file-name="app/dashboard/absensi-guru/data/page.tsx" data-dynamic-text="true">
                 {/* Name */}
                 <div data-unique-id="658d19ac-566e-4b81-92a5-93402b62b8d4" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
                   <label htmlFor="edit-name" className="block text-sm font-medium text-gray-700 mb-1" data-unique-id="5954b7da-29df-47a6-a735-793e2cf5835a" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="fc06e025-f24a-483a-8065-d0e71620a6f1" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
