@@ -136,7 +136,7 @@ export default function AbsensiGuruPage() {
    }
  };
  return <div className="pb-20 md:pb-6">
-     <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-5">
+     <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
        <div className="flex items-center mb-4 md:mb-0">
          <Users className="h-7 w-7 text-primary mr-3" />
          <h1 className="text-2xl font-bold text-gray-800">Dashboard Absensi Guru Berbasis Lokasi</h1>
