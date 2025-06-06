@@ -91,8 +91,8 @@ export default function ExpirationModal({
           </div>
 
           {/* Buttons */}
-          {/*<div className="flex space-x-3" data-unique-id="9e1f523f-2a0b-4d04-a19d-baa7c84ed8d2" data-file-name="components/ExpirationModal.tsx">
-            <a href="https://wa.me/6281272405881?text=Halo%2C%20Saya%20ingin%20berlangganan%20Aplikasi%20Absensi%20Digital%20Sekolah." target="_blank" rel="noopener noreferrer" className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center font-medium" data-unique-id="ad57e7cf-fc10-4cf3-9665-e8cead30b774" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="b6cf989a-507a-4daf-877b-74918be28bf4" data-file-name="components/ExpirationModal.tsx">
+          <div className="flex space-x-3" data-unique-id="9e1f523f-2a0b-4d04-a19d-baa7c84ed8d2" data-file-name="components/ExpirationModal.tsx">
+            {/*<a href="https://wa.me/6281272405881?text=Halo%2C%20Saya%20ingin%20berlangganan%20Aplikasi%20Absensi%20Digital%20Sekolah." target="_blank" rel="noopener noreferrer" className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center font-medium" data-unique-id="ad57e7cf-fc10-4cf3-9665-e8cead30b774" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="b6cf989a-507a-4daf-877b-74918be28bf4" data-file-name="components/ExpirationModal.tsx">
               Chat Via WhatsApp
             </span></a>*/}
             {/*<button onClick={onClose} className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium" data-unique-id="26c540d5-f62a-4c41-8a6b-5ad0928c3f01" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="457d0475-baaa-4257-ae33-b8e41c82b69b" data-file-name="components/ExpirationModal.tsx">
