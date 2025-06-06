@@ -368,7 +368,7 @@ const handleDownloadPDF = async () => {
     xPos += colWidths[7];
     pdfDoc.line(xPos, yPos, xPos, yPos + 8);
     pdfDoc.text(totalAll.toString(), xPos + colWidths[8] / 2, yPos + 5, { align: "center" });
-    yPos += 25; // Ditambah dari 18 ke 25 untuk memberikan jarak lebih
+    yPos += 8; // Ditambah dari 18 ke 25 untuk memberikan jarak lebih
     // Get top teachers by category
     const getTopTeachersByCategory = () => {
       const sortedByHadir = [...teachers].sort((a, b) => (b.hadir || 0) - (a.hadir || 0)).slice(0, 3);
@@ -461,7 +461,7 @@ const handleDownloadPDF = async () => {
     yPos = addTeacherCategorySection("Guru/Tendik dengan Izin", topTeachersByCategory.izin, yPos);
     yPos = addTeacherCategorySection("Guru/Tendik dengan Alpha", topTeachersByCategory.alpha, yPos);
     // Add signature section dengan jarak yang lebih tinggi
-    yPos += 30; // Ditambah jarak antara akhir tabel dengan tanda tangan
+    yPos += 15; // Ditambah jarak antara akhir tabel dengan tanda tangan
     yPos = checkNewPage(yPos, 50);
     // Signature layout
     const signatureWidth = (pageWidth - margin * 2) / 2;
