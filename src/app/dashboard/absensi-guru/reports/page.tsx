@@ -764,7 +764,7 @@ return (
         <div className="text-center p-4">
           <h1 className="text-gray-700 mt-2 text-xl font-bold uppercase">{schoolInfo.name}</h1>
           <p className="text-gray-700 text-sm font-bold">{schoolInfo.address}</p>
-          <p className="text-gray-700 text-sm mb-1 font-bold">NPSN {schoolInfo.npsn}</p>
+          <p className="text-gray-700 text-sm mt-1 font-bold">NPSN {schoolInfo.npsn}</p>
         </div>
 
         <hr className="border-t border-gray-300 mt-0 mb-4" />
