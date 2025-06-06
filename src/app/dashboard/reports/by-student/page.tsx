@@ -689,14 +689,20 @@ export default function StudentReport() {
                  >
                    <div className="flex items-center gap-1.5">
                      <div className="font-medium">{student.name}</div>
-                     <span className={`text-xs px-2 py-0.5 rounded-full ${
+                     
+                   </div>
+
+                   <span className={`text-xs px-2 py-0.5 rounded-full ${
                        selectedStudent?.id === student.id
                          ? "bg-blue-500/30 text-white"
                          : "bg-gray-100 text-gray-600"
                      }`}>
                        KELAS {student.class || student.kelas || '-'}
                      </span>
-                   </div>
+
+
+
+                  
                    <div className="text-sm opacity-80">
                      NISN: {student.nisn}
                    </div>
@@ -737,15 +743,15 @@ export default function StudentReport() {
                    <div className="bg-amber-100 p-2 rounded-lg mr-3">
                      <Calendar className="h-6 w-6 text-amber-600" />
                    </div>
-                   <h2 className="text-lg font-semibold">Rekap Bulanan: {currentMonthDisplay}</h2>
+                   <h2 className="text-lg font-semibold">Bulan : {currentMonthDisplay}</h2>
                  </div>
 
                  {/* Month and Year Filter */}
-                 <div className="flex gap-2">
+                 <div className="flex gap-4">
                    <select
                      value={selectedMonth}
                      onChange={(e) => handleMonthChange(e.target.value)}
-                     className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
+                     className="px-8 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
                    >
                      {MONTH_OPTIONS.map((month) => (
                        <option key={month.value} value={month.value}>
@@ -757,7 +763,7 @@ export default function StudentReport() {
                    <select
                      value={selectedYear}
                      onChange={(e) => handleYearChange(e.target.value)}
-                     className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
+                     className="px-6 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm"
                    >
                      {YEAR_OPTIONS.map((year) => (
                        <option key={year.value} value={year.value}>
