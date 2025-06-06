@@ -258,6 +258,7 @@ export default function UserProfile() {
           </div>
         </form>
       </div>
+      <hr className="border-t border-none mb-2" />
     </div>
   );
 }
