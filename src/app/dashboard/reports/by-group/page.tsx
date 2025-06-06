@@ -506,16 +506,16 @@ export default function GroupAttendanceReport() {
        <div className="text-center mb-4 sm:mb-3">
          <h2 className="text-gray-700 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
          <p className="text-gray-700 text-sm sm:text-base font-bold">{schoolInfo.address}</p>
-         <p className="text-gray-700 text-sm sm:text-base font-bold">NPSN: {schoolInfo.npsn}</p>
+         <p className="text-gray-700 text-sm sm:text-base font-bold">NPSN {schoolInfo.npsn}</p>
        </div>
        <hr className="border-t border-gray-800 mt-1 mb-6" />
        <div className="text-center mb-4 sm:mb-6">
          <h3 className="text-base sm:text-lg font-bold text-gray-600 uppercase">REKAP LAPORAN KEHADIRAN SISWA</h3>
          <p className="text-sm text-gray-600 font-medium">
-           KELAS: {selectedClass === "all" ? "SEMUA KELAS" : selectedClass.toUpperCase()}
+           KELAS {selectedClass === "all" ? "SEMUA KELAS" : selectedClass.toUpperCase()}
          </p>
          <p className="text-xs sm:text-sm text-gray-600 mt-1">
-           Periode: {format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} - {format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}
+           Periode {format(new Date(dateRange.start), "d MMMM yyyy", { locale: id })} - {format(new Date(dateRange.end), "d MMMM yyyy", { locale: id })}
          </p>
        </div>
        {loading ? (
@@ -592,7 +592,7 @@ export default function GroupAttendanceReport() {
      </div>
      {/* Download Buttons */}
      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 pb-20 sm:pb-0">
-       <button
+       <button target="_blank"
          onClick={handleDownloadPDF}
          disabled={isDownloading || students.length === 0}
          className="flex items-center justify-center gap-2 sm:gap-3 bg-red-600 text-white p-3 sm:p-4 rounded-lg hover:bg-red-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
