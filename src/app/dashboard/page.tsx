@@ -400,7 +400,7 @@ export default function Dashboard() {
 				  <span className="editable-text" data-unique-id="42cb4d7e-5f70-4ba3-a497-f853503ff3b3" data-file-name="app/dashboard/page.tsx">Profil Pengguna</span></span>
 				  
 				  				  
-				  <span className="editable-text" data-unique-id="1ba3961d-5e9c-468f-9197-f7404dcd5ca2" data-file-name="app/dashboard/page.tsx"> anda dengan cara mengakses Menu yang berada di pojok kanan atas.
+				  <span className="editable-text" data-unique-id="1ba3961d-5e9c-468f-9197-f7404dcd5ca2" data-file-name="app/dashboard/page.tsx"> dengan cara mengakses Menu yang berada di pojok kanan atas.
                 </span></p>
               </div>
               <div className="flex justify-center" data-unique-id="8c49e0f0-20d7-4cd9-8946-9298e0248467" data-file-name="app/dashboard/page.tsx">
