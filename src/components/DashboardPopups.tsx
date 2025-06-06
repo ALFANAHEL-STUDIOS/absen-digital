@@ -59,7 +59,7 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
          const newAnnouncements: AnnouncementData[] = [{
            id: '1',
            title: 'Absensi Guru Berbasis Lokasi',
-           message: 'Untuk menggunakan Absensi berbasis lokasi, jangan lupa untuk menyalakan GPS pada Smartphone. Khusus jenis Absensi Izin dan Alpha bisa dilakukan dari rumah.',
+           message: 'Untuk menggunakan Absensi berbasis lokasi, jangan lupa untuk menyalakan GPS pada Smartphone. Khusus untuk jenis Absensi Izin dan Alpha bisa dilakukan dari rumah.',
            type: 'info',
            priority: 'medium',
            createdAt: new Date(),
