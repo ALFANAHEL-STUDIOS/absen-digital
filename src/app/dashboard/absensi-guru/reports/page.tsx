@@ -785,7 +785,7 @@ export default function TeacherAttendanceReports() {
        {/* School Information and Table */}
        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
          <div className="text-center p-4">
-           <h2 className="text-gray-700 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
+           <h1 className="text-gray-700 text-xl font-bold uppercase">{schoolInfo.name}</h1>
            <p className="text-gray-700 text-sm font-bold">{schoolInfo.address}</p>
            <p className="text-gray-700 text-sm font-bold">NPSN {schoolInfo.npsn}</p>
          </div>
