@@ -247,7 +247,7 @@ export default function TeacherAttendanceReports() {
          pdfDoc.setFontSize(10);
          pdfDoc.setFont("helvetica", "normal");
          //pdfDoc.text("(Lanjutan)", pageWidth / 2, margin + 25, { align: "center" });
-         return margin + 12;
+         return margin + 32;
        }
      };
      // Helper function to add table header
