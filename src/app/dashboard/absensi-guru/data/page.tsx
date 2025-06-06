@@ -608,7 +608,7 @@ export default function TeacherDataPage() {
                   Batal
                 </span></button>
                 <button type="submit" className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary hover:bg-opacity-90" data-unique-id="cfbe7491-b7d4-448c-8d9a-732b8eecdf43" data-file-name="app/dashboard/absensi-guru/data/page.tsx"><span className="editable-text" data-unique-id="56552830-0fe9-45cb-b653-55c8822d36d0" data-file-name="app/dashboard/absensi-guru/data/page.tsx">
-                  Perbarui
+                  Perbarui Data
                 </span></button>
               </div>
             </form>
