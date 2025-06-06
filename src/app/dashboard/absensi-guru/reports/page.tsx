@@ -704,7 +704,7 @@ export default function TeacherAttendanceReports() {
          <span className="editable-text">Rekap Kehadiran Guru</span>
        </h1>
      </div>
-     <div className="bg-white rounded-xl shadow-sm p-3 mb-6">
+     <div className="bg-white rounded-xl shadow-sm p-2 mb-6">
        <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 md:mb-6">
          <div className="flex items-center mb-4 md:mb-0">
            <div className="bg-blue-100 p-2 rounded-lg mr-3">
@@ -787,7 +787,7 @@ export default function TeacherAttendanceReports() {
          <div className="text-center p-4">
            <h2 className="text-gray-700 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
            <p className="text-gray-700 font-bold">{schoolInfo.address}</p>
-           <p className="text-gray-700 font-bold">NPSN : {schoolInfo.npsn}</p>
+           <p className="text-gray-700 font-bold">NPSN {schoolInfo.npsn}</p>
          </div>
          <hr className="border-t border-gray-300 mt-1 mb-6" />
          <div className="text-center mb-4 sm:mb-6">
