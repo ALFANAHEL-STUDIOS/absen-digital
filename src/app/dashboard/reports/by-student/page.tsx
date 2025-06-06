@@ -743,7 +743,7 @@ export default function StudentReport() {
                    <div className="bg-amber-100 p-2 rounded-lg mr-3">
                      <Calendar className="h-6 w-6 text-amber-600" />
                    </div>
-                   <h2 className="text-lg font-semibold">Bulan : {currentMonthDisplay}</h2>
+                   <h2 className="text-lg font-semibold">Filter Bulan Absensi</h2>
                  </div>
 
                  {/* Month and Year Filter */}
