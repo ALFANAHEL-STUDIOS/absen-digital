@@ -246,8 +246,8 @@ export default function TeacherAttendanceReports() {
          // Smaller header for continuation pages
          pdfDoc.setFontSize(10);
          pdfDoc.setFont("helvetica", "normal");
-         pdfDoc.text("(Lanjutan)", pageWidth / 2, margin + 25, { align: "center" });
-         return margin + 32;
+         //pdfDoc.text("(Lanjutan)", pageWidth / 2, margin + 25, { align: "center" });
+         return margin + 12;
        }
      };
      // Helper function to add table header
@@ -453,7 +453,7 @@ export default function TeacherAttendanceReports() {
          pdfDoc.text(count.toString(), xPosition + colWidths[4] / 2, yPosition + 5, { align: "center" });
          yPosition += 8;
        });
-       return yPosition + 11;
+       return yPosition + 12;
      };
      // Add teacher category sections with pagination
      yPos = addTeacherCategorySection("Guru/Tendik dengan Hadir", topTeachersByCategory.hadir, yPos);
