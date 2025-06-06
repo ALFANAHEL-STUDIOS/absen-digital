@@ -394,7 +394,7 @@ export default function Dashboard() {
 				  <span className="font-bold" data-unique-id="a653f151-b5c0-497b-8b52-512420ee7dc1" data-file-name="app/dashboard/page.tsx">
 				  <span className="editable-text" data-unique-id="42cb4d7e-5f70-4ba3-a497-f853503ff3b3" data-file-name="app/dashboard/page.tsx">Profil Sekolah</span></span>
 				  
-				  
+				  <span className="editable-text" data-unique-id="dce659af-01ac-4e5f-a15b-d08b69ef6687" data-file-name="app/dashboard/page.tsx">
 				  , jika anda Guru silahkan lengkapi </span>
 				  <span className="font-bold" data-unique-id="a653f151-b5c0-497b-8b52-512420ee7dc1" data-file-name="app/dashboard/page.tsx">
 				  <span className="editable-text" data-unique-id="42cb4d7e-5f70-4ba3-a497-f853503ff3b3" data-file-name="app/dashboard/page.tsx">Profil Pengguna</span></span>
