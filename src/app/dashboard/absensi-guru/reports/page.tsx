@@ -786,10 +786,10 @@ export default function TeacherAttendanceReports() {
        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
          <div className="text-center p-4">
            <h2 className="text-gray-700 sm:text-xl font-bold uppercase">{schoolInfo.name}</h2>
-           <p className="text-gray-700 font-bold">{schoolInfo.address}</p>
-           <p className="text-gray-700 font-bold">NPSN {schoolInfo.npsn}</p>
+           <p className="text-gray-700 text-sm font-bold">{schoolInfo.address}</p>
+           <p className="text-gray-700 text-sm font-bold">NPSN {schoolInfo.npsn}</p>
          </div>
-         <hr className="border-t border-gray-300 mt-1 mb-6" />
+         <hr className="border-t border-gray-300 mt-0 mb-4" />
          <div className="text-center mb-4 sm:mb-6">
            <h3 className="text-gray-700 uppercase">REKAP LAPORAN KEHADIRAN GURU</h3>
            <p className="text-gray-700">BULAN {formattedMonth.toUpperCase()}</p>
