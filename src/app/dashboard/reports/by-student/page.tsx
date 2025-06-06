@@ -751,7 +751,7 @@ export default function StudentReport() {
                    <select
                      value={selectedMonth}
                      onChange={(e) => handleMonthChange(e.target.value)}
-                     className="px-8 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary font-semibold uppercase "
+                     className="px-8 py-2 border border-gray-300 rounded-lg focus:ring-primary text-sm focus:border-primary font-semibold uppercase "
                    >
                      {MONTH_OPTIONS.map((month) => (
                        <option key={month.value} value={month.value}>
