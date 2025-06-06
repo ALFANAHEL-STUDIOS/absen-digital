@@ -453,7 +453,7 @@ export default function TeacherAttendanceReports() {
          pdfDoc.text(count.toString(), xPosition + colWidths[4] / 2, yPosition + 5, { align: "center" });
          yPosition += 8;
        });
-       return yPosition + 8;
+       return yPosition + 18;
      };
      // Add teacher category sections with pagination
      yPos = addTeacherCategorySection("Guru/Tendik dengan Hadir", topTeachersByCategory.hadir, yPos);
@@ -478,7 +478,7 @@ export default function TeacherAttendanceReports() {
      pdfDoc.text(`NIP. ${schoolInfo.principalNip || "................................"}`, signatureWidth * 0.25 + margin, yPos, { align: "center" });
      pdfDoc.text("NIP. ....................................", signatureWidth * 1.75 + margin, yPos, { align: "center" });
      // Save the PDF
-     const fileName = `Rekap_Kehadiran_Guru_${formattedMonth.replace(' ', '_')}.pdf`;
+     const fileName = `Rekap_Absensi_Guru_${formattedMonth.replace(' ', '_')}.pdf`;
      pdfDoc.save(fileName);
      toast.success(`Laporan berhasil diunduh sebagai ${fileName}`);
    } catch (error) {
