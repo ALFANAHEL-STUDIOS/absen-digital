@@ -699,7 +699,7 @@ const sendTelegramNotification = async (
     // Get day name in Indonesian
     const currentDate = new Date();
     const dayName = getDayNameInIndonesian(currentDate);
-    let message = `GTK dengan nama ${teacherName} telah berhasil melakukan Absensi "${messageType}" pada hari ini, ${dayName} tanggal ${date} pukul ${time} WIB.`;
+    let message = `GTK dengan nama ${teacherName} telah berhasil melakukan Absensi "${messageType}" pada hari ini, ${dayName} tanggal ${date} pukul ${time} WIB. Cek hasil Absensi pada aplikasi Telegram.`;
     // Add location accuracy info for location-based attendance
     if (attendanceType !== 'izin' && attendanceType !== 'alpha' && locationAccuracy) {
       message += `\n📍 Akurasi Lokasi : ± ${Math.round(locationAccuracy)}`;
