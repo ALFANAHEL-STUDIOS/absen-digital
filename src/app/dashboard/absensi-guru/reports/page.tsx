@@ -453,7 +453,7 @@ export default function TeacherAttendanceReports() {
          pdfDoc.text(count.toString(), xPosition + colWidths[4] / 2, yPosition + 5, { align: "center" });
          yPosition += 8;
        });
-       return yPosition + 12;
+       return yPosition + 8;
      };
      // Add teacher category sections with pagination
      yPos = addTeacherCategorySection("Guru/Tendik dengan Hadir", topTeachersByCategory.hadir, yPos);
@@ -461,7 +461,7 @@ export default function TeacherAttendanceReports() {
      yPos = addTeacherCategorySection("Guru/Tendik dengan Izin", topTeachersByCategory.izin, yPos);
      yPos = addTeacherCategorySection("Guru/Tendik dengan Alpha", topTeachersByCategory.alpha, yPos);
      // Add signature section
-     yPos = checkNewPage(yPos, 50);
+     yPos = checkNewPage(yPos, 10);
      // Signature layout
      const signatureWidth = (pageWidth - margin * 2) / 2;
      pdfDoc.setFontSize(10);
