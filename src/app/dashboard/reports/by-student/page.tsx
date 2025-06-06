@@ -643,8 +643,8 @@ export default function StudentReport() {
    }
  };
  return (
-   <div className="w-full max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-     <div className="flex items-center mb-6">
+   <div className="w-full max-w-6xl mx-auto px-1 sm:px-4 md:px-6">
+     <div className="flex items-center mb-3">
        <Link href="/dashboard/reports" className="p-2 mr-2 hover:bg-gray-100 rounded-full">
          <ArrowLeft size={20} />
        </Link>
@@ -654,12 +654,12 @@ export default function StudentReport() {
      <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6 mb-20 md:mb-6">
        {/* Student Search Panel - Only for admin and teacher */}
        {userRole !== 'student' && (
-         <div className="bg-white rounded-xl shadow-sm p-6">
+         <div className="bg-white rounded-xl shadow-sm p-4">
            <div className="flex items-center mb-4">
              <div className="bg-indigo-100 p-2 rounded-lg mr-3">
                <User className="h-6 w-6 text-indigo-600" />
              </div>
-             <h2 className="text-xl font-semibold">Cari Siswa</h2>
+             <h2 className="text-xl font-semibold">Cari Data Siswa</h2>
            </div>
 
            <div className="space-y-4 mb-6">
@@ -692,10 +692,10 @@ export default function StudentReport() {
                      
                    </div>
 
-                   <span className={`text-xs px-2 py-0.5 rounded-full ${
+                   <span className={`text-sm px-0 py-0.5 rounded-full ${
                        selectedStudent?.id === student.id
                          ? "bg-blue-500/30 text-white"
-                         : "bg-gray-100 text-gray-600"
+                         : "text-gray-700"
                      }`}>
                        KELAS {student.class || student.kelas || '-'}
                      </span>
