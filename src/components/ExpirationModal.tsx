@@ -68,9 +68,9 @@ export default function ExpirationModal({
           </div>
 
           {/* Contact Information */}
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-6" data-unique-id="7362b1f0-f80a-46d5-be62-c991880b2c58" data-file-name="components/ExpirationModal.tsx">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-4" data-unique-id="7362b1f0-f80a-46d5-be62-c991880b2c58" data-file-name="components/ExpirationModal.tsx">
             <h5 className="font-semibold text-gray-800 mb-1 text-center" data-unique-id="0b4abfb8-6803-4b45-81f9-63d307250304" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="e2e1e4d7-3bf1-43c0-a2c5-e4706585cc1d" data-file-name="components/ExpirationModal.tsx">
-              Kontak Layanan Kami
+              Hubungi Via WhatsApp
             </span></h5>
             
             <div className="space-y-3" data-unique-id="0b11fa11-ab9a-459c-9f2e-1a12eb503b9c" data-file-name="components/ExpirationModal.tsx">
@@ -91,10 +91,10 @@ export default function ExpirationModal({
           </div>
 
           {/* Buttons */}
-          <div className="flex space-x-3" data-unique-id="9e1f523f-2a0b-4d04-a19d-baa7c84ed8d2" data-file-name="components/ExpirationModal.tsx">
+          {/*<div className="flex space-x-3" data-unique-id="9e1f523f-2a0b-4d04-a19d-baa7c84ed8d2" data-file-name="components/ExpirationModal.tsx">
             <a href="https://wa.me/6281272405881?text=Halo%2C%20Saya%20ingin%20berlangganan%20Aplikasi%20Absensi%20Digital%20Sekolah." target="_blank" rel="noopener noreferrer" className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center font-medium" data-unique-id="ad57e7cf-fc10-4cf3-9665-e8cead30b774" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="b6cf989a-507a-4daf-877b-74918be28bf4" data-file-name="components/ExpirationModal.tsx">
               Chat Via WhatsApp
-            </span></a>
+            </span></a>*/}
             {/*<button onClick={onClose} className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium" data-unique-id="26c540d5-f62a-4c41-8a6b-5ad0928c3f01" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="457d0475-baaa-4257-ae33-b8e41c82b69b" data-file-name="components/ExpirationModal.tsx">
               Tutup
             </span></button>*/}
