@@ -696,7 +696,7 @@ return (
             <span className="editable-text">Sebelumnya</span>
           </button>
           <button onClick={handleNextMonth} className="p-2 rounded-md border border-gray-300 hover:bg-gray-50">
-            <span className="editable-text">Berikutnya</span>
+            <span className="editable-text">Selanjutnya</span>
           </button>
         </div>
       </div>
