@@ -123,8 +123,8 @@ const getFastLocation = (): Promise<{ position: { lat: number; lng: number }; ac
       },
       {
         enableHighAccuracy: false, // Faster but less accurate
-        timeout: 3000,
-        maximumAge: 60000, // Accept 1-minute old position
+        timeout: 30000,
+        maximumAge: 90000, // Accept 1-minute old position
       }
     );
   });
@@ -565,7 +565,7 @@ const submitAttendance = async () => {
       return;
     }
     if (attendanceType === 'alpha' && !alphaReason.trim()) {
-      toast.error("Alasan alpha harus diisi . . .");
+      toast.error("Alasan Alpha harus diisi . . .");
       setProcessingCapture(false);
       return;
     }
