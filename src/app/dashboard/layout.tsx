@@ -296,7 +296,7 @@ const DashboardLayout = ({
       {/* Sidebar - Toggle visibility based on sidebarCollapsed state */}
       <aside className={`fixed left-0 top-0 z-30 h-full bg-[#1E329F] text-white shadow-lg w-[220px] sm:w-64 pt-16 transform transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : '-translate-x-full'} ${sidebarCollapsed ? 'md:-translate-x-full' : 'md:translate-x-0'} md:pt-16 transition-all overflow-y-auto`} data-unique-id="a87bc908-0fdd-419c-9c34-4489019d19b9" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
         {/* User profile section */}
-        <div className="px-4 py-4 flex flex-col items-center text-center border-b border-blue-800 border-opacity-80 border-b-2" data-unique-id="5f6365c5-bac5-4a4f-8305-c95be13d5856" data-file-name="app/dashboard/layout.tsx">
+        <div className="px-4 py-3 flex flex-col items-center text-center border-b border-blue-800 border-opacity-80 border-b-2" data-unique-id="5f6365c5-bac5-4a4f-8305-c95be13d5856" data-file-name="app/dashboard/layout.tsx">
           <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl font-bold" data-unique-id="3dc61790-c035-400a-957b-4e891b68c7f3" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">
             {userData?.name?.charAt(0).toUpperCase() || user?.displayName?.charAt(0).toUpperCase() || 'U'}
           </div>
@@ -307,7 +307,7 @@ const DashboardLayout = ({
                 <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                 <path d="m9 11 3 3L22 4"></path>
               </svg><span className="editable-text" data-unique-id="2f31063d-60a2-433c-950d-33f362a22aab" data-file-name="app/dashboard/layout.tsx">
-              Akun Terverifikasi
+              Terverifikasi
             </span></span>
           </div>
           <p className="text-xs text-gray-200 mt-1.5" data-unique-id="c9cfa890-f32e-4066-bf08-6a10dd6b0945" data-file-name="app/dashboard/layout.tsx" data-dynamic-text="true">{schoolName}</p>
