@@ -58,7 +58,7 @@ export default function ClassImportModal({ isOpen, onClose, onImport }: ClassImp
    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
    saveAs(blob, 'Template_Data_Kelas.xlsx');
 
-   toast.success('Template Excel berhasil diunduh');
+   toast.success('Cek notifikasi');
  };
  const handleFileSelect = (file: File) => {
    if (file && file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
