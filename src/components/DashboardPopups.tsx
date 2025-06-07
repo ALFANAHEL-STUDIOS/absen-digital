@@ -58,8 +58,8 @@ export default function DashboardPopups({ schoolId, userRole, userEmail }: Dashb
        if (!lastCheck || now - parseInt(lastCheck) > 24 * 60 * 60 * 1000) {
          const newAnnouncements: AnnouncementData[] = [{
            id: '1',
-           title: 'Absensi Guru Berbasis Lokasi',
-           message: 'Untuk menggunakan Absensi berbasis lokasi, jangan lupa untuk menyalakan GPS pada Smartphone. Khusus untuk jenis Absensi Izin dan Alpha bisa dilakukan dari rumah.',
+           title: 'Panduan Absensi Guru',
+           message: 'Untuk menggunakan Absensi berbasis lokasi, jangan lupa aktifkan GPS pada Smartphone. Khusus untuk jenis Absensi Izin dan Alpha bisa dilakukan dari rumah.',
            type: 'info',
            priority: 'medium',
            createdAt: new Date(),
