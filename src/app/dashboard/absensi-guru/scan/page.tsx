@@ -105,7 +105,7 @@ const getDeviceLocationOptimized = async (): Promise<void> => {
 // Fast location strategy (lower accuracy, faster response)
 const getFastLocation = (): Promise<{ position: { lat: number; lng: number }; accuracy: number } | null> => {
   return new Promise((resolve) => {
-    const timeout = setTimeout(() => resolve(null), 30000); // 3 second timeout
+    const timeout = setTimeout(() => resolve(null), 3000); // 3 second timeout
     navigator.geolocation.getCurrentPosition(
       (position) => {
         clearTimeout(timeout);
@@ -123,8 +123,8 @@ const getFastLocation = (): Promise<{ position: { lat: number; lng: number }; ac
       },
       {
         enableHighAccuracy: false, // Faster but less accurate
-        timeout: 30000,
-        maximumAge: 90000, // Accept 1-minute old position
+        timeout: 3000,
+        maximumAge: 60000, // Accept 1-minute old position
       }
     );
   });
