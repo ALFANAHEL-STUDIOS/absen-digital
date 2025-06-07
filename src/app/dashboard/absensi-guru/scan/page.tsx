@@ -90,7 +90,7 @@ export default function TeacherAttendanceScan() {
    return { isAndroid, isIOS, isMobile, isWebView: isWebView(), userAgent };
  };
  // Enhanced permission request specifically for WebView
- const ••••••••••••••••••••••••••••••••••• = async (): Promise<boolean> => {
+ const = async (): Promise<boolean> => {
    const platform = getPlatformInfo();
 
    try {
