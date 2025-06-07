@@ -76,7 +76,7 @@ export default function ExpirationModal({
             <div className="space-y-3" data-unique-id="0b11fa11-ab9a-459c-9f2e-1a12eb503b9c" data-file-name="components/ExpirationModal.tsx">
               <div className="flex items-center justify-center space-x-3" data-unique-id="a66c291b-8e63-4325-ac7c-086f825768dc" data-file-name="components/ExpirationModal.tsx">
                 {/*<Phone className="h-5 w-5 text-blue-600" />*/}
-                <a href="tel:081272405881" className="text-blue-600 font-medium hover:underline" data-unique-id="62929ddd-d737-4862-9db7-2b9b71ff5970" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="c701faff-e209-450b-be32-becf3613fabf" data-file-name="components/ExpirationModal.tsx">
+                <a href="#" className="text-blue-700 font-medium hover:underline" data-unique-id="62929ddd-d737-4862-9db7-2b9b71ff5970" data-file-name="components/ExpirationModal.tsx"><span className="editable-text" data-unique-id="c701faff-e209-450b-be32-becf3613fabf" data-file-name="components/ExpirationModal.tsx">
                   0812 7240 5881
                 </span></a>
               </div>
